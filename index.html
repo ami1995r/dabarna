@@ -3,77 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>دبرنا آنلاین | بازی گروهی سنتی ایرانی</title>
+  <title>دبرنا | چالش آنلاین مینیمال</title>
   
-  <!-- Tailwind CSS Play CDN (Highly cached, optimized edge networks) -->
+  <!-- Tailwind CSS Play CDN (Stable and loaded globally) -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts - Vazirmatn for premium Persian typography -->
+  <!-- Google Fonts - Vazirmatn (Best Persian Typography) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;400;700;900&display=swap" rel="stylesheet">
+
+  <!-- Canvas Confetti for professional victory events -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
     body {
       font-family: 'Vazirmatn', sans-serif;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
-      overflow-x: hidden;
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
     
-    /* Smooth Scrollbar design */
+    /* Elegant smooth transitions */
+    .smooth-transition {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Custom thin scrollbar */
     ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 4px;
+      height: 4px;
     }
     ::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.05);
+      background: transparent;
     }
     ::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(128, 128, 128, 0.3);
+      border-radius: 99px;
     }
 
-    /* Pulse glow effect for Caller Number */
-    @keyframes pulse-ring {
-      0% { transform: scale(0.95); opacity: 0.5; }
-      50% { transform: scale(1.03); opacity: 0.8; }
-      100% { transform: scale(0.95); opacity: 0.5; }
+    /* Minimalist continuous glow */
+    .neon-pulse {
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
     }
-    .pulse-glow {
-      animation: pulse-ring 2s infinite ease-in-out;
+    .dark .neon-pulse {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
     }
 
-    /* Glassmorphism modern container */
-    .glass-panel {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-    .dark .glass-panel {
-      background: rgba(15, 23, 42, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    /* Custom Confetti Elements */
-    .confetti-piece {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: #ffd700;
-      top: -10px;
-      z-index: 1000;
-      border-radius: 50%;
-      animation: fall linear forwards;
-    }
-    @keyframes fall {
-      to {
-        transform: translateY(105vh) rotate(360deg);
-      }
+    /* Lucky wheel custom animations */
+    .wheel-transition {
+      transition: transform 4s cubic-bezier(0.1, 0.8, 0.1, 1);
     }
   </style>
 
@@ -83,718 +62,254 @@
       theme: {
         extend: {
           colors: {
-            brand: {
-              50: '#f0fdf4',
-              100: '#dcfce7',
-              500: '#22c55e',
-              600: '#16a34a',
-              700: '#15803d',
-              900: '#14532d',
-            },
-            accent: {
-              yellow: '#fbbf24',
-              pink: '#ec4899',
-              blue: '#3b82f6',
-              purple: '#a855f7'
+            theme: {
+              lightBg: '#f8fafc',
+              lightCard: '#ffffff',
+              lightBorder: '#e2e8f0',
+              darkBg: '#09090b',
+              darkCard: '#18181b',
+              darkBorder: '#27272a'
             }
-          },
-          animation: {
-            'bounce-slow': 'bounce 3s infinite',
-            'spin-slow': 'spin 8s linear infinite',
           }
         }
       }
     }
   </script>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300">
+<body class="bg-theme-lightBg text-slate-900 dark:bg-theme-darkBg dark:text-neutral-100 min-h-screen flex flex-col antialiased">
 
-  <!-- Header Bar -->
-  <header id="main-header" class="hidden glass-panel sticky top-0 z-40 px-4 py-3 flex items-center justify-between shadow-md">
+  <!-- Header Minimalist Bar -->
+  <header class="border-b border-theme-lightBorder dark:border-theme-darkBorder bg-white/70 dark:bg-theme-darkCard/70 backdrop-blur-md sticky top-0 z-40 px-4 py-3.5 flex items-center justify-between smooth-transition">
     <div class="flex items-center gap-3">
-      <div class="bg-white/10 p-2 rounded-full cursor-pointer hover:bg-white/20 transition-all" onclick="navigateTo('home')">
-        <span class="text-xl font-black tracking-wider text-yellow-400">DABRNA 🎯</span>
+      <div class="cursor-pointer flex items-center gap-2" onclick="navigateTo('home')">
+        <span class="text-xl font-black tracking-widest text-slate-950 dark:text-white">DABRNA</span>
+        <span class="text-[10px] bg-slate-950 text-white dark:bg-white dark:text-black font-bold px-2 py-0.5 rounded-md">PRO</span>
       </div>
-      <span class="text-xs bg-black/30 px-2.5 py-1 rounded-full text-green-300 hidden sm:inline">نسخه آنلاین ۲۰۲۶</span>
     </div>
 
-    <div class="flex items-center gap-4">
-      <div class="flex items-center gap-2 bg-black/40 px-3 py-1.5 rounded-full text-sm">
-        <!-- Wallet Icon SVG -->
-        <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        <span id="user-coins" class="font-bold text-amber-300">۱۲۵۰</span>
+    <div class="flex items-center gap-3">
+      <!-- Coins counter -->
+      <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-neutral-800 px-3 py-1 rounded-full text-xs font-bold">
+        <span class="text-amber-500">🪙</span>
+        <span id="header-user-coins">۰</span>
       </div>
 
-      <button onclick="toggleTheme()" class="p-1.5 rounded-full hover:bg-white/10 text-yellow-300">
-        <svg id="theme-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
-        <svg id="theme-moon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+      <!-- Mode Toggle (Day / Night Minimalist Button) -->
+      <button onclick="toggleDayNightMode()" class="p-2 rounded-xl bg-slate-100 dark:bg-neutral-800 hover:bg-slate-200 dark:hover:bg-neutral-700 transition-colors" title="تغییر تم رنگی">
+        <span id="theme-icon-light" class="hidden">☀️</span>
+        <span id="theme-icon-dark">🌙</span>
       </button>
 
-      <button onclick="toggleAudioMute()" class="p-1.5 rounded-full hover:bg-white/10">
-        <svg id="audio-on-icon" class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
-        <svg id="audio-off-icon" class="w-5 h-5 text-red-400 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+      <!-- Audio Toggle -->
+      <button onclick="toggleAudioMute()" class="p-2 rounded-xl bg-slate-100 dark:bg-neutral-800 hover:bg-slate-200 dark:hover:bg-neutral-700 transition-colors">
+        <span id="audio-icon">🔊</span>
       </button>
-      
-      <div class="flex items-center gap-2 cursor-pointer" onclick="navigateTo('profile')">
-        <img id="header-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120&q=80" class="w-9 h-9 rounded-full ring-2 ring-emerald-400 object-cover" alt="User avatar" />
-        <span id="header-nickname" class="text-sm font-semibold hidden md:inline">بازیکن مهمان</span>
+
+      <!-- Profile Icon & Unique Code -->
+      <div class="flex items-center gap-2 cursor-pointer border-r border-slate-200 dark:border-neutral-800 pr-3" onclick="navigateTo('profile')">
+        <div id="header-user-avatar-container" class="w-8 h-8 rounded-full border border-slate-300 dark:border-neutral-700 overflow-hidden">
+          <!-- Dynamic SVG Avatar injected -->
+        </div>
+        <div class="hidden sm:block text-right">
+          <div id="header-user-nickname" class="text-xs font-bold">نام کاربر</div>
+          <div id="header-user-unique-id" class="text-[9px] text-slate-400 font-mono">DAB-0000</div>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Notification Banner -->
-  <div id="system-alert" class="hidden fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-red-600/90 backdrop-blur-md border border-red-500 text-white font-bold py-2.5 px-6 rounded-2xl shadow-xl flex items-center gap-2">
-    <span id="alert-text">اعلان پیش‌فرض سیستم</span>
+  <!-- Notification Alert Banner -->
+  <div id="system-alert-banner" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 dark:bg-white/95 text-white dark:text-black py-2.5 px-6 rounded-2xl shadow-2xl flex items-center gap-2 text-xs font-bold border border-white/10 dark:border-black/10 transition-all duration-300 transform translate-y-[-100px] opacity-0 pointer-events-none">
+    <span id="alert-text-span">اعلان سیستم</span>
   </div>
 
-  <!-- MAIN CONTAINER FOR SCREENS -->
-  <main class="flex-1 flex flex-col max-w-7xl w-full mx-auto p-4 md:p-6">
-    
-    <!-- 1. SPLASH SCREEN -->
-    <section id="screen-splash" class="flex-1 flex flex-col items-center justify-center text-center py-12">
-      <div class="relative mb-8 animate-bounce-slow">
-        <div class="w-32 h-32 bg-amber-400 rounded-full flex items-center justify-center shadow-lg text-6xl text-slate-900 font-black relative z-10">🎯</div>
-        <div class="absolute -top-4 -left-4 w-40 h-40 bg-pink-500/30 rounded-full blur-xl animate-pulse"></div>
-        <div class="absolute -bottom-4 -right-4 w-40 h-40 bg-teal-500/30 rounded-full blur-xl animate-pulse"></div>
-      </div>
-      <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tight drop-shadow-md text-white">
-        دبــرنا <span class="text-amber-400">آنلاین</span>
-      </h1>
-      <p class="text-lg md:text-xl text-slate-200 mb-8 max-w-md font-light">
-        دلتنگ بازی‌های دورهمی هستی؟ با خانواده و دوستان در هر کجا که هستی آنلاین بازی کن!
-      </p>
-      <div class="w-48 bg-slate-800/40 h-2 rounded-full overflow-hidden">
-        <div class="bg-gradient-to-r from-emerald-400 to-amber-400 h-full w-4/5 animate-pulse rounded-full"></div>
-      </div>
-      <p class="text-xs text-slate-300 mt-4">در حال آماده‌سازی بدون باگ محیط بازی...</p>
-    </section>
-
-    <!-- 2. LOGIN SCREEN -->
-    <section id="screen-login" class="hidden flex-1 flex items-center justify-center">
-      <div class="glass-panel p-8 rounded-3xl max-w-md w-full shadow-2xl relative overflow-hidden text-center text-white">
-        <div class="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/20 rounded-full blur-lg"></div>
-        <div class="text-4xl mb-4">👑</div>
-        <h2 class="text-2xl font-bold mb-2">ورود به دنیای دبرنا</h2>
-        <p class="text-sm text-slate-300 mb-6">یک روش سریع را برای شروع نبرد انتخاب کنید</p>
-
-        <div class="space-y-4">
-          <div class="text-right">
-            <label class="text-xs text-slate-300 mb-1 block mr-1">نام مستعار شما در بازی:</label>
-            <input 
-              id="login-nickname-input"
-              type="text" 
-              value="بازیکن مهمان"
-              class="w-full bg-slate-900/60 border border-slate-700 rounded-xl px-4 py-3 text-white text-center font-bold focus:outline-none focus:ring-2 focus:ring-emerald-400 transition-all"
-              placeholder="نام کاربری خود را بنویسید"
-            />
-          </div>
-
-          <button onclick="handleLoginSubmit()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2">
-            <span>ورود سریع به عنوان مهمان</span>
-          </button>
-
-          <div class="relative flex py-2 items-center">
-            <div class="flex-grow border-t border-slate-700"></div>
-            <span class="flex-shrink mx-4 text-xs text-slate-400">یا ورود با حساب‌های دیگر</span>
-            <div class="flex-grow border-t border-slate-700"></div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <button onclick="handleLoginSubmit()" class="bg-slate-900/50 hover:bg-slate-800/50 border border-slate-800 py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition-all">
-              گوگل
-            </button>
-            <button onclick="handleLoginSubmit()" class="bg-slate-900/50 hover:bg-slate-800/50 border border-slate-800 py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition-all">
-              ایمیل
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. HOME SCREEN -->
-    <section id="screen-home" class="hidden space-y-6 text-white">
-      <div class="glass-panel p-6 md:p-8 rounded-3xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-        <div class="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="space-y-4 text-center md:text-right max-w-lg">
-          <span class="bg-emerald-500/20 text-emerald-300 text-xs px-3 py-1 rounded-full font-bold">بزرگترین دورهمی آنلاین ایرانیان</span>
-          <h2 class="text-3xl md:text-4xl font-extrabold leading-tight">گردونه شانس و دبرنا بلادرنگ بدون اختلال!</h2>
-          <p class="text-sm text-slate-300">
-            همین حالا بازی اختصاصی خودتو با تم‌های جذاب ایرانی و سنتی بساز یا به اتاق‌های عمومی فعال ملحق شو.
-          </p>
-          <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
-            <button onclick="handleQuickJoin()" class="bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 text-slate-950 font-black px-8 py-3.5 rounded-2xl shadow-lg transition-all transform active:scale-95 flex items-center gap-2">
-              بازی سریع (شروع نبرد)
-            </button>
-            <button onclick="navigateTo('create-room')" class="bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 px-6 py-3.5 rounded-2xl font-bold transition-all flex items-center gap-2">
-              ساخت اتاق سفارشی
-            </button>
-          </div>
-        </div>
-
-        <div class="relative w-48 h-48 md:w-56 md:h-56 flex items-center justify-center bg-slate-900/40 rounded-full shadow-inner border border-white/5 animate-bounce-slow">
-          <span class="text-[100px]">🎰</span>
-          <div class="absolute -top-3 -right-3 bg-red-500 text-white font-extrabold text-xs px-3 py-1.5 rounded-full shadow-lg">برد طلایی</div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div onclick="navigateTo('leaderboard')" class="glass-panel p-4 rounded-2xl text-center cursor-pointer hover:bg-white/15 transition-all transform hover:-translate-y-1">
-          <div class="text-3xl mb-1">🏆</div>
-          <div class="font-bold text-sm">برترین‌ها</div>
-          <div class="text-[10px] text-slate-400">جدول رده‌بندی کشوری</div>
-        </div>
-
-        <div onclick="navigateTo('achievements')" class="glass-panel p-4 rounded-2xl text-center cursor-pointer hover:bg-white/15 transition-all transform hover:-translate-y-1">
-          <div class="text-3xl mb-1">🏅</div>
-          <div class="font-bold text-sm">افتخارات</div>
-          <div class="text-[10px] text-slate-400">مدال‌ها و نشان‌های شما</div>
-        </div>
-
-        <div onclick="openLuckyWheel()" class="glass-panel p-4 rounded-2xl text-center cursor-pointer hover:bg-white/15 transition-all transform hover:-translate-y-1 border border-pink-500/20 relative">
-          <span class="absolute top-1 left-2 text-[8px] bg-pink-600 text-white px-1 rounded-full">جدید</span>
-          <div class="text-3xl mb-1">🎡</div>
-          <div class="font-bold text-sm">گردونه شانس</div>
-          <div class="text-[10px] text-slate-400">هر ۲۴ ساعت، جوایز رایگان!</div>
-        </div>
-
-        <div onclick="navigateTo('settings')" class="glass-panel p-4 rounded-2xl text-center cursor-pointer hover:bg-white/15 transition-all transform hover:-translate-y-1">
-          <div class="text-3xl mb-1">⚙️</div>
-          <div class="font-bold text-sm">تنظیمات</div>
-          <div class="text-[10px] text-slate-400">صدای گوینده و تم‌ها</div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="glass-panel p-5 rounded-3xl md:col-span-2">
-          <h3 class="font-bold text-lg mb-4 flex items-center gap-2 text-yellow-300">
-            ماموریت‌های روزانه دبرنا باز
-          </h3>
-          <div class="space-y-4">
-            <div class="bg-black/20 p-3 rounded-xl">
-              <div class="flex justify-between text-xs mb-1.5">
-                <span>انجام ۳ بازی کامل با ربات یا دوست</span>
-                <span class="text-emerald-400 font-semibold">۱ / ۳ بازی</span>
-              </div>
-              <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                <div class="bg-emerald-400 h-full w-1/3"></div>
-              </div>
-            </div>
-            <div class="bg-black/20 p-3 rounded-xl">
-              <div class="flex justify-between text-xs mb-1.5">
-                <span>دبرنا شدن با الگوی تمام خانه (Full House)</span>
-                <span class="text-yellow-400 font-semibold">۰ / ۱ کامل</span>
-              </div>
-              <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                <div class="bg-yellow-400 h-full w-0"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="glass-panel p-5 rounded-3xl">
-          <h3 class="font-bold text-lg mb-4 flex items-center gap-2 text-pink-300">
-            اتاق‌های عمومی فعال
-          </h3>
-          <div class="space-y-3">
-            <div class="bg-slate-900/40 p-3 rounded-xl flex items-center justify-between border border-white/5 hover:bg-slate-900/60 cursor-pointer" onclick="handleQuickJoin()">
-              <div>
-                <div class="text-xs font-bold">بچه‌های تهرانپارس ☕️</div>
-                <p class="text-[10px] text-slate-400 mt-0.5">میزبان: امیر_سریع | الگو: دو خط</p>
-              </div>
-              <div class="text-right">
-                <div class="text-[10px] bg-green-500/20 text-green-300 px-2 py-0.5 rounded">۴ / ۶ نفر</div>
-              </div>
-            </div>
-            <div class="bg-slate-900/40 p-3 rounded-xl flex items-center justify-between border border-white/5 hover:bg-slate-900/60 cursor-pointer" onclick="handleQuickJoin()">
-              <div>
-                <div class="text-xs font-bold">قهوه‌خانه سنتی یلدا 🍉</div>
-                <p class="text-[10px] text-slate-400 mt-0.5">میزبان: رویا | الگو: تمام‌خانه</p>
-              </div>
-              <div class="text-right">
-                <div class="text-[10px] bg-green-500/20 text-green-300 px-2 py-0.5 rounded">۲ / ۸ نفر</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. CREATE ROOM SCREEN -->
-    <section id="screen-create-room" class="hidden max-w-2xl mx-auto w-full glass-panel p-6 md:p-8 rounded-3xl text-white">
-      <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 border-b border-slate-700 pb-3">
-        پیکربندی اتاق بازی جدید
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="space-y-4">
-          <div>
-            <label class="text-xs text-slate-300 mb-1 block">نام اتاق شما:</label>
-            <input 
-              id="room-name-input"
-              type="text" 
-              value="کافه دبرنا"
-              class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-emerald-400 focus:outline-none text-white"
-            />
-          </div>
-
-          <div class="flex items-center justify-between bg-black/20 p-3 rounded-xl">
-            <div>
-              <label class="text-xs font-bold block">اتاق خصوصی (رمزدار)</label>
-              <span class="text-[10px] text-slate-400">فقط افراد دارای رمز می‌توانند وارد شوند</span>
-            </div>
-            <input 
-              id="room-private-checkbox"
-              type="checkbox" 
-              class="w-5 h-5 accent-emerald-500"
-              onchange="toggleRoomPasswordInput()"
-            />
-          </div>
-
-          <div id="room-password-container" class="hidden">
-            <label class="text-xs text-slate-300 mb-1 block">گذرواژه ورود:</label>
-            <input 
-              id="room-password-input"
-              type="password" 
-              value=""
-              class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-2.5 text-center tracking-widest focus:ring-2 focus:ring-emerald-400 focus:outline-none"
-              placeholder="مثلاً ۱۲۳۴"
-            />
-          </div>
-
-          <div>
-            <label class="text-xs text-slate-300 mb-1.5 block">الگوی برنده شدن بازی:</label>
-            <select 
-              id="room-pattern-select"
-              class="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-emerald-400 focus:outline-none text-sm text-right text-white"
-            >
-              <option value="fullhouse">تمام‌خانه (کل کارت پر شود - سنتی)</option>
-              <option value="single-line">تک خط افقی (سرعت بالا - تفریحی)</option>
-              <option value="double-line">دو خط افقی (استاندارد)</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="space-y-4">
-          <div>
-            <label class="text-xs text-slate-300 mb-1 block">حداکثر تعداد بازیکنان (تا ۱۲ نفر):</label>
-            <input 
-              id="room-limit-range"
-              type="range" 
-              min="2" 
-              max="12" 
-              value="6" 
-              class="w-full accent-emerald-500 h-2 bg-slate-800 rounded-lg cursor-pointer"
-            />
-          </div>
-
-          <div>
-            <label class="text-xs text-slate-300 mb-1 block">سرعت بیرون آمدن هر مهره (ثانیه):</label>
-            <input 
-              id="room-speed-range"
-              type="range" 
-              min="2" 
-              max="8" 
-              value="4" 
-              class="w-full accent-amber-500 h-2 bg-slate-800 rounded-lg cursor-pointer"
-            />
-          </div>
-
-          <div class="flex items-center justify-between bg-black/20 p-3 rounded-xl">
-            <div>
-              <label class="text-xs font-bold block">قرعه‌کشی خودکار (Auto-Draw)</label>
-              <span class="text-[10px] text-slate-400">توسط گوینده صوتی هوشمند</span>
-            </div>
-            <input 
-              id="room-autodraw-checkbox"
-              type="checkbox" 
-              checked
-              class="w-5 h-5 accent-emerald-500"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-3 mt-8">
-        <button onclick="handleCreateRoomSubmit()" class="flex-1 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold py-3 px-6 rounded-2xl shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2">
-          <span>تایید و ساخت لابی بازی</span>
-        </button>
-        <button onclick="navigateTo('home')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 px-6 rounded-2xl transition-all">
-          انصراف
-        </button>
-      </div>
-    </section>
-
-    <!-- 5. LOBBY SCREEN -->
-    <section id="screen-lobby" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-6 text-white">
-      <div class="lg:col-span-2 space-y-6">
-        <div class="glass-panel p-6 rounded-3xl relative overflow-hidden">
-          <span class="absolute top-4 left-4 bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-1 rounded-full font-bold">آماده برای شروع</span>
-          <h2 id="lobby-room-name" class="text-2xl font-black text-amber-300 mb-2">اتاق دبرنا</h2>
-          <p class="text-xs text-slate-300 mb-4">میزبان کلوب: <span id="lobby-host-name" class="font-bold text-white">بازیکن مهمان</span></p>
-          
-          <div class="bg-black/30 p-4 rounded-2xl space-y-3 border border-white/5">
-            <div class="text-xs text-slate-300">دوستان خود را با ارسال کد اتاق دعوت کنید:</div>
-            <div class="flex items-center gap-2">
-              <div id="lobby-room-code" class="flex-1 bg-slate-950/80 border border-slate-800 rounded-xl py-2.5 px-4 text-center font-mono font-black text-2xl tracking-widest text-emerald-400">
-                000000
-              </div>
-              <button onclick="copyRoomCode()" class="bg-slate-800 hover:bg-slate-700 p-3 rounded-xl transition-all" title="کپی کردن کد">
-                کپی
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="glass-panel p-6 rounded-3xl">
-          <h3 class="font-bold text-lg mb-4">بازیکنان درون لابی</h3>
-          <div id="lobby-players-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <!-- Dynamic players load -->
-          </div>
-        </div>
-
-        <div class="flex gap-4">
-          <button id="lobby-action-btn" onclick="startGameplay()" class="flex-1 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-white font-extrabold py-4 px-8 rounded-2xl shadow-xl transition-all transform active:scale-95 text-lg flex items-center justify-center gap-2">
-            شروع بازی دبرنا
-          </button>
-          <button onclick="navigateTo('home')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 rounded-2xl font-bold transition-all">
-            خروج از اتاق
-          </button>
-        </div>
-      </div>
-
-      <!-- Lobby Chat -->
-      <div class="glass-panel rounded-3xl p-4 flex flex-col h-[500px]">
-        <h3 class="font-bold border-b border-slate-700 pb-3 mb-3 text-emerald-400">
-          گپ و گفت صوتی/متنی لابی
-        </h3>
-        <div id="lobby-chat-messages" class="flex-1 overflow-y-auto space-y-3 mb-3 pr-1 text-xs">
-          <!-- Chat loaded dynamically -->
-        </div>
-        <div class="flex gap-2 mb-3">
-          <button onclick="sendQuickEmoji('🔥')" class="bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg flex-1 text-xs">🔥</button>
-          <button onclick="sendQuickEmoji('🤣')" class="bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg flex-1 text-xs">🤣</button>
-          <button onclick="sendQuickEmoji('👏')" class="bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg flex-1 text-xs">👏</button>
-          <button onclick="sendQuickEmoji('👑')" class="bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg flex-1 text-xs">👑</button>
-        </div>
-        <form onsubmit="handleSendChatMessage(event)" class="flex gap-2">
-          <input 
-            id="lobby-chat-input"
-            type="text" 
-            class="flex-1 bg-slate-950/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
-            placeholder="پیامی بنویسید..."
-          />
-          <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 px-4 rounded-xl text-xs">
-            ارسال
-          </button>
-        </form>
-      </div>
-    </section>
-
-    <!-- 6. GAMEPLAY SCREEN -->
-    <section id="screen-gameplay" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6 text-white">
-      <div class="lg:col-span-1 space-y-6">
-        <div class="glass-panel p-6 rounded-3xl text-center relative overflow-hidden">
-          <div class="absolute top-3 left-3 bg-red-500 text-[10px] px-2 py-0.5 rounded-full font-bold animate-pulse">
-            گوینده هوشمند AI
-          </div>
-          <h3 class="text-sm font-bold text-slate-300 mb-2">عدد جاری قرعه‌کشی</h3>
-          <div class="my-4 relative inline-block">
-            <div id="gameplay-current-number" class="w-24 h-24 bg-gradient-to-tr from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-slate-950 text-5xl font-black shadow-[0_0_20px_rgba(245,158,11,0.6)] mx-auto relative z-10 pulse-glow">
-              ⏳
-            </div>
-          </div>
-          <p class="text-xs text-slate-200 font-semibold mb-3">
-            گوینده صوتی: <span id="gameplay-voice-name" class="text-green-300">مریم</span>
-          </p>
-          <div class="flex justify-between items-center text-xs text-slate-300 pt-3 border-t border-white/10">
-            <span id="gameplay-numbers-left">اعداد مانده: ۹۰</span>
-            <span id="gameplay-timer">زمان: 00:00</span>
-          </div>
-        </div>
-
-        <div class="glass-panel p-4 rounded-3xl">
-          <h4 class="text-xs font-bold text-slate-300 mb-2">اعداد قبلی بیرون آمده</h4>
-          <div id="gameplay-drawn-history" class="grid grid-cols-6 gap-1 max-h-40 overflow-y-auto pr-1 text-center text-[11px] font-bold">
-            <!-- Drawn numbers loaded dynamically -->
-          </div>
-        </div>
-      </div>
-
-      <!-- Player Interactive Card -->
-      <div class="lg:col-span-2 space-y-6">
-        <div class="glass-panel p-4 md:p-6 rounded-3xl">
-          <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
-            <div>
-              <span class="text-[10px] text-slate-300 block">الگوی برنده شدن:</span>
-              <span id="gameplay-pattern-title" class="font-extrabold text-sm text-yellow-300">تمام خانه</span>
-            </div>
-            <div class="bg-white/10 px-3 py-1.5 rounded-xl text-center">
-              <span class="text-[9px] text-slate-400 block">منطبق شده</span>
-              <span id="gameplay-match-count" class="text-sm font-bold text-green-300">0 / 15</span>
-            </div>
-          </div>
-
-          <!-- The Interactive Dabrna Card -->
-          <div id="gameplay-card-container" class="p-4 rounded-2xl bg-white dark:bg-slate-900 shadow-lg transition-all">
-            <div id="gameplay-card-grid" class="grid grid-cols-9 gap-1.5 md:gap-2.5">
-              <!-- Grid cells -->
-            </div>
-          </div>
-          <p class="text-[10px] text-slate-300 mt-4 text-center">
-            💡 راهنما: روی شماره‌های کارت خود ضربه بزنید تا با مهره‌های بیرون آمده مطابقت داده شود.
-          </p>
-        </div>
-
-        <!-- The Claim Victory Button -->
-        <div class="text-center">
-          <button 
-            id="dabrna-claim-btn"
-            disabled
-            onclick="claimDabrnaVictory()"
-            class="w-full md:w-auto md:px-24 py-5 rounded-3xl text-2xl font-black tracking-wider shadow-2xl transition-all transform active:scale-95 flex items-center justify-center gap-3 bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700"
-          >
-            🏆 دبرنااااااا ! (اعلام پیروزی)
-          </button>
-        </div>
-      </div>
-
-      <!-- Right Column: Bots status -->
-      <div class="lg:col-span-1 space-y-6">
-        <div class="glass-panel p-5 rounded-3xl">
-          <h3 class="font-bold text-sm mb-4 text-blue-300">وضعیت رقیبان</h3>
-          <div id="gameplay-opponents-list" class="space-y-4">
-            <!-- Opponents list -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 7. LEADERBOARD SCREEN -->
-    <section id="screen-leaderboard" class="hidden max-w-2xl mx-auto w-full glass-panel p-6 rounded-3xl text-white">
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-black text-yellow-400">قهرمانان برتر کشور</h2>
-        <button onclick="navigateTo('home')" class="text-xs bg-slate-800 px-3 py-1.5 rounded-xl">بازگشت</button>
-      </div>
-      <div id="leaderboard-list" class="space-y-3">
-        <!-- Dynamic Leaderboard list -->
-      </div>
-    </section>
-
-    <!-- 8. ACHIEVEMENTS SCREEN -->
-    <section id="screen-achievements" class="hidden max-w-2xl mx-auto w-full glass-panel p-6 rounded-3xl text-white">
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-black text-pink-400">افتخارات و مدال‌های شما</h2>
-        <button onclick="navigateTo('home')" class="text-xs bg-slate-800 px-3 py-1.5 rounded-xl">بازگشت</button>
-      </div>
-      <div id="achievements-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <!-- Achievements load -->
-      </div>
-    </section>
-
-    <!-- 9. PROFILE SCREEN -->
-    <section id="screen-profile" class="hidden max-w-xl mx-auto w-full glass-panel p-6 rounded-3xl space-y-6 text-white">
-      <div class="flex justify-between items-center border-b border-white/10 pb-4">
-        <h2 class="text-2xl font-black">پروفایل و آمار کاربری</h2>
-        <button onclick="navigateTo('home')" class="text-xs bg-slate-800 px-3 py-1.5 rounded-xl">بازگشت</button>
-      </div>
-      <div class="text-center space-y-3">
-        <img id="profile-avatar-img" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120&q=80" class="w-24 h-24 rounded-full mx-auto object-cover ring-4 ring-emerald-400" />
-        <h3 id="profile-nickname" class="text-xl font-bold">بازیکن مهمان</h3>
-        <p id="profile-level-desc" class="text-xs text-slate-300">عضویت از سال ۱۳۹۹ | سطح ۳</p>
-      </div>
-      <div class="bg-black/20 p-4 rounded-2xl">
-        <span class="text-xs text-slate-300 block mb-2">انتخاب تصویر پروفایل جدید:</span>
-        <div id="profile-avatars-pool" class="flex gap-2.5 overflow-x-auto pb-1">
-          <!-- Avatars selection pool -->
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-3 text-center text-xs">
-        <div class="bg-slate-900/50 p-3 rounded-xl border border-white/5">
-          <span class="text-slate-400 block mb-0.5">کل بازی‌ها:</span>
-          <span id="profile-total-played" class="font-mono text-lg font-bold">45</span>
-        </div>
-        <div class="bg-slate-900/50 p-3 rounded-xl border border-white/5">
-          <span class="text-slate-400 block mb-0.5">تعداد بردهای دبرنا:</span>
-          <span id="profile-total-wins" class="font-mono text-lg font-bold text-emerald-300">14</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 10. SETTINGS SCREEN -->
-    <section id="screen-settings" class="hidden max-w-2xl mx-auto w-full glass-panel p-6 rounded-3xl space-y-6 text-white">
-      <div class="flex justify-between items-center border-b border-white/10 pb-4">
-        <h2 class="text-2xl font-black">تنظیمات ظاهری و گوینده صوتی</h2>
-        <button onclick="navigateTo('home')" class="text-xs bg-slate-800 px-3 py-1.5 rounded-xl">بازگشت</button>
-      </div>
-
-      <div class="space-y-3">
-        <label class="text-xs text-slate-300 font-bold block">انتخاب گوینده صوتی دبرنا (هوش مصنوعی):</label>
-        <div id="settings-voices-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-          <!-- Voices loader -->
-        </div>
-      </div>
-
-      <div class="space-y-3">
-        <label class="text-xs text-slate-300 font-bold block">تم رنگی محیط بازی (طراحی زنده):</label>
-        <div id="settings-themes-grid" class="grid grid-cols-2 gap-3">
-          <!-- Themes loader -->
-        </div>
-      </div>
-    </section>
-
+  <!-- Main View Container -->
+  <main id="app-viewport" class="flex-1 flex flex-col p-4 md:p-6 w-full max-w-7xl mx-auto">
+    <!-- Content injected dynamically via Vanilla JS Router -->
   </main>
 
-  <!-- MODAL: LUCKY WHEEL -->
-  <div id="lucky-wheel-modal" class="hidden fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 text-white">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative">
-      <button onclick="closeLuckyWheel()" class="absolute top-4 left-4 bg-slate-800 hover:bg-slate-700 text-slate-400 px-2 py-1 rounded-full text-xs">
-        بستن
-      </button>
-      <h3 class="text-xl font-black text-amber-300 mb-1">🎡 گردونه شانس دبرنا</h3>
-      <p class="text-slate-400 text-xs mb-6">شانس خود را برای کسب جوایز طلایی بسنجید</p>
-
-      <div class="relative w-48 h-48 mx-auto mb-6">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-4 text-3xl z-20">👇</div>
-        <div 
-          id="lucky-wheel-disk"
-          class="w-full h-full rounded-full border-4 border-amber-400 overflow-hidden relative shadow-lg transition-transform duration-3000 ease-out"
-          style="background-image: conic-gradient(#ec4899 0 60deg, #3b82f6 60deg 120deg, #a855f7 120deg 180deg, #10b981 180deg 240deg, #f59e0b 240deg 300deg, #6366f1 300deg 360deg)"
-        >
-          <div class="absolute inset-0 flex items-center justify-center pointer-events-none text-[10px] font-bold text-white">
-            <span class="absolute rotate-30 translate-y-12">۵۰ سکه</span>
-            <span class="absolute rotate-90 translate-y-12">۵۰۰ سکه</span>
-            <span class="absolute rotate-150 translate-y-12">۱۰۰ امتیاز</span>
-            <span class="absolute rotate-210 translate-y-12">نشان طلایی</span>
-            <span class="absolute rotate-270 translate-y-12">۲۰۰ سکه</span>
-            <span class="absolute rotate-330 translate-y-12">تم یلدا</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="lucky-wheel-result" class="hidden bg-emerald-500/20 text-emerald-300 p-3 rounded-xl mb-4 text-xs font-bold border border-emerald-500/30">
-        جایزه برنده شده
-      </div>
-
-      <button id="spin-wheel-btn" onclick="triggerLuckySpin()" class="w-full py-3.5 rounded-2xl font-black text-lg bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 text-slate-950 shadow-lg transition-all">
-        بچرخونش!
-      </button>
-    </div>
-  </div>
-
-  <!-- MODAL: WINNER SHOWCASE -->
-  <div id="winner-modal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 text-white">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative overflow-hidden">
-      <div class="text-6xl mb-4 animate-bounce">🏆</div>
-      <h2 class="text-3xl font-black text-yellow-400 mb-1">دبــــــرنـــــا !</h2>
-      <p class="text-slate-300 text-xs mb-6">مسابقه با موفقیت به پایان رسید</p>
-
-      <div class="bg-black/30 p-5 rounded-2xl mb-6 space-y-4">
-        <img id="winner-avatar" src="" class="w-20 h-20 rounded-full mx-auto object-cover ring-4 ring-yellow-400" />
-        <div>
-          <h3 id="winner-name" class="font-black text-xl text-white">نام برنده</h3>
-          <span class="text-xs text-slate-400">قهرمان این رقابت دورهمی</span>
-        </div>
-        <div class="grid grid-cols-2 gap-2 text-xs border-t border-white/10 pt-4">
-          <div>
-            <span class="text-slate-400 block">مدت زمان بازی:</span>
-            <span id="winner-time" class="font-bold text-white">0 ثانیه</span>
-          </div>
-          <div>
-            <span class="text-slate-400 block">سکه جایزه:</span>
-            <span id="winner-coins" class="font-bold text-amber-300">+0 سکه</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="space-y-2">
-        <button onclick="closeWinnerModalAndReturn()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold py-3 rounded-xl transition-all">
-          بازگشت به منوی اصلی
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer block -->
-  <footer id="main-footer" class="hidden glass-panel text-center py-4 text-xs text-slate-400 mt-auto border-t border-white/5 text-white">
-    <p>تمامی حقوق محفوظ است © دبرنا آنلاین ۲۰۲۶ | بدون قطعی روی گیت‌هاب هاب.</p>
+  <!-- Footer Branding -->
+  <footer class="border-t border-theme-lightBorder dark:border-theme-darkBorder py-5 text-center text-[10px] text-slate-400 dark:text-neutral-500 mt-auto bg-white/30 dark:bg-transparent">
+    <p>حقوق بازی دبرنا آنلاین محفوظ است © ۲۰۲۶ | طراحی مینیمال و امن روی بستر گیت‌هاب</p>
   </footer>
 
   <script>
-    // --- GLOBAL STATE ---
-    const AVATARS = [
-      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120&q=80", 
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&h=120&q=80", 
-      "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&h=120&q=80", 
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=120&h=120&q=80", 
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80", 
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&h=120&q=80"  
+    // --- VECTOR CARTOON AVATARS (SVG INJECTORS) ---
+    // Beautiful clean vector graphics (3 Males, 3 Females) which work completely offline!
+    const SVG_AVATARS = [
+      // 0: Male 1 (Beard, Clean Look)
+      `<svg viewBox="0 0 100 100" class="w-full h-full bg-slate-200 dark:bg-neutral-800">
+        <circle cx="50" cy="50" r="40" fill="#fbcfe8"/>
+        <path d="M30 75 C 30 55, 70 55, 70 75 Z" fill="#475569"/>
+        <circle cx="50" cy="45" r="22" fill="#fed7aa"/>
+        <rect x="42" y="55" width="16" height="12" rx="4" fill="#1e293b"/>
+        <circle cx="42" cy="42" r="3" fill="#0f172a"/>
+        <circle cx="58" cy="42" r="3" fill="#0f172a"/>
+        <path d="M45 50 Q 50 54 55 50" stroke="#0f172a" stroke-width="2" fill="none"/>
+        <path d="M35 30 Q 50 20 65 30" stroke="#334155" stroke-width="5" fill="none"/>
+      </svg>`,
+      // 1: Female 1 (Sleek Glasses & Bob haircut)
+      `<svg viewBox="0 0 100 100" class="w-full h-full bg-slate-200 dark:bg-neutral-800">
+        <circle cx="50" cy="50" r="40" fill="#fed7aa"/>
+        <path d="M25 45 C 20 20, 80 20, 75 45 C 75 70, 25 70, 25 45 Z" fill="#0f172a"/>
+        <circle cx="50" cy="48" r="20" fill="#ffedd5"/>
+        <circle cx="42" cy="46" r="5" stroke="#ea580c" stroke-width="2" fill="none"/>
+        <circle cx="58" cy="46" r="5" stroke="#ea580c" stroke-width="2" fill="none"/>
+        <line x1="47" y1="46" x2="53" y2="46" stroke="#ea580c" stroke-width="2"/>
+        <path d="M46 56 Q 50 60 54 56" stroke="#0f172a" stroke-width="2" fill="none"/>
+      </svg>`,
+      // 2: Male 2 (Modern Cap & Glasses)
+      `<svg viewBox="0 0 100 100" class="w-full h-full bg-slate-200 dark:bg-neutral-800">
+        <circle cx="50" cy="50" r="40" fill="#ddd"/>
+        <circle cx="50" cy="48" r="22" fill="#ffedd5"/>
+        <path d="M28 35 L 72 35 L 65 22 L 35 22 Z" fill="#0f172a"/>
+        <rect x="25" y="32" width="50" height="4" rx="2" fill="#e2e8f0"/>
+        <circle cx="42" cy="46" r="4" stroke="#000" stroke-width="1.5" fill="none"/>
+        <circle cx="58" cy="46" r="4" stroke="#000" stroke-width="1.5" fill="none"/>
+        <line x1="46" y1="46" x2="54" y2="46" stroke="#000" stroke-width="1.5"/>
+        <path d="M45 54 Q 50 58 55 54" stroke="#0f172a" stroke-width="2" fill="none"/>
+        <path d="M30 78 C 30 62, 70 62, 70 78 Z" fill="#334155"/>
+      </svg>`,
+      // 3: Female 2 (Long Curly Hair)
+      `<svg viewBox="0 0 100 100" class="w-full h-full bg-slate-200 dark:bg-neutral-800">
+        <circle cx="50" cy="50" r="40" fill="#fde047"/>
+        <path d="M22 35 C 10 50, 90 50, 78 35 C 70 15, 30 15, 22 35 Z" fill="#7c2d12"/>
+        <circle cx="50" cy="50" r="20" fill="#ffedd5"/>
+        <circle cx="43" cy="47" r="2" fill="#000"/>
+        <circle cx="57" cy="47" r="2" fill="#000"/>
+        <path d="M44 57 Q 50 62 56 57" stroke="#7c2d12" stroke-width="2.5" fill="none"/>
+        <path d="M32 78 C 32 64, 68 64, 68 78 Z" fill="#1e293b"/>
+      </svg>`,
+      // 4: Male 3 (Trendy Afro Hair Style)
+      `<svg viewBox="0 0 100 100" class="w-full h-full bg-slate-200 dark:bg-neutral-800">
+        <circle cx="50" cy="50" r="40" fill="#f87171"/>
+        <circle cx="38" cy="35" r="12" fill="#18181b"/>
+        <circle cx="62" cy="35" r="12" fill="#18181b"/>
+        <circle cx="50" cy="30" r="14" fill="#18181b"/>
+        <circle cx="50" cy="48" r="20" fill="#fecaca"/>
+        <circle cx="43" cy="44" r="2.5" fill="#18181b"/>
+        <circle cx="57" cy="44" r="2.5" fill="#18181b"/>
+        <path d="M42 56 Q 50 51 58 56" stroke="#18181b" stroke-width="2.5" fill="none"/>
+        <path d="M30 78 C 30 63, 70 63, 70 78 Z" fill="#0f172a"/>
+      </svg>`,
+      // 5: Female 3 (Minimalist Scarf / Elegant Hijab)
+      `<svg viewBox="0 0 100 100" class="w-full h-full bg-slate-200 dark:bg-neutral-800">
+        <circle cx="50" cy="50" r="40" fill="#0284c7"/>
+        <path d="M25 32 C 25 15, 75 15, 75 32 C 75 80, 25 80, 25 32 Z" fill="#f4f4f5"/>
+        <ellipse cx="50" cy="45" rx="16" ry="20" fill="#fed7aa"/>
+        <circle cx="44" cy="42" r="2.5" fill="#09090b"/>
+        <circle cx="56" cy="42" r="2.5" fill="#09090b"/>
+        <path d="M44 52 Q 50 57 56 52" stroke="#09090b" stroke-width="2" fill="none"/>
+        <path d="M30 78 C 34 68, 66 68, 70 78 Z" fill="#f4f4f5"/>
+      </svg>`
     ];
 
-    const BOT_NAMES = ["آرش_تندپنجه", "نازنین_خوش‌شانس", "کامیار_دبرناباز", "الهام_سکوت", "امیر_سریع", "رویا_قهرمان"];
-
-    const THEMES = [
-      { id: 'classic', name: 'کلاسیک ایرانی', bg: 'from-emerald-600 via-teal-700 to-cyan-800', primary: 'bg-emerald-600' },
-      { id: 'neon', name: 'شیک و تاریک (نئون)', bg: 'from-slate-900 via-purple-900 to-indigo-950', primary: 'bg-purple-600' },
-      { id: 'autumn', name: 'پاییز طلایی', bg: 'from-amber-600 via-orange-700 to-red-800', primary: 'bg-amber-600' },
-      { id: 'yalda', name: 'جشن یلدا', bg: 'from-rose-800 via-red-900 to-slate-900', primary: 'bg-rose-700' }
-    ];
+    const BOT_NAMES = ["آرش_تندپنجه", "نازنین_خوش‌شانس", "کامیار_دبرنا", "الهام_سکوت", "مهران_سریع", "رویا_قهرمان"];
 
     const PERSUASIVE_VOICES = [
-      { id: 'female-normal', name: 'مریم (رسمی)', lang: 'fa', rate: 1.0, pitch: 1.1 },
-      { id: 'male-cool', name: 'پیمان (بامزه)', lang: 'fa', rate: 1.1, pitch: 0.95 },
-      { id: 'english-fun', name: 'AI English (شادی)', lang: 'en', rate: 1.2, pitch: 1.1 }
+      { id: 'female-normal', name: 'مریم (رسمی)', lang: 'fa-IR', rate: 1.0, pitch: 1.1 },
+      { id: 'male-cool', name: 'پیمان (بامزه)', lang: 'fa-IR', rate: 1.1, pitch: 0.95 },
+      { id: 'english-fun', name: 'English (شادی)', lang: 'en-US', rate: 1.2, pitch: 1.1 }
     ];
 
+    // Minimal Monochrome Game Card Designs
     const CARD_STYLES = [
-      { id: 'standard', name: 'پیش‌فرض (سنتی)', bg: 'bg-white dark:bg-slate-900', cell: 'border-slate-300 dark:border-slate-700', active: 'bg-rose-500 text-white shadow-lg' },
-      { id: 'gold', name: 'طلایی لوکس', bg: 'bg-amber-50 dark:bg-amber-950', cell: 'border-amber-300 dark:border-amber-800', active: 'bg-gradient-to-r from-yellow-500 to-amber-600 text-slate-900 font-bold' }
+      { id: 'standard', name: 'مینیمال کلاسیک', bg: 'bg-white dark:bg-zinc-900', cell: 'border-slate-200 dark:border-zinc-800', active: 'bg-slate-950 text-white dark:bg-white dark:text-black font-extrabold shadow-md' },
+      { id: 'monochrome-bold', name: 'سیاه و سفید برجسته', bg: 'bg-neutral-100 dark:bg-zinc-950', cell: 'border-neutral-300 dark:border-zinc-800', active: 'bg-neutral-900 text-white dark:bg-zinc-100 dark:text-neutral-950 font-black ring-2 ring-neutral-950 dark:ring-white' }
     ];
 
-    let userState = {
-      nickname: 'بازیکن مهمان',
-      avatar: AVATARS[0],
-      level: 3,
-      xp: 140,
-      coins: 1250,
-      wins: 14,
-      played: 45,
-      badges: ['کارت‌باز ماهر', 'اولین برد', 'پسر شجاع']
-    };
+    // --- GLOBAL STATE ---
+    let state = {
+      screen: 'splash',
+      theme: 'dark', // 'light' or 'dark' (Default dark/night mode)
+      soundMuted: false,
+      voiceLanguage: 'female-normal',
+      
+      // User data
+      user: {
+        id: '', // Persistent unique user identifier
+        nickname: 'بازیکن مهمان',
+        avatarIdx: 0,
+        level: 3,
+        xp: 140,
+        coins: 1250,
+        wins: 14,
+        played: 45,
+        badges: ['کارت‌باز ماهر', 'اولین برد']
+      },
 
-    let selectedTheme = THEMES[1];
-    let selectedCardStyle = CARD_STYLES[0];
-    let soundMuted = false;
-    let voiceLanguage = 'female-normal';
+      selectedCardStyle: CARD_STYLES[0],
 
-    let roomSettings = {
-      name: 'کافه دبرنا',
+      // Room Settings State
+      roomName: 'کافه دبرنا',
       isPrivate: false,
-      password: '',
-      pattern: 'fullhouse',
+      roomPassword: '',
       playerLimit: 6,
-      speed: 4,
+      gameSpeed: 4, // Seconds per draw
+      winningPattern: 'fullhouse', // 'single-line', 'double-line', 'fullhouse'
       autoDraw: true,
-      code: '000000'
-    };
 
-    let activeGameplay = {
+      // Live Room Status
+      roomCode: '',
+      players: [],
+      isHost: true,
+      messages: [],
+
+      // Match Gameplay Engine Status
       myCard: [],
       markedCells: [],
       drawnNumbers: [],
       currentNumber: null,
-      isActive: false,
+      gameActive: false,
       timer: 0,
-      timerInterval: null,
+      winner: null,
+      isDabrnaReady: false,
+
+      // Intervals
       drawInterval: null,
-      players: [],
-      messages: [],
-      isDabrnaReady: false
+      timerInterval: null,
+
+      // Wheel State
+      spinAngle: 0,
+      isSpinning: false,
+      spinReward: null
     };
 
-    let isSpinning = false;
+    // --- STREAMING_CHUNK: Setup and Unique ID Generation... ---
+    // Persistent profile configs
+    function initUserCredentials() {
+      // Create or load persistent unique ID
+      let localId = localStorage.getItem('dab_uid');
+      if (!localId) {
+        localId = 'DAB-' + Math.floor(100000 + Math.random() * 900000);
+        localStorage.setItem('dab_uid', localId);
+      }
+      state.user.id = localId;
 
-    // --- SOUND ENGINE ---
+      // Load Nickname & Avatar
+      const localName = localStorage.getItem('dab_nickname');
+      if (localName) state.user.nickname = localName;
+
+      const localAvatarIdx = localStorage.getItem('dab_avatar_idx');
+      if (localAvatarIdx !== null) state.user.avatarIdx = parseInt(localAvatarIdx);
+
+      const localTheme = localStorage.getItem('dab_theme');
+      if (localTheme) {
+        state.theme = localTheme;
+      } else {
+        state.theme = 'dark'; // Default night mode as requested
+      }
+    }
+
+    function saveUserCredentials() {
+      localStorage.setItem('dab_nickname', state.user.nickname);
+      localStorage.setItem('dab_avatar_idx', state.user.avatarIdx);
+      localStorage.setItem('dab_theme', state.theme);
+    }
+
+    // Sound Synthesizer Engine
     function playLocalSound(type) {
-      if (soundMuted) return;
+      if (state.soundMuted) return;
       try {
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
         const osc = ctx.createOscillator();
@@ -803,822 +318,1649 @@
         gain.connect(ctx.destination);
 
         if (type === 'click') {
-          osc.frequency.setValueAtTime(440, ctx.currentTime);
-          gain.gain.setValueAtTime(0.08, ctx.currentTime);
+          osc.frequency.setValueAtTime(600, ctx.currentTime);
+          gain.gain.setValueAtTime(0.05, ctx.currentTime);
           osc.start();
-          osc.stop(ctx.currentTime + 0.05);
+          osc.stop(ctx.currentTime + 0.04);
         } else if (type === 'success') {
-          osc.frequency.setValueAtTime(523.25, ctx.currentTime); 
-          osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); 
-          osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2); 
-          gain.gain.setValueAtTime(0.12, ctx.currentTime);
+          osc.frequency.setValueAtTime(440, ctx.currentTime);
+          osc.frequency.setValueAtTime(554.37, ctx.currentTime + 0.1);
+          osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.2);
+          gain.gain.setValueAtTime(0.08, ctx.currentTime);
           osc.start();
           osc.stop(ctx.currentTime + 0.35);
         } else if (type === 'alert') {
-          osc.frequency.setValueAtTime(220, ctx.currentTime);
-          osc.frequency.setValueAtTime(110, ctx.currentTime + 0.15);
-          gain.gain.setValueAtTime(0.18, ctx.currentTime);
+          osc.frequency.setValueAtTime(150, ctx.currentTime);
+          gain.gain.setValueAtTime(0.15, ctx.currentTime);
           osc.start();
-          osc.stop(ctx.currentTime + 0.3);
+          osc.stop(ctx.currentTime + 0.2);
+        } else if (type === 'draw') {
+          osc.frequency.setValueAtTime(350, ctx.currentTime);
+          osc.frequency.setValueAtTime(450, ctx.currentTime + 0.05);
+          gain.gain.setValueAtTime(0.05, ctx.currentTime);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.1);
         }
       } catch (e) {
-        console.log("Audio API issue.");
+        console.warn("Audio Context blocked or not supported.");
       }
     }
 
+    // Text to Speech for drawing numbers
     function speakNumber(num) {
-      if (soundMuted) return;
+      if (state.soundMuted) return;
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
-        const voiceOpt = PERSUASIVE_VOICES.find(v => v.id === voiceLanguage);
+        const voiceConfig = PERSUASIVE_VOICES.find(v => v.id === state.voiceLanguage);
+        
         let text = `${num}`;
-        if (voiceOpt.lang === 'fa') {
-          const intros = [
-            "عدد بعدی هست",
-            "خوش شانس‌ها بردارن",
-            "بشین روی صندلی شماره",
-            "ببین چی برات دراومد",
-            "عدد طلایی قرعه"
+        if (voiceConfig.lang.startsWith('fa')) {
+          const expressions = [
+            "عدد بعدی", "مهره شماره", "بشین روی صندلی", "خوش شانس‌ها بردارن", "کارتتو نگاه کن"
           ];
-          text = `${intros[num % intros.length]} ${num}`;
+          text = `${expressions[num % expressions.length]}! ${num}`;
         }
+        
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = voiceOpt.lang === 'fa' ? 'fa-IR' : 'en-US';
-        utterance.rate = voiceOpt.rate;
-        utterance.pitch = voiceOpt.pitch;
+        utterance.lang = voiceConfig.lang;
+        utterance.rate = voiceConfig.rate;
+        utterance.pitch = voiceConfig.pitch;
         window.speechSynthesis.speak(utterance);
       }
     }
 
-    // --- NAVIGATION ENGINE ---
-    function navigateTo(screenId) {
-      // Hide all sections
-      document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
-      // Show targeted section
-      const target = document.getElementById(`screen-${screenId}`);
-      if (target) {
-        target.classList.remove('hidden');
-      }
-
-      // Hide or show permanent headers/footers based on login state
-      if (screenId === 'splash' || screenId === 'login') {
-        document.getElementById('main-header').classList.add('hidden');
-        document.getElementById('main-footer').classList.add('hidden');
+    // --- STREAMING_CHUNK: Layout engine and Theme control... ---
+    function syncThemeUI() {
+      if (state.theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('theme-icon-light').classList.remove('hidden');
+        document.getElementById('theme-icon-dark').classList.add('hidden');
       } else {
-        document.getElementById('main-header').classList.remove('hidden');
-        document.getElementById('main-footer').classList.remove('hidden');
-      }
-
-      // Special Screen Loaders
-      if (screenId === 'leaderboard') renderLeaderboard();
-      if (screenId === 'achievements') renderAchievements();
-      if (screenId === 'profile') renderProfile();
-      if (screenId === 'settings') renderSettings();
-
-      playLocalSound('click');
-    }
-
-    // --- NOTIFICATION BANNER ---
-    function showNotification(msg) {
-      const banner = document.getElementById('system-alert');
-      const text = document.getElementById('alert-text');
-      text.innerText = msg;
-      banner.classList.remove('hidden');
-      setTimeout(() => banner.classList.add('hidden'), 3000);
-    }
-
-    // --- STREAMING_CHUNK: Handling User Profile and Login flow... ---
-    function handleLoginSubmit() {
-      const input = document.getElementById('login-nickname-input');
-      const nickname = input.value.trim();
-      if (nickname) {
-        userState.nickname = nickname;
-        syncUserHeader();
-        navigateTo('home');
-        playLocalSound('success');
-      } else {
-        showNotification('لطفاً نام مستعار خود را وارد کنید.');
+        document.documentElement.classList.remove('dark');
+        document.getElementById('theme-icon-light').classList.add('hidden');
+        document.getElementById('theme-icon-dark').classList.remove('hidden');
       }
     }
 
-    function syncUserHeader() {
-      document.getElementById('header-nickname').innerText = userState.nickname;
-      document.getElementById('header-avatar').src = userState.avatar;
-      document.getElementById('user-coins').innerText = userState.coins;
-    }
-
-    function toggleTheme() {
-      const isDark = document.documentElement.classList.toggle('dark');
-      document.getElementById('theme-sun').classList.toggle('hidden', !isDark);
-      document.getElementById('theme-moon').classList.toggle('hidden', isDark);
+    function toggleDayNightMode() {
+      state.theme = (state.theme === 'dark') ? 'light' : 'dark';
+      saveUserCredentials();
+      syncThemeUI();
       playLocalSound('click');
+      // Re-render current viewport to update layout colors cleanly
+      renderCurrentScreen();
     }
 
     function toggleAudioMute() {
-      soundMuted = !soundMuted;
-      document.getElementById('audio-on-icon').classList.toggle('hidden', soundMuted);
-      document.getElementById('audio-off-icon').classList.toggle('hidden', !soundMuted);
+      state.soundMuted = !state.soundMuted;
+      document.getElementById('audio-icon').innerText = state.soundMuted ? '🔇' : '🔊';
       playLocalSound('click');
     }
 
-    // --- ROOM CREATION AND LOBBY LOGIC ---
-    function toggleRoomPasswordInput() {
-      const isChecked = document.getElementById('room-private-checkbox').checked;
-      document.getElementById('room-password-container').classList.toggle('hidden', !isChecked);
-    }
-
-    function handleCreateRoomSubmit() {
-      roomSettings.name = document.getElementById('room-name-input').value || 'اتاق دبرنا';
-      roomSettings.isPrivate = document.getElementById('room-private-checkbox').checked;
-      roomSettings.password = document.getElementById('room-password-input').value;
-      roomSettings.pattern = document.getElementById('room-pattern-select').value;
-      roomSettings.playerLimit = parseInt(document.getElementById('room-limit-range').value);
-      roomSettings.speed = parseInt(document.getElementById('room-speed-range').value);
-      roomSettings.autoDraw = document.getElementById('room-autodraw-checkbox').checked;
-      roomSettings.code = Math.floor(100000 + Math.random() * 900000).toString();
-
-      activeGameplay.players = [
-        { id: 'user-1', name: userState.nickname, avatar: userState.avatar, isHost: true, isReady: true },
-        { id: 'bot-1', name: BOT_NAMES[0], avatar: AVATARS[1], isHost: false, isReady: true, isBot: true },
-        { id: 'bot-2', name: BOT_NAMES[1], avatar: AVATARS[2], isHost: false, isReady: false, isBot: true }
-      ];
-
-      activeGameplay.messages = [
-        { id: 1, sender: 'سیستم', text: `اتاق بازی "${roomSettings.name}" با موفقیت ساخته شد.`, isSystem: true }
-      ];
-
-      loadLobbyData();
-      navigateTo('lobby');
-    }
-
-    function handleQuickJoin() {
-      roomSettings.name = 'کافه دبرنا عمومی';
-      roomSettings.isPrivate = false;
-      roomSettings.pattern = 'fullhouse';
-      roomSettings.playerLimit = 6;
-      roomSettings.speed = 4;
-      roomSettings.autoDraw = true;
-      roomSettings.code = Math.floor(100000 + Math.random() * 900000).toString();
-
-      activeGameplay.players = [
-        { id: 'host-1', name: BOT_NAMES[3], avatar: AVATARS[3], isHost: true, isReady: true, isBot: true },
-        { id: 'user-1', name: userState.nickname, avatar: userState.avatar, isHost: false, isReady: true },
-        { id: 'bot-1', name: BOT_NAMES[4], avatar: AVATARS[4], isHost: false, isReady: true, isBot: true }
-      ];
-
-      activeGameplay.messages = [
-        { id: 1, sender: 'سیستم', text: `به لابی بازی سریع متصل شدید.`, isSystem: true }
-      ];
-
-      loadLobbyData();
-      navigateTo('lobby');
-    }
-
-    function loadLobbyData() {
-      document.getElementById('lobby-room-name').innerText = roomSettings.name;
-      document.getElementById('lobby-room-code').innerText = roomSettings.code;
+    // Notification Alerts without alert()
+    function showNotification(message) {
+      const banner = document.getElementById('system-alert-banner');
+      document.getElementById('alert-text-span').innerText = message;
+      banner.classList.remove('opacity-0', 'translate-y-[-100px]', 'pointer-events-none');
       
-      const host = activeGameplay.players.find(p => p.isHost);
-      document.getElementById('lobby-host-name').innerText = host ? host.name : 'سیستم';
+      setTimeout(() => {
+        banner.classList.add('opacity-0', 'translate-y-[-100px]', 'pointer-events-none');
+      }, 3000);
+    }
 
-      // Load action button state
-      const actionBtn = document.getElementById('lobby-action-btn');
-      if (host && host.id === 'user-1') {
-        actionBtn.innerText = 'شروع بازی دبرنا';
-      } else {
-        actionBtn.innerText = 'اعلام آمادگی در اتاق';
+    function updateHeaderStats() {
+      document.getElementById('header-user-coins').innerText = state.user.coins.toLocaleString('fa-IR');
+      document.getElementById('header-user-nickname').innerText = state.user.nickname;
+      document.getElementById('header-user-unique-id').innerText = state.user.id;
+      document.getElementById('header-user-avatar-container').innerHTML = SVG_AVATARS[state.user.avatarIdx];
+    }
+
+    // --- STREAMING_CHUNK: Navigation and Router setup... ---
+    function navigateTo(screenId) {
+      // Clear game loops if exiting gameplay screen
+      if (state.screen === 'gameplay' && screenId !== 'gameplay') {
+        clearInterval(state.drawInterval);
+        clearInterval(state.timerInterval);
+        state.gameActive = false;
       }
 
-      renderLobbyPlayers();
-      renderLobbyChat();
+      state.screen = screenId;
+      playLocalSound('click');
+      renderCurrentScreen();
     }
 
-    function renderLobbyPlayers() {
-      const container = document.getElementById('lobby-players-list');
-      container.innerHTML = '';
-      activeGameplay.players.forEach(p => {
-        container.innerHTML += `
-          <div class="bg-slate-900/40 p-3.5 rounded-2xl flex items-center justify-between border border-white/5">
-            <div class="flex items-center gap-3">
-              <div class="relative">
-                <img src="${p.avatar}" class="w-10 h-10 rounded-full object-cover" />
-                ${p.isHost ? '<span class="absolute -top-1.5 -right-1.5 bg-yellow-400 text-slate-950 rounded-full p-0.5 text-[8px]">👑</span>' : ''}
+    // --- STREAMING_CHUNK: Rendering engine screens... ---
+    function renderCurrentScreen() {
+      const viewport = document.getElementById('app-viewport');
+      updateHeaderStats();
+
+      // Dispatch screen renderers
+      switch (state.screen) {
+        case 'splash':
+          viewport.innerHTML = getSplashHTML();
+          break;
+        case 'login':
+          viewport.innerHTML = getLoginHTML();
+          break;
+        case 'home':
+          viewport.innerHTML = getHomeHTML();
+          break;
+        case 'create-room':
+          viewport.innerHTML = getCreateRoomHTML();
+          break;
+        case 'lobby':
+          viewport.innerHTML = getLobbyHTML();
+          break;
+        case 'gameplay':
+          viewport.innerHTML = getGameplayHTML();
+          bindGameplayDOM();
+          break;
+        case 'leaderboard':
+          viewport.innerHTML = getLeaderboardHTML();
+          break;
+        case 'achievements':
+          viewport.innerHTML = getAchievementsHTML();
+          break;
+        case 'profile':
+          viewport.innerHTML = getProfileHTML();
+          break;
+        case 'settings':
+          viewport.innerHTML = getSettingsHTML();
+          break;
+        default:
+          viewport.innerHTML = getHomeHTML();
+      }
+    }
+
+    // --- SCREEN HTML GENERATORS ---
+
+    // 1. Splash Screen
+    function getSplashHTML() {
+      return `
+        <div class="flex-1 flex flex-col items-center justify-center text-center py-12">
+          <div class="w-24 h-24 bg-slate-950 dark:bg-white text-white dark:text-black rounded-full flex items-center justify-center text-4xl font-black mb-6 animate-bounce-slow">
+            🎯
+          </div>
+          <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-3">دبـرنـا <span class="text-slate-400">آنلاین</span></h1>
+          <p class="text-sm text-slate-400 dark:text-neutral-400 max-w-sm font-light">تجربه‌ای مینیمال، مدرن و شیک از بازی اصیل ایرانی</p>
+          <div class="w-32 bg-slate-200 dark:bg-neutral-800 h-1 rounded-full overflow-hidden mt-8">
+            <div class="bg-slate-950 dark:bg-white h-full w-2/3 rounded-full animate-pulse"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 2. Login / Setup Screen
+    function getLoginHTML() {
+      return `
+        <div class="flex-1 flex items-center justify-center">
+          <div class="glass-panel w-full max-w-md p-8 rounded-3xl shadow-xl border border-slate-200/50 dark:border-neutral-800 bg-white/50 dark:bg-zinc-900/40 text-center">
+            <span class="text-3xl mb-3 block">👑</span>
+            <h2 class="text-xl font-bold mb-1">راه‌اندازی پروفایل دبرنا</h2>
+            <p class="text-xs text-slate-400 dark:text-neutral-400 mb-6">نام مستعار و آواتار کارتونی خود را انتخاب کنید</p>
+
+            <div class="space-y-4">
+              <!-- Avatar Selector -->
+              <div class="text-right">
+                <label class="text-[11px] text-slate-400 block mr-1 mb-1.5">انتخاب آواتار کارتونی:</label>
+                <div class="grid grid-cols-6 gap-2 bg-slate-100 dark:bg-zinc-950 p-2.5 rounded-2xl border border-slate-200/40 dark:border-zinc-800">
+                  ${SVG_AVATARS.map((svg, idx) => `
+                    <div onclick="selectLoginAvatar(${idx})" id="login-avatar-${idx}" class="aspect-square rounded-xl overflow-hidden cursor-pointer border-2 ${state.user.avatarIdx === idx ? 'border-slate-900 dark:border-white scale-105' : 'border-transparent opacity-60 hover:opacity-100'} transition-all smooth-transition">
+                      ${svg}
+                    </div>
+                  `).join('')}
+                </div>
               </div>
-              <div>
-                <div class="text-sm font-bold flex items-center gap-1">
-                  ${p.name}
-                  ${p.isBot ? '<span class="text-[9px] bg-blue-500/20 text-blue-300 px-1 rounded">ربات</span>' : ''}
+
+              <!-- Nickname input -->
+              <div class="text-right">
+                <label class="text-[11px] text-slate-400 block mr-1 mb-1">نام مستعار شما:</label>
+                <input 
+                  id="nickname-input-field"
+                  type="text" 
+                  value="${state.user.nickname}" 
+                  class="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-4 py-2.5 text-center text-sm font-bold focus:outline-none focus:ring-1 focus:ring-slate-950 dark:focus:ring-white transition-all text-slate-900 dark:text-white"
+                  placeholder="مثلا: شاه_دبرنا"
+                />
+              </div>
+
+              <!-- Action btn -->
+              <button onclick="commitProfileSetup()" class="w-full bg-slate-950 hover:bg-slate-900 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-black font-bold py-3 px-6 rounded-xl text-sm transition-all shadow-md transform active:scale-95 mt-2">
+                ورود به بازی
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 3. Home Screen
+    function getHomeHTML() {
+      return `
+        <div class="space-y-6">
+          <!-- Hero Section -->
+          <div class="glass-panel p-6 md:p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm">
+            <div class="space-y-4 text-center md:text-right max-w-lg">
+              <span class="bg-slate-100 dark:bg-neutral-800 text-slate-600 dark:text-neutral-300 text-[10px] px-3 py-1 rounded-full font-bold">بزرگترین کلوب آنلاین دبرنا</span>
+              <h2 class="text-2xl md:text-3xl font-extrabold leading-tight">با هم بازی کنید، شاد بمانید!</h2>
+              <p class="text-xs text-slate-400 dark:text-neutral-400">یک نبرد مهیج هوش و شانس به صورت چند نفره آنلاین. دوستانتان را دعوت کنید یا با حریفان هوشمند مسابقه دهید.</p>
+              
+              <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
+                <button onclick="handleQuickJoin()" class="bg-slate-950 hover:bg-slate-900 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-black font-extrabold text-xs px-6 py-3 rounded-xl shadow-lg transition-all transform active:scale-95 flex items-center gap-1.5">
+                  ⚡️ بازی سریع (شروع رقابت)
+                </button>
+                <button onclick="navigateTo('create-room')" class="bg-slate-100 hover:bg-slate-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-slate-900 dark:text-neutral-100 font-bold text-xs px-5 py-3 rounded-xl transition-all">
+                  ساخت اتاق جدید
+                </button>
+              </div>
+            </div>
+
+            <!-- Mascot Visual -->
+            <div class="relative w-40 h-40 flex items-center justify-center bg-slate-50 dark:bg-zinc-900/60 rounded-full border border-slate-200/50 dark:border-neutral-800">
+              <span class="text-6xl select-none">🎰</span>
+              <div class="absolute -bottom-1 -left-1 bg-slate-900 dark:bg-white text-white dark:text-black font-extrabold text-[8px] px-2.5 py-1 rounded-full shadow-sm">سیاه و سفید مینیمال</div>
+            </div>
+          </div>
+
+          <!-- Shortcuts Menu Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div onclick="navigateTo('leaderboard')" class="glass-panel p-4 rounded-2xl text-center cursor-pointer bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder hover:scale-[1.02] transition-all">
+              <div class="text-2xl mb-1">🏆</div>
+              <div class="font-bold text-xs">قهرمانان</div>
+              <div class="text-[9px] text-slate-400">جدول رتبه‌بندی</div>
+            </div>
+
+            <div onclick="navigateTo('achievements')" class="glass-panel p-4 rounded-2xl text-center cursor-pointer bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder hover:scale-[1.02] transition-all">
+              <div class="text-2xl mb-1">🏅</div>
+              <div class="font-bold text-xs">نشان‌ها</div>
+              <div class="text-[9px] text-slate-400">افتخارات باز شده</div>
+            </div>
+
+            <div onclick="openLuckyWheel()" class="glass-panel p-4 rounded-2xl text-center cursor-pointer bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder hover:scale-[1.02] transition-all relative">
+              <span class="absolute top-1 left-2 text-[8px] bg-red-500 text-white px-1.5 rounded-full font-bold scale-90">رایگان</span>
+              <div class="text-2xl mb-1">🎡</div>
+              <div class="font-bold text-xs">گردونه شانس</div>
+              <div class="text-[9px] text-slate-400">جوایز روزانه</div>
+            </div>
+
+            <div onclick="navigateTo('settings')" class="glass-panel p-4 rounded-2xl text-center cursor-pointer bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder hover:scale-[1.02] transition-all">
+              <div class="text-2xl mb-1">⚙️</div>
+              <div class="font-bold text-xs">تنظیمات</div>
+              <div class="text-[9px] text-slate-400">گوینده صوتی و پوسته</div>
+            </div>
+          </div>
+
+          <!-- Daily Challenge & Open Rooms -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Quests -->
+            <div class="glass-panel p-5 rounded-3xl md:col-span-2 bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder">
+              <h3 class="font-bold text-sm mb-4 flex items-center gap-2">🎯 ماموریت‌های امروز شما</h3>
+              <div class="space-y-4">
+                <div class="bg-slate-50 dark:bg-neutral-800/40 p-3 rounded-xl border border-slate-200/20">
+                  <div class="flex justify-between text-[11px] mb-1">
+                    <span>انجام ۳ مسابقه کامل با رقیبان</span>
+                    <span class="font-bold text-slate-900 dark:text-white">۱ / ۳ بازی</span>
+                  </div>
+                  <div class="w-full bg-slate-200 dark:bg-neutral-800 h-1 rounded-full overflow-hidden">
+                    <div class="bg-slate-900 dark:bg-white h-full w-1/3"></div>
+                  </div>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-neutral-800/40 p-3 rounded-xl border border-slate-200/20">
+                  <div class="flex justify-between text-[11px] mb-1">
+                    <span>کامل کردن الگوی تمام خانه (Full House)</span>
+                    <span class="font-bold text-slate-900 dark:text-white">۰ / ۱</span>
+                  </div>
+                  <div class="w-full bg-slate-200 dark:bg-neutral-800 h-1 rounded-full overflow-hidden">
+                    <div class="bg-slate-900 dark:bg-white h-full w-0"></div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div>
-              <span class="text-xs bg-green-500/20 text-green-300 px-3 py-1 rounded-full font-bold">آماده</span>
+
+            <!-- Active Public Servers list -->
+            <div class="glass-panel p-5 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder">
+              <h3 class="font-bold text-sm mb-3 flex items-center gap-2">📢 اتاق‌های فعال</h3>
+              <div class="space-y-3">
+                <div class="bg-slate-50 dark:bg-neutral-900/40 p-3 rounded-2xl border border-slate-100 dark:border-neutral-800/60 hover:bg-slate-100 dark:hover:bg-neutral-800/40 cursor-pointer transition-all" onclick="handleQuickJoin()">
+                  <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold">بچه‌های تهرانپارس ☕️</span>
+                    <span class="text-[10px] bg-neutral-200 dark:bg-neutral-800 px-2 py-0.5 rounded-full text-slate-600 dark:text-neutral-400">۴ / ۶</span>
+                  </div>
+                  <p class="text-[9px] text-slate-400 mt-1">میزبان: آرش | الگو: تمام خانه</p>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-neutral-900/40 p-3 rounded-2xl border border-slate-100 dark:border-neutral-800/60 hover:bg-slate-100 dark:hover:bg-neutral-800/40 cursor-pointer transition-all" onclick="handleQuickJoin()">
+                  <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold">قهوه‌خانه سنتی یلدا 🍉</span>
+                    <span class="text-[10px] bg-neutral-200 dark:bg-neutral-800 px-2 py-0.5 rounded-full text-slate-600 dark:text-neutral-400">۲ / ۸</span>
+                  </div>
+                  <p class="text-[9px] text-slate-400 mt-1">میزبان: رویا | الگو: تک خط افقی</p>
+                </div>
+              </div>
             </div>
           </div>
-        `;
-      });
+        </div>
+
+        <!-- Wheel Popup DOM Container -->
+        <div id="wheel-modal-container" class="hidden"></div>
+      `;
     }
 
-    function renderLobbyChat() {
-      const container = document.getElementById('lobby-chat-messages');
-      container.innerHTML = '';
-      activeGameplay.messages.forEach(m => {
-        if (m.isSystem) {
-          container.innerHTML += `
-            <div class="text-center">
-              <span class="bg-black/30 px-3 py-1 rounded-full text-slate-300 text-[10px] border border-white/5 inline-block">${m.text}</span>
+    // 4. Create Room Screen
+    function getCreateRoomHTML() {
+      return `
+        <div class="max-w-xl mx-auto w-full glass-panel p-6 md:p-8 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder">
+          <h2 class="text-xl font-bold mb-6 pb-3 border-b border-slate-200 dark:border-neutral-800">🛠 تنظیمات ساخت اتاق جدید</h2>
+
+          <div class="space-y-4">
+            <!-- Room Name -->
+            <div>
+              <label class="text-[11px] text-slate-400 block mb-1">نام اتاق بازی شما:</label>
+              <input 
+                id="create-room-name" 
+                type="text" 
+                value="${state.roomName}" 
+                class="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-4 py-2 text-sm focus:outline-none"
+              />
             </div>
-          `;
-        } else {
-          container.innerHTML += `
+
+            <!-- Private room toggle -->
+            <div class="flex items-center justify-between bg-slate-50 dark:bg-zinc-950 p-3 rounded-xl border border-slate-200/50 dark:border-zinc-800">
+              <div>
+                <span class="text-xs font-bold block">اتاق خصوصی (رمزدار)</span>
+                <span class="text-[9px] text-slate-400">فقط افراد دعوت شده با رمز وارد شوند</span>
+              </div>
+              <input 
+                id="create-room-private" 
+                type="checkbox" 
+                ${state.isPrivate ? 'checked' : ''} 
+                onchange="toggleCreateRoomPrivate()"
+                class="w-5 h-5 accent-slate-900"
+              />
+            </div>
+
+            <!-- Password Container -->
+            <div id="create-room-password-container" class="${state.isPrivate ? '' : 'hidden'}">
+              <label class="text-[11px] text-slate-400 block mb-1">گذرواژه ورود:</label>
+              <input 
+                id="create-room-password" 
+                type="password" 
+                value="${state.roomPassword}" 
+                class="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-4 py-2 text-sm focus:outline-none"
+                placeholder="گذرواژه مثلاً ۱۲۳۴"
+              />
+            </div>
+
+            <!-- Winning Rule -->
+            <div>
+              <label class="text-[11px] text-slate-400 block mb-1">الگوی برنده شدن بازی:</label>
+              <select 
+                id="create-room-pattern"
+                class="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-4 py-2 text-sm focus:outline-none text-right"
+              >
+                <option value="fullhouse" ${state.winningPattern === 'fullhouse' ? 'selected' : ''}>تمام‌خانه (کل کارت پر شود - سخت)</option>
+                <option value="single-line" ${state.winningPattern === 'single-line' ? 'selected' : ''}>تک خط افقی (سرعت بالا - آسان)</option>
+                <option value="double-line" ${state.winningPattern === 'double-line' ? 'selected' : ''}>دو خط افقی (استاندارد)</option>
+              </select>
+            </div>
+
+            <!-- Player Limits slider -->
+            <div>
+              <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                <span>حداکثر تعداد بازیکنان:</span>
+                <span class="font-bold text-slate-900 dark:text-white" id="limit-slider-label">${state.playerLimit} نفر</span>
+              </div>
+              <input 
+                id="create-room-limit"
+                type="range" 
+                min="2" 
+                max="12" 
+                value="${state.playerLimit}" 
+                oninput="document.getElementById('limit-slider-label').innerText = this.value + ' نفر'"
+                class="w-full accent-slate-900 dark:accent-white h-1.5 bg-slate-200 dark:bg-neutral-800 rounded-lg cursor-pointer"
+              />
+            </div>
+
+            <!-- Game speed -->
+            <div>
+              <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                <span>سرعت قرعه‌کشی (بیرون آمدن مهره):</span>
+                <span class="font-bold text-slate-900 dark:text-white" id="speed-slider-label">${state.gameSpeed} ثانیه</span>
+              </div>
+              <input 
+                id="create-room-speed"
+                type="range" 
+                min="2" 
+                max="8" 
+                value="${state.gameSpeed}" 
+                oninput="document.getElementById('speed-slider-label').innerText = this.value + ' ثانیه'"
+                class="w-full accent-slate-900 dark:accent-white h-1.5 bg-slate-200 dark:bg-neutral-800 rounded-lg cursor-pointer"
+              />
+            </div>
+          </div>
+
+          <div class="flex gap-3 mt-8">
+            <button onclick="commitCreateRoom()" class="flex-1 bg-slate-950 hover:bg-slate-900 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-black font-bold py-3.5 px-6 rounded-2xl text-xs transition-all shadow-md">
+              ساخت لابی بازی
+            </button>
+            <button onclick="navigateTo('home')" class="bg-slate-100 hover:bg-slate-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-slate-900 dark:text-neutral-100 py-3.5 px-6 rounded-2xl text-xs font-bold transition-all">
+              انصراف
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // 5. Lobby Screen
+    function getLobbyHTML() {
+      return `
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-6">
+            <!-- Room card -->
+            <div class="glass-panel p-6 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm relative overflow-hidden">
+              <span class="absolute top-4 left-4 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[9px] px-2.5 py-1 rounded-full font-bold">آماده شروع</span>
+              <h2 class="text-xl font-black text-slate-900 dark:text-white mb-1">${state.roomName}</h2>
+              <p class="text-[10px] text-slate-400 mb-4">میزبان لابی: <span class="text-slate-800 dark:text-neutral-200 font-bold">${state.isHost ? state.user.nickname : BOT_NAMES[3]}</span></p>
+
+              <!-- Room Code Container -->
+              <div class="bg-slate-50 dark:bg-neutral-900 p-4 rounded-2xl border border-slate-100 dark:border-neutral-800/50">
+                <span class="text-[10px] text-slate-400 block mb-2">دوستان خود را با کد اختصاصی دعوت کنید:</span>
+                <div class="flex items-center gap-2">
+                  <div class="flex-1 bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl py-2 px-4 text-center font-mono font-black text-xl tracking-wider text-slate-950 dark:text-neutral-100 select-all">
+                    ${state.roomCode}
+                  </div>
+                  <button onclick="copyLobbyCode()" class="bg-slate-950 hover:bg-slate-900 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-black p-2.5 rounded-xl transition-all" title="کپی کد">
+                    📋 کپی
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Active Players List -->
+            <div class="glass-panel p-6 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm">
+              <h3 class="font-bold text-sm mb-4">بازیکنان داخل اتاق (${state.players.length} / ${state.playerLimit})</h3>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                ${state.players.map((p, i) => `
+                  <div class="bg-slate-50 dark:bg-neutral-900/60 p-3 rounded-2xl flex items-center justify-between border border-slate-100 dark:border-neutral-800/40">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 rounded-full border border-slate-200 dark:border-neutral-800 overflow-hidden relative">
+                        ${p.avatar}
+                        ${p.isHost ? `<span class="absolute -top-1 -right-1 bg-yellow-400 text-slate-950 text-[7px] p-0.5 rounded-full" title="میزبان">👑</span>` : ''}
+                      </div>
+                      <div>
+                        <div class="text-xs font-bold flex items-center gap-1">
+                          <span>${p.name}</span>
+                          ${p.isBot ? `<span class="text-[8px] bg-neutral-200 dark:bg-neutral-800 px-1 rounded text-slate-500">ربات</span>` : ''}
+                        </div>
+                        <span class="text-[8px] text-slate-400 font-mono">${p.id}</span>
+                      </div>
+                    </div>
+
+                    <span class="text-[10px] bg-green-500/10 text-green-600 dark:text-green-400 px-2.5 py-1 rounded-full font-bold">آماده بازی</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Bottom Actions -->
+            <div class="flex gap-4">
+              ${state.isHost ? `
+                <button onclick="startGameplay()" class="flex-1 bg-slate-950 hover:bg-slate-900 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-black font-extrabold py-4 px-8 rounded-2xl shadow-md transition-all transform active:scale-95 text-sm">
+                  🚀 شروع بازی دبرنا
+                </button>
+              ` : `
+                <button onclick="startGameplay()" class="flex-1 bg-slate-950 hover:bg-slate-900 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-black font-extrabold py-4 px-8 rounded-2xl shadow-md transition-all transform active:scale-95 text-sm">
+                  اعلام آمادگی در لابی
+                </button>
+              `}
+              <button onclick="navigateTo('home')" class="bg-slate-100 hover:bg-slate-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-slate-900 dark:text-neutral-100 px-6 rounded-2xl text-xs font-bold transition-all">
+                خروج
+              </button>
+            </div>
+          </div>
+
+          <!-- Lobby Chat System -->
+          <div class="glass-panel rounded-3xl p-4 flex flex-col h-[460px] bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm">
+            <h3 class="font-bold border-b border-slate-200 dark:border-neutral-800 pb-3 mb-3 text-xs flex items-center gap-1.5">
+              💬 گفتگو و ری‌اکشن‌های لابی
+            </h3>
+
+            <!-- Dynamic Messages list -->
+            <div id="lobby-messages-viewport" class="flex-1 overflow-y-auto space-y-2 mb-3 text-xs pr-1">
+              ${state.messages.map(m => {
+                if (m.isSystem) {
+                  return `<div class="text-center"><span class="bg-slate-100 dark:bg-neutral-900 px-3 py-1 rounded-full text-slate-400 text-[9px] inline-block">${m.text}</span></div>`;
+                }
+                return `
+                  <div class="flex items-start gap-2">
+                    <div class="w-6 h-6 rounded-full border border-slate-200 dark:border-neutral-800 overflow-hidden shrink-0">
+                      ${m.avatar}
+                    </div>
+                    <div class="bg-slate-50 dark:bg-neutral-900 p-2 rounded-xl flex-1 border border-slate-100 dark:border-neutral-800/50">
+                      <span class="font-bold text-[9px] text-slate-500 block mb-0.5">${m.sender}</span>
+                      <p class="text-slate-800 dark:text-neutral-200 text-xs">${m.text}</p>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            <!-- Emojis Shortcuts -->
+            <div class="flex gap-1 mb-2">
+              ${["🔥", "🤣", "👏", "👑", "👍", "👎"].map(emoji => `
+                <button onclick="sendLobbyEmoji('${emoji}')" class="bg-slate-50 hover:bg-slate-100 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-xs p-1 rounded-lg flex-1 smooth-transition">
+                  ${emoji}
+                </button>
+              `).join('')}
+            </div>
+
+            <!-- Input Box Form -->
+            <form id="lobby-chat-form" onsubmit="handleLobbyChatSubmit(event)" class="flex gap-2">
+              <input 
+                id="lobby-chat-input-box"
+                type="text" 
+                class="flex-1 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-3 py-1.5 text-xs text-slate-800 dark:text-neutral-200 focus:outline-none"
+                placeholder="پیامی بنویسید..."
+              />
+              <button type="submit" class="bg-slate-950 dark:bg-white text-white dark:text-black px-3.5 rounded-xl text-xs">
+                ارسال
+              </button>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    // 6. Gameplay Screen
+    function getGameplayHTML() {
+      return `
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          <!-- Left Column: Caller Displays -->
+          <div class="lg:col-span-1 space-y-6">
+            <div class="glass-panel p-6 rounded-3xl text-center bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm relative overflow-hidden">
+              <div class="absolute top-2.5 left-2.5 bg-red-500/10 text-red-600 dark:text-red-400 text-[8px] px-2 py-0.5 rounded-full font-bold animate-pulse">گوینده زنده AI</div>
+              <h3 class="text-xs font-bold text-slate-400 mb-2">عدد جاری خوانده شده</h3>
+
+              <!-- Dynamic big circle caller -->
+              <div class="my-6 relative inline-block">
+                <div id="gameplay-current-number-sphere" class="w-20 h-20 bg-slate-950 dark:bg-white text-white dark:text-black rounded-full flex items-center justify-center text-4xl font-black shadow-xl mx-auto pulse-glow smooth-transition">
+                  ⏳
+                </div>
+                <div class="absolute inset-0 w-20 h-20 bg-slate-950/10 dark:bg-white/10 rounded-full animate-ping pointer-events-none"></div>
+              </div>
+
+              <p class="text-[10px] text-slate-400">گوینده فعال: <span class="text-slate-800 dark:text-neutral-200 font-bold" id="caller-voice-label">-</span></p>
+
+              <div class="flex justify-between items-center text-[10px] text-slate-400 mt-5 pt-3 border-t border-slate-100 dark:border-neutral-800">
+                <span id="gameplay-numbers-left-label">اعداد مانده: ۹۰</span>
+                <span id="gameplay-timer-label">زمان: ۰۰:۰۰</span>
+              </div>
+            </div>
+
+            <!-- History of numbers drawn -->
+            <div class="glass-panel p-4 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm">
+              <h4 class="text-[11px] font-bold text-slate-400 mb-2.5 flex justify-between items-center">
+                <span>اعداد قبلی قرعه کشی شده</span>
+                <span class="text-[10px] text-slate-500" id="history-total-drawn">۰ مهره</span>
+              </h4>
+
+              <div id="gameplay-history-grid" class="grid grid-cols-6 gap-1 max-h-32 overflow-y-auto text-center font-bold text-[10px]">
+                <!-- History items load dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Middle Column: Interactive Cards -->
+          <div class="lg:col-span-2 space-y-6">
+            <div class="glass-panel p-5 md:p-6 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm">
+              <div class="flex justify-between items-center mb-5 border-b border-slate-100 dark:border-neutral-800 pb-4">
+                <div>
+                  <span class="text-[9px] text-slate-400 block">الگوی برنده شدن این مسابقه:</span>
+                  <span class="font-extrabold text-xs text-slate-800 dark:text-neutral-200" id="gameplay-pattern-label">-</span>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-neutral-900 px-3 py-1.5 rounded-xl text-center border border-slate-100 dark:border-neutral-800/50">
+                  <span class="text-[8px] text-slate-400 block">مطابقت داده شده</span>
+                  <span class="text-xs font-black text-slate-900 dark:text-white" id="gameplay-match-count-label">۰ / ۱۵</span>
+                </div>
+              </div>
+
+              <!-- Main Card Interactive Grid -->
+              <div id="gameplay-main-card-wrapper" class="p-4 rounded-2xl bg-slate-50 dark:bg-black border border-slate-100 dark:border-neutral-800/60 smooth-transition">
+                <!-- Grid loaded dynamically by JavaScript -->
+              </div>
+
+              <p class="text-[9px] text-slate-400 mt-4 text-center">💡 روی شماره‌های منطبق شده کارت خود ضربه بزنید تا ثبت شوند.</p>
+            </div>
+
+            <!-- Winner Trigger Call Button -->
+            <div class="text-center">
+              <button 
+                id="claim-victory-dabrna-btn"
+                disabled
+                onclick="claimDabrnaVictory()"
+                class="w-full py-4 rounded-2xl text-lg font-black tracking-widest shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2 bg-slate-100 dark:bg-zinc-800 text-slate-400 cursor-not-allowed border border-slate-200 dark:border-zinc-700 smooth-transition"
+              >
+                🏆 دبرنااااااا !
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Column: Bots and Active Chat logs -->
+          <div class="lg:col-span-1 space-y-6">
+            <div class="glass-panel p-5 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm">
+              <h3 class="font-bold text-xs mb-4 text-slate-400">وضعیت رقیبان</h3>
+              <div id="gameplay-bots-container" class="space-y-4">
+                <!-- Bot progress bars -->
+              </div>
+            </div>
+
+            <!-- In-game mini log -->
+            <div class="glass-panel p-4 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder h-56 flex flex-col justify-between">
+              <div id="gameplay-mini-chat-logs" class="flex-1 overflow-y-auto space-y-2 text-[10px] mb-2 pr-1">
+                <!-- Messages load -->
+              </div>
+              
+              <form id="gameplay-mini-chat-form" onsubmit="handleGameplayChatSubmit(event)" class="flex gap-1.5">
+                <input 
+                  id="gameplay-mini-chat-input"
+                  type="text" 
+                  class="flex-1 bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-lg px-2.5 py-1 text-[10px] focus:outline-none"
+                  placeholder="کل‌کل سریع..."
+                />
+                <button type="submit" class="bg-slate-950 dark:bg-white text-white dark:text-black p-1.5 rounded-lg text-[10px]">
+                  ارسال
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Winner Overlay Container -->
+        <div id="winner-modal-overlay" class="hidden"></div>
+      `;
+    }
+
+    // 7. Leaderboard Screen
+    function getLeaderboardHTML() {
+      const mockLeaders = [
+        { rank: 1, name: "کامیار_دبرنا", xp: "۴,۸۹۰ XP", wins: 142, avatarIdx: 4, id: "DAB-849102" },
+        { rank: 2, name: "نازنین_خوش‌شانس", xp: "۳,۹۲۰ XP", wins: 110, avatarIdx: 1, id: "DAB-110294" },
+        { rank: 3, name: "مهران_سریع", xp: "۳,۱۰۰ XP", wins: 94, avatarIdx: 2, id: "DAB-930122" },
+        { rank: 4, name: "آرش_تندپنجه", xp: "۲,۵۰۰ XP", wins: 78, avatarIdx: 0, id: "DAB-559312" },
+        { rank: 5, name: `${state.user.nickname} (شما)`, xp: `${state.user.xp} XP`, wins: state.user.wins, avatarIdx: state.user.avatarIdx, id: state.user.id, isUser: true }
+      ];
+
+      return `
+        <div class="max-w-2xl mx-auto w-full glass-panel p-6 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm">
+          <div class="flex justify-between items-center mb-6 pb-2 border-b border-slate-100 dark:border-neutral-800">
+            <h2 class="text-xl font-black text-slate-900 dark:text-white flex items-center gap-1.5">🏆 برترین دبرنابازان کشور</h2>
+            <button onclick="navigateTo('home')" class="text-[10px] bg-slate-100 dark:bg-neutral-800 px-3 py-1.5 rounded-xl font-bold">بازگشت</button>
+          </div>
+
+          <div class="space-y-2.5">
+            ${mockLeaders.map((leader, i) => `
+              <div class="flex items-center justify-between p-3.5 rounded-2xl ${leader.isUser ? 'border-2 border-slate-950 dark:border-white bg-slate-50 dark:bg-neutral-900/60' : 'bg-slate-50/60 dark:bg-neutral-900/20 border border-slate-100 dark:border-neutral-800/40'}">
+                <div class="flex items-center gap-3">
+                  <span class="w-5 h-5 rounded-full flex items-center justify-center font-bold text-[10px] ${i === 0 ? 'bg-slate-950 text-white dark:bg-white dark:text-black' : 'bg-slate-200 dark:bg-neutral-800 text-slate-500'}">
+                    ${leader.rank}
+                  </span>
+                  <div class="w-10 h-10 rounded-full border border-slate-200 dark:border-neutral-800 overflow-hidden">
+                    ${SVG_AVATARS[leader.avatarIdx]}
+                  </div>
+                  <div>
+                    <span class="font-bold text-xs block">${leader.name}</span>
+                    <span class="text-[9px] text-slate-400 font-mono">${leader.id}</span>
+                  </div>
+                </div>
+
+                <div class="text-right">
+                  <span class="text-xs font-bold text-slate-950 dark:text-white">${leader.wins} پیروزی</span>
+                  <span class="text-[9px] text-slate-400 block font-mono">${leader.xp}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // 8. Achievements Screen
+    function getAchievementsHTML() {
+      const achievements = [
+        { title: "کارت‌باز ماهر", desc: "نشان بازی کردن بیش از ۳۰ بار رقابت دبرنا آنلاین", icon: "⭐", unlocked: true },
+        { title: "اولین برد طلایی", desc: "اولین پیروزی را در مسابقات دبرنا کسب کنید", icon: "🥇", unlocked: true },
+        { title: "سریع‌ترین دست", desc: "دبرنا کردن در کمتر از ۲۵ شماره آغازین", icon: "⚡", unlocked: false },
+        { title: "شانس طلایی", desc: "بردن هدیه طلایی از گردونه شانس روزانه", icon: "🎡", unlocked: state.user.badges.includes('شانس‌طلایی') },
+        { title: "کلوب دوستان", desc: "عضویت در اتاق‌های خانوادگی دبرنا", icon: "👥", unlocked: false }
+      ];
+
+      return `
+        <div class="max-w-2xl mx-auto w-full glass-panel p-6 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm">
+          <div class="flex justify-between items-center mb-6 pb-2 border-b border-slate-100 dark:border-neutral-800">
+            <h2 class="text-xl font-black text-slate-900 dark:text-white flex items-center gap-1.5">🏅 افتخارات و مدال‌های شما</h2>
+            <button onclick="navigateTo('home')" class="text-[10px] bg-slate-100 dark:bg-neutral-800 px-3 py-1.5 rounded-xl font-bold">بازگشت</button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            ${achievements.map(ach => `
+              <div class="p-4 rounded-2xl flex items-start gap-3 border ${ach.unlocked ? 'bg-slate-50 dark:bg-neutral-900/40 border-slate-200 dark:border-neutral-800' : 'bg-slate-50/20 dark:bg-neutral-900/10 border-slate-100 dark:border-neutral-800/40 opacity-40'}">
+                <span class="text-3xl">${ach.icon}</span>
+                <div>
+                  <h4 class="font-bold text-xs text-slate-900 dark:text-white">${ach.title}</h4>
+                  <p class="text-[10px] text-slate-400 mt-0.5 font-light">${ach.desc}</p>
+                  <span class="text-[8px] mt-2 inline-block font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-neutral-800 text-slate-500">
+                    ${ach.unlocked ? '🔓 باز شده' : '🔒 قفل'}
+                  </span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // 9. Profile Screen
+    function getProfileHTML() {
+      return `
+        <div class="max-w-xl mx-auto w-full glass-panel p-6 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm space-y-6">
+          <div class="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-neutral-800">
+            <h2 class="text-xl font-black text-slate-900 dark:text-white">👤 اطلاعات کاربری شما</h2>
+            <button onclick="navigateTo('home')" class="text-[10px] bg-slate-100 dark:bg-neutral-800 px-3 py-1.5 rounded-xl font-bold">بازگشت</button>
+          </div>
+
+          <div class="text-center space-y-3">
+            <div class="w-24 h-24 rounded-full mx-auto border-2 border-slate-900 dark:border-white overflow-hidden">
+              ${SVG_AVATARS[state.user.avatarIdx]}
+            </div>
+            <div>
+              <h3 class="text-lg font-bold">${state.user.nickname}</h3>
+              <p class="text-[11px] text-slate-400 font-mono">${state.user.id}</p>
+              <p class="text-[10px] text-slate-400">سطح ${state.user.level} | عضو طلایی</p>
+            </div>
+          </div>
+
+          <!-- Select avatar in profile page directly -->
+          <div class="bg-slate-50 dark:bg-neutral-900 p-4 rounded-2xl border border-slate-100 dark:border-neutral-800/50">
+            <span class="text-[10px] text-slate-400 block mb-2.5">تغییر فوری تصویر کاربری شما:</span>
+            <div class="grid grid-cols-6 gap-2">
+              ${SVG_AVATARS.map((svg, idx) => `
+                <div onclick="selectProfileAvatarDirectly(${idx})" class="aspect-square rounded-xl overflow-hidden cursor-pointer border-2 ${state.user.avatarIdx === idx ? 'border-slate-900 dark:border-white' : 'border-transparent opacity-60'} transition-all smooth-transition">
+                  ${svg}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-2 gap-3 text-center text-xs">
+            <div class="bg-slate-50 dark:bg-neutral-900 p-3 rounded-xl border border-slate-100 dark:border-neutral-800/60">
+              <span class="text-slate-400 block mb-0.5">کل مسابقات:</span>
+              <span class="text-base font-bold text-slate-950 dark:text-white font-mono">${state.user.played} بار</span>
+            </div>
+            <div class="bg-slate-50 dark:bg-neutral-900 p-3 rounded-xl border border-slate-100 dark:border-neutral-800/60">
+              <span class="text-slate-400 block mb-0.5">تعداد بردهای دبرنا:</span>
+              <span class="text-base font-bold text-slate-950 dark:text-white font-mono">${state.user.wins} بار</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 10. Settings Screen
+    function getSettingsHTML() {
+      return `
+        <div class="max-w-xl mx-auto w-full glass-panel p-6 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm space-y-6">
+          <div class="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-neutral-800">
+            <h2 class="text-xl font-black text-slate-900 dark:text-white">⚙️ تنظیمات عمومی دبرنا</h2>
+            <button onclick="navigateTo('home')" class="text-[10px] bg-slate-100 dark:bg-neutral-800 px-3 py-1.5 rounded-xl font-bold">بازگشت</button>
+          </div>
+
+          <!-- Voice Selection -->
+          <div class="space-y-3">
+            <label class="text-xs text-slate-400 block font-bold">انتخاب گوینده صوتی هوش مصنوعی:</label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              ${PERSUASIVE_VOICES.map(voice => `
+                <button 
+                  onclick="selectVoiceOption('${voice.id}')"
+                  class="p-3 rounded-xl text-xs font-bold text-right border transition-all ${state.voiceLanguage === voice.id ? 'bg-slate-100 border-slate-300 dark:bg-neutral-800 dark:border-neutral-600' : 'bg-slate-50 border-transparent dark:bg-neutral-900 text-slate-400'}"
+                >
+                  <span class="block text-slate-900 dark:text-white">${voice.name}</span>
+                  <span class="text-[9px] text-slate-400 font-mono block mt-0.5">${voice.lang}</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Card Styles selection -->
+          <div class="space-y-3">
+            <label class="text-xs text-slate-400 block font-bold">پوسته کارت دبرنا شخصی:</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              ${CARD_STYLES.map(style => `
+                <div 
+                  onclick="selectCardStyleOption('${style.id}')"
+                  class="p-4 rounded-2xl cursor-pointer border-2 transition-all ${state.selectedCardStyle.id === style.id ? 'border-slate-950 dark:border-white bg-slate-50 dark:bg-neutral-900' : 'border-transparent bg-slate-50 dark:bg-neutral-900/50'}"
+                >
+                  <span class="text-xs font-bold block text-slate-900 dark:text-white">${style.name}</span>
+                  <div class="flex gap-1 mt-2.5">
+                    <span class="w-6 h-6 rounded bg-slate-200 dark:bg-neutral-800 inline-block text-[8px] text-center leading-6 font-mono">۲۴</span>
+                    <span class="w-6 h-6 rounded bg-slate-950 text-white dark:bg-white dark:text-black inline-block text-[8px] text-center leading-6 font-mono font-bold">۴۱</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // --- STREAMING_CHUNK: Processing logic flow and controllers... ---
+
+    // Login Commit Action
+    function selectLoginAvatar(idx) {
+      state.user.avatarIdx = idx;
+      playLocalSound('click');
+      // Highlight the selected element
+      for (let i = 0; i < SVG_AVATARS.length; i++) {
+        const el = document.getElementById(`login-avatar-${i}`);
+        if (el) {
+          if (i === idx) {
+            el.classList.add('border-slate-900', 'dark:border-white', 'scale-105');
+            el.classList.remove('border-transparent', 'opacity-60');
+          } else {
+            el.classList.remove('border-slate-900', 'dark:border-white', 'scale-105');
+            el.classList.add('border-transparent', 'opacity-60');
+          }
+        }
+      }
+    }
+
+    function selectProfileAvatarDirectly(idx) {
+      state.user.avatarIdx = idx;
+      saveUserCredentials();
+      playLocalSound('click');
+      renderCurrentScreen();
+    }
+
+    function commitProfileSetup() {
+      const nameInput = document.getElementById('nickname-input-field');
+      const nicknameVal = nameInput ? nameInput.value.trim() : '';
+
+      if (!nicknameVal) {
+        showNotification('لطفاً نام مستعار خود را وارد کنید.');
+        playLocalSound('alert');
+        return;
+      }
+
+      state.user.nickname = nicknameVal;
+      saveUserCredentials();
+      playLocalSound('success');
+      navigateTo('home');
+    }
+
+    // Create Room Page Logic
+    function toggleCreateRoomPrivate() {
+      const checkbox = document.getElementById('create-room-private');
+      if (checkbox) {
+        state.isPrivate = checkbox.checked;
+        const container = document.getElementById('create-room-password-container');
+        if (container) {
+          if (state.isPrivate) {
+            container.classList.remove('hidden');
+          } else {
+            container.classList.add('hidden');
+          }
+        }
+      }
+    }
+
+    function commitCreateRoom() {
+      const nameField = document.getElementById('create-room-name');
+      const passField = document.getElementById('create-room-password');
+      const limitField = document.getElementById('create-room-limit');
+      const speedField = document.getElementById('create-room-speed');
+      const patternField = document.getElementById('create-room-pattern');
+
+      state.roomName = nameField ? nameField.value.trim() : 'کافه دبرنا';
+      state.roomPassword = passField ? passField.value : '';
+      state.playerLimit = limitField ? parseInt(limitField.value) : 6;
+      state.gameSpeed = speedField ? parseInt(speedField.value) : 4;
+      state.winningPattern = patternField ? patternField.value : 'fullhouse';
+      
+      // Auto-generate code
+      state.roomCode = Math.floor(100000 + Math.random() * 900000).toString();
+      state.isHost = true;
+
+      // Populate players with simulated bots
+      state.players = [
+        { id: state.user.id, name: state.user.nickname, avatar: SVG_AVATARS[state.user.avatarIdx], isHost: true, isBot: false },
+        { id: 'BOT-839210', name: BOT_NAMES[0], avatar: SVG_AVATARS[1], isHost: false, isBot: true },
+        { id: 'BOT-110293', name: BOT_NAMES[1], avatar: SVG_AVATARS[2], isHost: false, isBot: true }
+      ];
+
+      // System Messages
+      state.messages = [
+        { id: 1, sender: 'سیستم', text: `اتاق بازی "${state.roomName}" آماده اتصال است.`, isSystem: true },
+        { id: 2, sender: 'سیستم', text: `شناسه لابی شما: ${state.roomCode}`, isSystem: true }
+      ];
+
+      playLocalSound('success');
+      navigateTo('lobby');
+    }
+
+    // Quick Match Handler
+    function handleQuickJoin() {
+      state.roomName = 'لابی عمومی قهرمانان';
+      state.isPrivate = false;
+      state.roomPassword = '';
+      state.playerLimit = 6;
+      state.gameSpeed = 4;
+      state.winningPattern = 'fullhouse';
+      state.roomCode = Math.floor(100000 + Math.random() * 900000).toString();
+      state.isHost = false;
+
+      // Players list loaded with user and host bots
+      state.players = [
+        { id: 'BOT-441029', name: BOT_NAMES[3], avatar: SVG_AVATARS[3], isHost: true, isBot: true },
+        { id: state.user.id, name: state.user.nickname, avatar: SVG_AVATARS[state.user.avatarIdx], isHost: false, isBot: false },
+        { id: 'BOT-991022', name: BOT_NAMES[4], avatar: SVG_AVATARS[4], isHost: false, isBot: true }
+      ];
+
+      state.messages = [
+        { id: 1, sender: 'سیستم', text: 'با موفقیت به سریع‌ترین اتاق عمومی متصل شدید.', isSystem: true }
+      ];
+
+      playLocalSound('success');
+      navigateTo('lobby');
+    }
+
+    // Lobby Actions
+    function copyLobbyCode() {
+      // Direct standard selection and clipboard copy fallback
+      const text = state.roomCode;
+      const input = document.createElement('textarea');
+      input.value = text;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+
+      showNotification('کد اتاق با موفقیت کپی شد!');
+      playLocalSound('success');
+    }
+
+    function sendLobbyEmoji(emoji) {
+      const msg = {
+        id: Date.now(),
+        sender: state.user.nickname,
+        avatar: SVG_AVATARS[state.user.avatarIdx],
+        text: emoji,
+        isSystem: false
+      };
+      state.messages.push(msg);
+      playLocalSound('click');
+      
+      // Re-render lobby chat viewport only (avoid full repaint)
+      updateLobbyChatDOM();
+    }
+
+    function handleLobbyChatSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('lobby-chat-input-box');
+      const val = input ? input.value.trim() : '';
+      if (!val) return;
+
+      const msg = {
+        id: Date.now(),
+        sender: state.user.nickname,
+        avatar: SVG_AVATARS[state.user.avatarIdx],
+        text: val,
+        isSystem: false
+      };
+      state.messages.push(msg);
+      input.value = '';
+      playLocalSound('click');
+      updateLobbyChatDOM();
+    }
+
+    function updateLobbyChatDOM() {
+      const viewport = document.getElementById('lobby-messages-viewport');
+      if (viewport) {
+        viewport.innerHTML = state.messages.map(m => {
+          if (m.isSystem) {
+            return `<div class="text-center"><span class="bg-slate-100 dark:bg-neutral-900 px-3 py-1 rounded-full text-slate-400 text-[9px] inline-block">${m.text}</span></div>`;
+          }
+          return `
             <div class="flex items-start gap-2">
-              <img src="${m.avatar || AVATARS[0]}" class="w-7 h-7 rounded-full object-cover mt-0.5" />
-              <div class="bg-black/20 p-2.5 rounded-2xl flex-1 border border-white/5">
-                <span class="font-bold text-[10px] block text-amber-300 mb-0.5">${m.sender}</span>
-                <p class="text-slate-100">${m.text}</p>
+              <div class="w-6 h-6 rounded-full border border-slate-200 dark:border-neutral-800 overflow-hidden shrink-0">
+                ${m.avatar}
+              </div>
+              <div class="bg-slate-50 dark:bg-neutral-900 p-2 rounded-xl flex-1 border border-slate-100 dark:border-neutral-800/50">
+                <span class="font-bold text-[9px] text-slate-500 block mb-0.5">${m.sender}</span>
+                <p class="text-slate-800 dark:text-neutral-200 text-xs">${m.text}</p>
               </div>
             </div>
           `;
-        }
-      });
-      container.scrollTop = container.scrollHeight;
+        }).join('');
+        viewport.scrollTop = viewport.scrollHeight;
+      }
     }
 
-    function handleSendChatMessage(e) {
-      e.preventDefault();
-      const input = document.getElementById('lobby-chat-input');
-      const text = input.value.trim();
-      if (!text) return;
-
-      activeGameplay.messages.push({
-        id: Date.now(),
-        sender: userState.nickname,
-        avatar: userState.avatar,
-        text: text
-      });
-      input.value = '';
-      renderLobbyChat();
+    // Settings actions
+    function selectVoiceOption(id) {
+      state.voiceLanguage = id;
       playLocalSound('click');
+      renderCurrentScreen();
     }
 
-    function sendQuickEmoji(emoji) {
-      activeGameplay.messages.push({
-        id: Date.now(),
-        sender: userState.nickname,
-        avatar: userState.avatar,
-        text: emoji
-      });
-      renderLobbyChat();
-      playLocalSound('click');
+    function selectCardStyleOption(id) {
+      const found = CARD_STYLES.find(c => c.id === id);
+      if (found) {
+        state.selectedCardStyle = found;
+        playLocalSound('click');
+        renderCurrentScreen();
+      }
     }
 
-    // --- STREAMING_CHUNK: Generating Dabrna standard card structure... ---
-    function generateDabrnaCard() {
+    // --- STREAMING_CHUNK: Card generation logic and checks... ---
+
+    // Mathematical distribution layout for Iranian classic Dabarna board
+    // 3 rows, 9 columns. Each column contains numbers in its tenth range (col 0: 1-9, col 8: 80-90)
+    // Every row must contain exactly 5 active numbers and 4 null/empty elements
+    function generateMathDabrnaCard() {
       let card = Array(3).fill(null).map(() => Array(9).fill(null));
-      let colNumbers = [];
-      
+      let colData = [];
+
       for (let col = 0; col < 9; col++) {
         let min = col === 0 ? 1 : col * 10;
         let max = col === 8 ? 90 : (col * 10) + 9;
         let pool = [];
         for (let i = min; i <= max; i++) pool.push(i);
         
+        // Shuffle and pick 3 numbers sorted vertically
         pool.sort(() => Math.random() - 0.5);
         let chosen = pool.slice(0, 3).sort((a, b) => a - b);
-        colNumbers.push(chosen);
+        colData.push(chosen);
       }
 
+      // Fill basic grid
       for (let col = 0; col < 9; col++) {
         for (let row = 0; row < 3; row++) {
-          card[row][col] = colNumbers[col][row];
+          card[row][col] = colData[col][row];
         }
       }
 
+      // Eliminate exactly 4 numbers from each row randomly
       for (let row = 0; row < 3; row++) {
         let emptyIndices = [];
         while (emptyIndices.length < 4) {
-          let randIdx = Math.floor(Math.random() * 9);
-          if (!emptyIndices.includes(randIdx)) {
-            emptyIndices.push(randIdx);
+          let rand = Math.floor(Math.random() * 9);
+          if (!emptyIndices.includes(rand)) {
+            emptyIndices.push(rand);
           }
         }
         emptyIndices.forEach(colIdx => {
           card[row][colIdx] = null;
         });
       }
+
       return card;
     }
 
-    // --- GAMEPLAY ENGINE ---
+    // --- GAMEPLAY CONTROLLER ENGINE ---
     function startGameplay() {
-      // Setup Game state
-      activeGameplay.myCard = generateDabrnaCard();
-      activeGameplay.markedCells = [];
-      activeGameplay.drawnNumbers = [];
-      activeGameplay.currentNumber = null;
-      activeGameplay.isActive = true;
-      activeGameplay.timer = 0;
-      activeGameplay.isDabrnaReady = false;
+      state.myCard = generateMathDabrnaCard();
+      state.markedCells = [];
+      state.drawnNumbers = [];
+      state.currentNumber = null;
+      state.timer = 0;
+      state.winner = null;
+      state.isDabrnaReady = false;
+      state.gameActive = true;
 
-      // Update Header/Labels
-      document.getElementById('gameplay-voice-name').innerText = PERSUASIVE_VOICES.find(v => v.id === voiceLanguage).name;
-      document.getElementById('gameplay-pattern-title').innerText = 
-        roomSettings.pattern === 'fullhouse' ? 'تمام خانه (۱۵ مهره)' : (roomSettings.pattern === 'single-line' ? 'یک خط افقی' : 'دو خط افقی');
-
-      renderGameplayCard();
-      renderDrawnHistory();
-      renderOpponentsProgress();
-
-      // UI Screen Transition
+      playLocalSound('success');
       navigateTo('gameplay');
 
-      // Start Timers
-      if (activeGameplay.timerInterval) clearInterval(activeGameplay.timerInterval);
-      activeGameplay.timerInterval = setInterval(() => {
-        activeGameplay.timer++;
-        const mins = Math.floor(activeGameplay.timer / 60).toString().padStart(2, '0');
-        const secs = (activeGameplay.timer % 60).toString().padStart(2, '0');
-        document.getElementById('gameplay-timer').innerText = `زمان: ${mins}:${secs}`;
-        
-        // Bot random chats during play
-        if (Math.random() < 0.05) {
-          const bots = activeGameplay.players.filter(p => p.isBot);
-          if (bots.length > 0) {
-            const randomBot = bots[Math.floor(Math.random() * bots.length)];
-            const phrases = ["من فقط دوتا شماره لازم دارم دبرنا بشم 😍", "این شماره من بود شانس ندارم کلا! 😂", "دبرنااااااا نزدیکم!"];
-            activeGameplay.messages.push({
-              id: Date.now(),
-              sender: randomBot.name,
-              avatar: randomBot.avatar,
-              text: phrases[Math.floor(Math.random() * phrases.length)]
-            });
-            renderLobbyChat(); // Updates the gameplay bottom chat logs as well
-          }
-        }
-        
-        // Simulating progressive bot matching progress
-        renderOpponentsProgress();
-      }, 1000);
-
-      if (activeGameplay.drawInterval) clearInterval(activeGameplay.drawInterval);
-      if (roomSettings.autoDraw) {
-        activeGameplay.drawInterval = setInterval(() => {
-          drawNextNumber();
-        }, roomSettings.speed * 1000);
+      // Setup Draw loops
+      if (state.drawInterval) clearInterval(state.drawInterval);
+      if (state.autoDraw) {
+        state.drawInterval = setInterval(() => {
+          drawMatchNumber();
+        }, state.gameSpeed * 1000);
       }
+
+      // Setup clock timer
+      if (state.timerInterval) clearInterval(state.timerInterval);
+      state.timerInterval = setInterval(() => {
+        state.timer++;
+        updateGameplayTimerDOM();
+        simulateBotsReactionAndMovements();
+      }, 1000);
     }
 
-    function drawNextNumber() {
-      if (!activeGameplay.isActive) return;
+    function drawMatchNumber() {
+      if (!state.gameActive || state.winner) return;
 
-      if (activeGameplay.drawnNumbers.length >= 90) {
-        clearInterval(activeGameplay.drawInterval);
-        showNotification('تمامی شماره‌ها کشیده شدند! بازی مساوی به پایان رسید.');
+      if (state.drawnNumbers.length >= 90) {
+        endGameWithDraw();
         return;
       }
 
-      let newNum;
+      let roll;
       do {
-        newNum = Math.floor(Math.random() * 90) + 1;
-      } while (activeGameplay.drawnNumbers.includes(newNum));
+        roll = Math.floor(Math.random() * 90) + 1;
+      } while (state.drawnNumbers.includes(roll));
 
-      activeGameplay.drawnNumbers.push(newNum);
-      activeGameplay.currentNumber = newNum;
+      state.drawnNumbers.push(roll);
+      state.currentNumber = roll;
 
-      // Render Display
-      document.getElementById('gameplay-current-number').innerText = newNum;
-      document.getElementById('gameplay-numbers-left').innerText = `اعداد مانده: ${90 - activeGameplay.drawnNumbers.length}`;
+      // Speak & sound
+      speakNumber(roll);
+      playLocalSound('draw');
 
-      renderGameplayCard(); // re-render to update dynamic matching helpers (yellow flash)
-      renderDrawnHistory();
-      speakNumber(newNum);
-      playLocalSound('click');
-
-      // Bots simulation win check
-      simulateBotWinCheck();
+      // Update Screen elements dynamically without refreshing entire page
+      updateGameplayCallerDOM();
+      highlightEligibleBoardCells();
     }
 
-    function renderGameplayCard() {
-      const grid = document.getElementById('gameplay-card-grid');
-      grid.innerHTML = '';
+    function updateGameplayTimerDOM() {
+      const label = document.getElementById('gameplay-timer-label');
+      if (label) {
+        const min = Math.floor(state.timer / 60).toString().padStart(2, '۰');
+        const sec = (state.timer % 60).toString().padStart(2, '۰');
+        label.innerText = `زمان: ${min}:${sec}`;
+      }
+    }
 
-      activeGameplay.myCard.forEach((row, rowIdx) => {
-        row.forEach((val, colIdx) => {
-          const coord = `${rowIdx}-${colIdx}`;
-          const isMarked = activeGameplay.markedCells.includes(coord);
-          const isDrawn = val ? activeGameplay.drawnNumbers.includes(val) : false;
+    function updateGameplayCallerDOM() {
+      const sphere = document.getElementById('gameplay-current-number-sphere');
+      if (sphere) {
+        sphere.innerText = state.currentNumber;
+      }
 
-          let cellClass = `aspect-square flex items-center justify-center rounded-xl border text-sm md:text-xl font-black cursor-pointer transition-all relative overflow-hidden select-none border-slate-300 dark:border-slate-700 `;
-          
-          if (!val) {
-            cellClass += `bg-slate-100/10 dark:bg-slate-900/40 border-dashed pointer-events-none`;
-          } else if (isMarked) {
-            cellClass += `bg-rose-500 text-white shadow-lg`;
-          } else {
-            cellClass += `text-slate-900 dark:text-slate-100`;
+      const leftLabel = document.getElementById('gameplay-numbers-left-label');
+      if (leftLabel) {
+        leftLabel.innerText = `اعداد مانده: ${90 - state.drawnNumbers.length}`;
+      }
+
+      const totalDrawn = document.getElementById('history-total-drawn');
+      if (totalDrawn) {
+        totalDrawn.innerText = `${state.drawnNumbers.length} مهره`;
+      }
+
+      // Render drawn history block
+      const historyGrid = document.getElementById('gameplay-history-grid');
+      if (historyGrid) {
+        historyGrid.innerHTML = state.drawnNumbers.slice().reverse().map(num => `
+          <span class="bg-slate-100 dark:bg-neutral-800 text-slate-800 dark:text-neutral-200 py-1.5 rounded-lg border border-slate-200/50 dark:border-neutral-700/60 transition-all">
+            ${num}
+          </span>
+        `).join('');
+      }
+    }
+
+    function highlightEligibleBoardCells() {
+      // Force repaint highlight rings for cell matching
+      state.myCard.forEach((row, rIdx) => {
+        row.forEach((val, cIdx) => {
+          if (val) {
+            const cellElement = document.getElementById(`gp-cell-${rIdx}-${cIdx}`);
+            if (cellElement) {
+              const isDrawn = state.drawnNumbers.includes(val);
+              const isMarked = state.markedCells.includes(`${rIdx}-${cIdx}`);
+              
+              if (isDrawn && !isMarked) {
+                cellElement.classList.add('ring-2', 'ring-amber-400', 'animate-pulse');
+              } else {
+                cellElement.classList.remove('ring-2', 'ring-amber-400', 'animate-pulse');
+              }
+            }
           }
-
-          grid.innerHTML += `
-            <div 
-              onclick="handleCardCellTap(${rowIdx}, ${colIdx}, ${val})"
-              class="${cellClass}"
-            >
-              ${val || ''}
-              ${isDrawn && !isMarked ? '<span class="absolute inset-0 bg-yellow-400/20 animate-pulse"></span>' : ''}
-            </div>
-          `;
         });
       });
     }
 
-    function renderDrawnHistory() {
-      const container = document.getElementById('gameplay-drawn-history');
-      container.innerHTML = '';
-      activeGameplay.drawnNumbers.slice().reverse().forEach(num => {
-        container.innerHTML += `
-          <span class="bg-black/30 text-[11px] font-bold py-1.5 rounded-lg text-slate-100">${num}</span>
-        `;
-      });
-    }
+    function bindGameplayDOM() {
+      // 1. Load active caller voice config
+      const voice = PERSUASIVE_VOICES.find(v => v.id === state.voiceLanguage);
+      document.getElementById('caller-voice-label').innerText = voice ? voice.name : '-';
 
-    function renderOpponentsProgress() {
-      const container = document.getElementById('gameplay-opponents-list');
-      container.innerHTML = '';
-      activeGameplay.players.filter(p => !p.isHost).forEach((bot, i) => {
-        // Mock progression calculation based on game length
-        const progress = Math.min((activeGameplay.drawnNumbers.length * 3.5) + (i * 10), 95);
-        container.innerHTML += `
-          <div class="bg-black/20 p-3 rounded-xl space-y-2 border border-white/5">
-            <div class="flex items-center justify-between text-xs">
-              <div class="flex items-center gap-1.5">
-                <img src="${bot.avatar}" class="w-6 h-6 rounded-full object-cover" />
-                <span class="font-bold">${bot.name}</span>
-              </div>
-              <span class="text-slate-400 text-[10px]">در حال بازی</span>
-            </div>
-            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-              <div class="bg-blue-400 h-full" style="width: ${progress}%"></div>
-            </div>
+      // 2. Win rule title
+      let ruleTitle = 'تمام خانه (کل کارت پر شود)';
+      if (state.winningPattern === 'single-line') ruleTitle = 'تک خط افقی (یک ردیف کامل)';
+      if (state.winningPattern === 'double-line') ruleTitle = 'دو خط افقی (دو ردیف کامل)';
+      document.getElementById('gameplay-pattern-label').innerText = ruleTitle;
+
+      // 3. Draw active card layout
+      const container = document.getElementById('gameplay-main-card-wrapper');
+      if (container) {
+        container.innerHTML = `
+          <div class="grid grid-cols-9 gap-2">
+            ${state.myCard.map((row, rIdx) => 
+              row.map((val, cIdx) => {
+                const isMarked = state.markedCells.includes(`${rIdx}-${cIdx}`);
+                const hasValue = val !== null;
+                
+                return `
+                  <div 
+                    id="gp-cell-${rIdx}-${cIdx}"
+                    onclick="handleGameplayCardTap(${rIdx}, ${cIdx}, ${val})"
+                    class="aspect-square flex items-center justify-center rounded-xl border text-sm md:text-lg font-black transition-all smooth-transition select-none
+                      ${hasValue ? 'cursor-pointer hover:scale-[1.05]' : 'pointer-events-none opacity-20 border-dashed'}
+                      ${isMarked ? state.selectedCardStyle.active : `${state.selectedCardStyle.cell} bg-white dark:bg-zinc-900 text-slate-800 dark:text-neutral-200`}
+                    "
+                  >
+                    ${val || ''}
+                  </div>
+                `;
+              }).join('')
+            ).join('')}
           </div>
         `;
-      });
+      }
+
+      // Initial state
+      updateGameplayCallerDOM();
+      highlightEligibleBoardCells();
+      syncBotPlayersPanel();
     }
 
-    // --- STREAMING_CHUNK: Handling Cell validation... ---
-    function handleCardCellTap(rowIdx, colIdx, val) {
-      if (!val || !activeGameplay.isActive) return;
+    // Handle Tap matches
+    function handleGameplayCardTap(row, col, val) {
+      if (!val || !state.gameActive || state.winner) return;
 
-      const coord = `${rowIdx}-${colIdx}`;
-      if (activeGameplay.drawnNumbers.includes(val)) {
-        if (!activeGameplay.markedCells.includes(coord)) {
-          activeGameplay.markedCells.push(coord);
+      const coord = `${row}-${col}`;
+      if (state.drawnNumbers.includes(val)) {
+        if (!state.markedCells.includes(coord)) {
+          state.markedCells.push(coord);
           playLocalSound('success');
-          checkWinningPossibility();
+          
+          // Re-style element manually to prevent fully rebuilding board
+          const cell = document.getElementById(`gp-cell-${row}-${col}`);
+          if (cell) {
+            cell.className = `aspect-square flex items-center justify-center rounded-xl border text-sm md:text-lg font-black transition-all smooth-transition select-none cursor-pointer hover:scale-[1.05] ${state.selectedCardStyle.active}`;
+          }
+
+          checkMatchPatternEligibility();
         }
       } else {
+        // Red flashing error feedback
         playLocalSound('alert');
         showNotification('این شماره هنوز قرعه‌کشی نشده است!');
       }
-      renderGameplayCard();
     }
 
-    function checkWinningPossibility() {
+    function checkMatchPatternEligibility() {
+      let activeCardNumbers = state.myCard.flat().filter(Boolean);
       let matchedCount = 0;
-      let totalNumbersInCard = 0;
 
-      // Count total numbers and matches
-      activeGameplay.myCard.forEach((row, rowIdx) => {
-        row.forEach((val, colIdx) => {
-          if (val) {
-            totalNumbersInCard++;
-            if (activeGameplay.markedCells.includes(`${rowIdx}-${colIdx}`)) {
-              matchedCount++;
-            }
+      // Calculate total matched numbers
+      state.myCard.forEach((row, rIdx) => {
+        row.forEach((val, cIdx) => {
+          if (val && state.markedCells.includes(`${rIdx}-${cIdx}`)) {
+            matchedCount++;
           }
         });
       });
 
-      document.getElementById('gameplay-match-count').innerText = `${matchedCount} / ${totalNumbersInCard}`;
+      document.getElementById('gameplay-match-count-label').innerText = `${matchedCount} / ${activeCardNumbers.length}`;
 
-      let eligible = false;
-      if (roomSettings.pattern === 'fullhouse') {
-        if (matchedCount >= totalNumbersInCard && totalNumbersInCard > 0) eligible = true;
-      } else if (roomSettings.pattern === 'single-line') {
-        // At least one complete horizontal row
+      let winClaimable = false;
+
+      if (state.winningPattern === 'fullhouse') {
+        if (matchedCount >= activeCardNumbers.length && activeCardNumbers.length > 0) {
+          winClaimable = true;
+        }
+      } else if (state.winningPattern === 'single-line') {
         for (let r = 0; r < 3; r++) {
-          let rowMatched = true;
-          let rowElements = 0;
+          let lineMatch = true;
+          let counts = 0;
           for (let c = 0; c < 9; c++) {
-            const val = activeGameplay.myCard[r][c];
-            if (val) {
-              rowElements++;
-              if (!activeGameplay.markedCells.includes(`${r}-${c}`)) rowMatched = false;
+            const v = state.myCard[r][c];
+            if (v) {
+              counts++;
+              if (!state.markedCells.includes(`${r}-${c}`)) lineMatch = false;
             }
           }
-          if (rowMatched && rowElements > 0) {
-            eligible = true;
+          if (lineMatch && counts > 0) {
+            winClaimable = true;
             break;
           }
         }
       } else {
-        // Two completed lines
-        let completedLines = 0;
+        // Double lines check
+        let lineCompletedCount = 0;
         for (let r = 0; r < 3; r++) {
-          let rowMatched = true;
-          let rowElements = 0;
+          let lineMatch = true;
+          let counts = 0;
           for (let c = 0; c < 9; c++) {
-            const val = activeGameplay.myCard[r][c];
-            if (val) {
-              rowElements++;
-              if (!activeGameplay.markedCells.includes(`${r}-${c}`)) rowMatched = false;
+            const v = state.myCard[r][c];
+            if (v) {
+              counts++;
+              if (!state.markedCells.includes(`${r}-${c}`)) lineMatch = false;
             }
           }
-          if (rowMatched && rowElements > 0) completedLines++;
+          if (lineMatch && counts > 0) lineCompletedCount++;
         }
-        if (completedLines >= 2) eligible = true;
+        if (lineCompletedCount >= 2) {
+          winClaimable = true;
+        }
       }
 
-      const claimBtn = document.getElementById('dabrna-claim-btn');
-      if (eligible) {
-        activeGameplay.isDabrnaReady = true;
-        claimBtn.disabled = false;
-        claimBtn.className = "w-full md:w-auto md:px-24 py-5 rounded-3xl text-2xl font-black tracking-wider shadow-2xl transition-all transform active:scale-95 flex items-center justify-center gap-3 bg-gradient-to-r from-red-500 via-pink-600 to-rose-500 text-white animate-bounce ring-4 ring-yellow-400 cursor-pointer";
-      } else {
-        activeGameplay.isDabrnaReady = false;
-        claimBtn.disabled = true;
-        claimBtn.className = "w-full md:w-auto md:px-24 py-5 rounded-3xl text-2xl font-black tracking-wider shadow-2xl transition-all transform active:scale-95 flex items-center justify-center gap-3 bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700";
+      const claimBtn = document.getElementById('claim-victory-dabrna-btn');
+      if (claimBtn) {
+        if (winClaimable) {
+          state.isDabrnaReady = true;
+          claimBtn.disabled = false;
+          claimBtn.className = "w-full py-4 rounded-2xl text-lg font-black tracking-widest shadow-xl transition-all transform active:scale-95 flex items-center justify-center gap-2 bg-slate-950 hover:bg-slate-900 text-white dark:bg-white dark:hover:bg-neutral-100 dark:text-slate-950 animate-bounce cursor-pointer";
+        } else {
+          state.isDabrnaReady = false;
+          claimBtn.disabled = true;
+          claimBtn.className = "w-full py-4 rounded-2xl text-lg font-black tracking-widest shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2 bg-slate-100 dark:bg-zinc-800 text-slate-400 cursor-not-allowed border border-slate-200 dark:border-zinc-700 smooth-transition";
+        }
       }
     }
 
-    function simulateBotWinCheck() {
-      // Small simulated chance for any active bot to complete card and call Dabrna
-      if (activeGameplay.drawnNumbers.length > 20 && Math.random() < 0.04) {
-        const bots = activeGameplay.players.filter(p => p.isBot);
+    function syncBotPlayersPanel() {
+      const container = document.getElementById('gameplay-bots-container');
+      if (container) {
+        container.innerHTML = state.players.filter(p => p.id !== state.user.id).map((bot, idx) => {
+          // Dynamic computed progress based on numbers drawn
+          const percent = Math.min((state.drawnNumbers.length * 3.5) + (idx * 8), 92);
+          return `
+            <div class="bg-slate-50 dark:bg-neutral-900/60 p-3 rounded-2xl border border-slate-100 dark:border-neutral-800/40 space-y-1.5">
+              <div class="flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                  <div class="w-6 h-6 rounded-full border border-slate-200 dark:border-neutral-800 overflow-hidden">
+                    ${bot.avatar}
+                  </div>
+                  <span class="font-bold">${bot.name}</span>
+                </div>
+                <span class="text-[9px] text-slate-400 font-mono">${percent}%</span>
+              </div>
+              <div class="w-full bg-slate-200 dark:bg-neutral-800 h-1 rounded-full overflow-hidden">
+                <div class="bg-slate-950 dark:bg-white h-full" style="width: ${percent}%"></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    // --- STREAMING_CHUNK: Simulated bots chat triggers... ---
+    function simulateBotsReactionAndMovements() {
+      if (!state.gameActive || state.winner) return;
+
+      // Random bot messages
+      if (Math.random() < 0.05) {
+        const bots = state.players.filter(p => p.isBot);
         if (bots.length > 0) {
-          const winnerBot = bots[Math.floor(Math.random() * bots.length)];
-          endGameWithWinner(winnerBot.name, winnerBot.avatar, false);
+          const randBot = bots[Math.floor(Math.random() * bots.length)];
+          const quotes = [
+            "عدد بعدی چنده؟ بگین دیگه!",
+            "من فقط دوتا شماره لازم دارم دبرنا بشم 😍",
+            "کاش شماره‌های منم بخونین",
+            "امروز شانس ندارما کلا خالیه کارتم!",
+            "دبرنااااااا نزدیکم!"
+          ];
+          const text = quotes[Math.floor(Math.random() * quotes.length)];
+          addGameplayMiniMessage(randBot.name, text);
         }
       }
+
+      // Check simulated bot win chance
+      if (state.drawnNumbers.length > 22 && Math.random() < 0.035) {
+        const bots = state.players.filter(p => p.isBot);
+        if (bots.length > 0) {
+          const winnerBot = bots[Math.floor(Math.random() * bots.length)];
+          triggerEndGameSequence(winnerBot.name, winnerBot.avatar, false);
+        }
+      }
+
+      // Sync opponents bar
+      syncBotPlayersPanel();
+    }
+
+    function addGameplayMiniMessage(sender, text) {
+      const logs = document.getElementById('gameplay-mini-chat-logs');
+      if (logs) {
+        logs.innerHTML += `
+          <div class="bg-slate-100 dark:bg-neutral-900/60 p-2 rounded-xl border border-slate-200/20">
+            <span class="font-bold text-slate-600 dark:text-neutral-400 block text-[9px]">${sender}:</span>
+            <p class="text-slate-800 dark:text-neutral-200 text-xs">${text}</p>
+          </div>
+        `;
+        logs.scrollTop = logs.scrollHeight;
+      }
+    }
+
+    function handleGameplayChatSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('gameplay-mini-chat-input');
+      const val = input ? input.value.trim() : '';
+      if (!val) return;
+
+      addGameplayMiniMessage(state.user.nickname, val);
+      input.value = '';
+      playLocalSound('click');
     }
 
     function claimDabrnaVictory() {
-      if (!activeGameplay.isDabrnaReady) return;
-      endGameWithWinner(userState.nickname, userState.avatar, true);
+      if (!state.isDabrnaReady) return;
+      triggerEndGameSequence(state.user.nickname, SVG_AVATARS[state.user.avatarIdx], true);
     }
 
-    // --- STREAMING_CHUNK: Triggering custom CSS Confetti... ---
-    function triggerCSSConfetti() {
-      const colors = ['#f59e0b', '#ec4899', '#3b82f6', '#10b981', '#a855f7'];
-      for (let i = 0; i < 60; i++) {
-        const piece = document.createElement('div');
-        piece.classList.add('confetti-piece');
-        piece.style.left = Math.random() * 100 + 'vw';
-        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        piece.style.animationDuration = (Math.random() * 3 + 2) + 's';
-        piece.style.animationDelay = (Math.random() * 2) + 's';
-        document.body.appendChild(piece);
-        // Remove element after animation
-        setTimeout(() => piece.remove(), 5000);
-      }
-    }
+    function triggerEndGameSequence(name, avatar, isUser) {
+      state.gameActive = false;
+      clearInterval(state.drawInterval);
+      clearInterval(state.timerInterval);
 
-    function endGameWithWinner(name, avatar, isUser) {
-      activeGameplay.isActive = false;
-      clearInterval(activeGameplay.timerInterval);
-      clearInterval(activeGameplay.drawInterval);
+      state.winner = { name, avatar, isUser, timer: state.timer };
 
-      // Open Winner modal
-      document.getElementById('winner-name').innerText = name;
-      document.getElementById('winner-avatar').src = avatar;
-      document.getElementById('winner-time').innerText = `${activeGameplay.timer} ثانیه`;
-
+      // Apply rewards
       if (isUser) {
-        document.getElementById('winner-coins').innerText = `+100 سکه`;
-        userState.coins += 100;
-        userState.wins += 1;
-        userState.played += 1;
-        syncUserHeader();
-        triggerCSSConfetti();
+        state.user.coins += 100;
+        state.user.wins += 1;
+        state.user.played += 1;
+        state.user.xp += 150;
+        state.user.level = Math.floor(state.user.xp / 100) + 1;
+        
+        // Save statistics
+        localStorage.setItem('dab_coins', state.user.coins);
+        
+        // Trigger Canvas Confetti
+        if (window.confetti) {
+          window.confetti({
+            particleCount: 150,
+            spread: 85,
+            origin: { y: 0.6 }
+          });
+        }
       } else {
-        document.getElementById('winner-coins').innerText = `+0 سکه`;
+        state.user.played += 1;
       }
 
-      document.getElementById('winner-modal').classList.remove('hidden');
-      playLocalSound('success');
+      // Draw Modal
+      drawWinnerModalDOM();
     }
 
-    function closeWinnerModalAndReturn() {
-      document.getElementById('winner-modal').classList.add('hidden');
+    function drawWinnerModalDOM() {
+      const modal = document.getElementById('winner-modal-overlay');
+      if (modal) {
+        modal.className = "fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 text-center text-white";
+        modal.innerHTML = `
+          <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-neutral-800 text-slate-950 dark:text-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative overflow-hidden">
+            <span class="text-5xl mb-3 block animate-bounce">🏆</span>
+            <h2 class="text-2xl font-black mb-1 text-slate-900 dark:text-white">دبـرناااااا !</h2>
+            <p class="text-xs text-slate-400 mb-6">مسابقه با موفقیت به پایان رسید</p>
+
+            <div class="bg-slate-50 dark:bg-neutral-800/40 p-4 rounded-2xl mb-6 space-y-4 border border-slate-200/50 dark:border-neutral-800/60">
+              <div class="w-16 h-16 rounded-full mx-auto border border-slate-300 dark:border-neutral-700 overflow-hidden">
+                ${state.winner.avatar}
+              </div>
+              <div>
+                <span class="text-sm font-bold block">${state.winner.name}</span>
+                <span class="text-[9px] text-slate-400">قهرمان این دور مسابقات</span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 text-xs border-t border-slate-200 dark:border-neutral-800 pt-3 text-right">
+                <div>
+                  <span class="text-[9px] text-slate-400 block">مدت زمان بازی:</span>
+                  <span class="font-bold text-slate-800 dark:text-neutral-200 font-mono">${state.winner.timer} ثانیه</span>
+                </div>
+                <div>
+                  <span class="text-[9px] text-slate-400 block">جایزه صندوق:</span>
+                  <span class="font-bold text-amber-600 dark:text-amber-400 font-mono">${state.winner.isUser ? '+۱۰۰ سکه' : '۰'}</span>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="dismissWinnerModalAndReturn()" class="w-full bg-slate-950 hover:bg-slate-900 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-black font-bold py-3 rounded-xl text-xs transition-all">
+              بازگشت به لابی خانه
+            </button>
+          </div>
+        `;
+        playLocalSound('success');
+      }
+    }
+
+    function dismissWinnerModalAndReturn() {
+      const modal = document.getElementById('winner-modal-overlay');
+      if (modal) modal.className = "hidden";
       navigateTo('home');
     }
 
-    // --- OTHER SUB-SCREENS LOADERS ---
-    function renderLeaderboard() {
-      const container = document.getElementById('leaderboard-list');
-      container.innerHTML = '';
-      const list = [
-        { rank: 1, name: "کامیار_دبرناباز", xp: "۴,۸۹۰ XP", wins: 142, avatar: AVATARS[4] },
-        { rank: 2, name: "نازنین_خوش‌شانس", xp: "۳,۹۲۰ XP", wins: 110, avatar: AVATARS[1] },
-        { rank: 3, name: "کوروش_صداخوان", xp: "۳,۱۰۰ XP", wins: 94, avatar: AVATARS[2] },
-        { rank: 4, name: "آرش_تندپنجه", xp: "۲,۵۰۰ XP", wins: 78, avatar: AVATARS[0] },
-        { rank: 5, name: `${userState.nickname} (شما)`, xp: "۱,۴۵۰ XP", wins: userState.wins, avatar: userState.avatar, isUser: true }
-      ];
+    function endGameWithDraw() {
+      state.gameActive = false;
+      clearInterval(state.drawInterval);
+      clearInterval(state.timerInterval);
+      showNotification('مهره‌ها تمام شد! بازی بدون برنده پایان یافت.');
+      navigateTo('home');
+    }
 
-      list.forEach((item, index) => {
-        container.innerHTML += `
-          <div class="flex items-center justify-between p-3 rounded-2xl ${item.isUser ? 'bg-amber-500/20 border-2 border-amber-400' : 'bg-black/20'}">
-            <div class="flex items-center gap-3">
-              <span class="w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs bg-slate-700">${index + 1}</span>
-              <img src="${item.avatar}" class="w-10 h-10 rounded-full object-cover" />
-              <div>
-                <span class="font-bold text-sm block">${item.name}</span>
-                <span class="text-[10px] text-slate-400">${item.wins} بار پیروز دبرنا</span>
+    // --- STREAMING_CHUNK: Lucky Wheel interactive logic... ---
+    function openLuckyWheel() {
+      const container = document.getElementById('wheel-modal-container');
+      if (container) {
+        state.spinReward = null;
+        container.className = "fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 text-white";
+        container.innerHTML = `
+          <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-neutral-800 text-slate-950 dark:text-white rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative">
+            <button onclick="closeLuckyWheel()" class="absolute top-4 left-4 bg-slate-100 hover:bg-slate-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-slate-400 p-1 rounded-full text-xs">
+              ✕
+            </button>
+
+            <h3 class="text-lg font-black mb-1">🎡 گردونه شانس دبرنا</h3>
+            <p class="text-[10px] text-slate-400 mb-6">هر روز یک بار شانس خود را امتحان کنید</p>
+
+            <div class="relative w-44 h-44 mx-auto mb-6">
+              <div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-3 text-2xl z-20">👇</div>
+              <div 
+                id="spinning-wheel-disk"
+                class="w-full h-full rounded-full border-4 border-slate-950 dark:border-white overflow-hidden relative shadow-lg wheel-transition"
+                style="background-image: conic-gradient(#ea580c 0 60deg, #2563eb 60deg 120deg, #7c3aed 120deg 180deg, #16a34a 180deg 240deg, #ca8a04 240deg 300deg, #1e293b 300deg 360deg)"
+              >
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none text-[8px] font-bold text-white">
+                  <span class="absolute rotate-30 translate-y-10 font-bold">۵۰ سکه</span>
+                  <span class="absolute rotate-90 translate-y-10 font-bold">۵۰۰ سکه</span>
+                  <span class="absolute rotate-150 translate-y-10 font-bold">۱۰۰ امتیاز</span>
+                  <span class="absolute rotate-210 translate-y-10 font-bold">نشان طلا</span>
+                  <span class="absolute rotate-270 translate-y-10 font-bold">۲۰۰ سکه</span>
+                  <span class="absolute rotate-330 translate-y-10 font-bold">تم یلدا</span>
+                </div>
               </div>
             </div>
-            <div class="text-right">
-              <span class="font-mono text-sm text-green-300 font-bold">${item.xp}</span>
+
+            <div id="spin-reward-banner-box" class="hidden bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 p-2.5 rounded-xl mb-4 text-xs font-bold border border-emerald-500/20">
+              جایزه
             </div>
+
+            <button id="spin-wheel-action-btn" onclick="triggerLuckyWheelSpin()" class="w-full py-3 rounded-xl font-bold text-xs bg-slate-950 hover:bg-slate-900 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-black shadow-md transition-all">
+              شروع چرخش گردونه
+            </button>
           </div>
         `;
-      });
-    }
-
-    function renderAchievements() {
-      const container = document.getElementById('achievements-list');
-      container.innerHTML = '';
-      const list = [
-        { title: "کارت‌باز ماهر", desc: "نشان بازی کردن بیش از ۳۰ بار رقابت دبرنا آنلاین", icon: "⭐", unlocked: true },
-        { title: "اولین برد طلایی", desc: "اولین پیروزی را در مسابقات دبرنا کسب کنید", icon: "🥇", unlocked: true },
-        { title: "سریع‌ترین دست", desc: "دبرنا کردن در کمتر از ۲۵ شماره آغازین", icon: "⚡", unlocked: false }
-      ];
-
-      list.forEach(item => {
-        container.innerHTML += `
-          <div class="p-4 rounded-2xl flex items-start gap-3 border ${item.unlocked ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-slate-900/30 border-slate-800 opacity-60'}">
-            <span class="text-3xl">${item.icon}</span>
-            <div>
-              <h4 class="font-bold text-sm text-white">${item.title}</h4>
-              <p class="text-[10px] text-slate-300 mt-0.5">${item.desc}</p>
-              <span class="text-[9px] mt-2 inline-block font-bold px-2 py-0.5 rounded bg-black/40 text-slate-300">
-                ${item.unlocked ? '🔓 باز شده' : '🔒 قفل است'}
-              </span>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    function renderProfile() {
-      document.getElementById('profile-nickname').innerText = userState.nickname;
-      document.getElementById('profile-avatar-img').src = userState.avatar;
-      document.getElementById('profile-total-played').innerText = userState.played;
-      document.getElementById('profile-total-wins').innerText = userState.wins;
-
-      const pool = document.getElementById('profile-avatars-pool');
-      pool.innerHTML = '';
-      AVATARS.forEach(av => {
-        pool.innerHTML += `
-          <img 
-            src="${av}" 
-            onclick="updateUserAvatar('${av}')"
-            class="w-12 h-12 rounded-full object-cover cursor-pointer hover:scale-105 transition-all ${userState.avatar === av ? 'ring-2 ring-yellow-400 scale-105' : ''}" 
-          />
-        `;
-      });
-    }
-
-    function updateUserAvatar(av) {
-      userState.avatar = av;
-      syncUserHeader();
-      renderProfile();
-      playLocalSound('click');
-    }
-
-    function renderSettings() {
-      // Render Voices
-      const voicesGrid = document.getElementById('settings-voices-grid');
-      voicesGrid.innerHTML = '';
-      PERSUASIVE_VOICES.forEach(voice => {
-        voicesGrid.innerHTML += `
-          <button 
-            onclick="setVoiceOption('${voice.id}')"
-            class="p-3 rounded-xl text-xs font-bold text-right border transition-all ${voiceLanguage === voice.id ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300' : 'bg-black/20 border-transparent text-slate-200'}"
-          >
-            <div class="font-extrabold">${voice.name}</div>
-            <span class="text-[10px] text-slate-400 block mt-1">زبان: ${voice.lang === 'fa' ? 'فارسی' : 'انگلیسی'}</span>
-          </button>
-        `;
-      });
-
-      // Render Themes
-      const themesGrid = document.getElementById('settings-themes-grid');
-      themesGrid.innerHTML = '';
-      THEMES.forEach(theme => {
-        themesGrid.innerHTML += `
-          <div 
-            onclick="setThemeOption('${theme.id}')"
-            class="p-4 rounded-2xl cursor-pointer border-2 transition-all ${selectedTheme.id === theme.id ? 'border-yellow-400 scale-102' : 'border-transparent'}"
-            style="background: rgba(0,0,0,0.4)"
-          >
-            <div class="w-full h-8 rounded-lg bg-gradient-to-r ${theme.bg} mb-2"></div>
-            <span class="text-xs font-bold text-white">${theme.name}</span>
-          </div>
-        `;
-      });
-    }
-
-    function setVoiceOption(id) {
-      voiceLanguage = id;
-      renderSettings();
-      playLocalSound('click');
-    }
-
-    function setThemeOption(id) {
-      const target = THEMES.find(t => t.id === id);
-      if (target) {
-        selectedTheme = target;
-        // Apply theme gradient directly to body dynamic class list
-        document.body.className = `bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300`;
-        const wrap = document.querySelector('.min-h-screen');
-        if (wrap) {
-          wrap.className = `min-h-screen flex flex-col transition-all duration-300 bg-gradient-to-b text-white ${target.bg}`;
-        }
       }
-      renderSettings();
-      playLocalSound('click');
-    }
-
-    // --- SPIN LUCKY WHEEL MODAL ENGINE ---
-    function openLuckyWheel() {
-      document.getElementById('lucky-wheel-modal').classList.remove('hidden');
-      document.getElementById('lucky-wheel-result').classList.add('hidden');
-      playLocalSound('click');
     }
 
     function closeLuckyWheel() {
-      document.getElementById('lucky-wheel-modal').classList.add('hidden');
+      const container = document.getElementById('wheel-modal-container');
+      if (container) container.className = "hidden";
       playLocalSound('click');
     }
 
-    function triggerLuckySpin() {
-      if (isSpinning) return;
-      isSpinning = true;
+    function triggerLuckyWheelSpin() {
+      if (state.isSpinning) return;
+      state.isSpinning = true;
       playLocalSound('click');
 
-      const disk = document.getElementById('lucky-wheel-disk');
-      const randomDegrees = 1800 + Math.floor(Math.random() * 360);
-      disk.style.transform = `rotate(${randomDegrees}deg)`;
+      const disk = document.getElementById('spinning-wheel-disk');
+      const actionBtn = document.getElementById('spin-wheel-action-btn');
+      if (actionBtn) actionBtn.disabled = true;
+
+      const deg = 1440 + Math.floor(Math.random() * 360);
+      state.spinAngle = deg;
+      if (disk) {
+        disk.style.transform = `rotate(${deg}deg)`;
+      }
 
       setTimeout(() => {
-        isSpinning = false;
-        const segment = Math.floor((randomDegrees % 360) / 60);
+        state.isSpinning = false;
+        const segment = Math.floor((deg % 360) / 60);
         const rewards = [
-          { type: 'coins', val: 50, label: '۵۰ سکه برنده شدید!' },
-          { type: 'coins', val: 500, label: '۵۰۰ سکه طلایی فوق‌العاده!' },
-          { type: 'xp', val: 100, label: '۱۰۰ امتیاز تجربه!' },
-          { type: 'badge', val: 'شانس‌طلایی', label: 'نشان شانس طلایی!' },
-          { type: 'coins', val: 200, label: '۲۰۰ سکه!' },
-          { type: 'theme', val: 'yalda', label: 'تم یلدا باز شد!' }
+          { val: 50, label: '۵۰ سکه برنز' },
+          { val: 500, label: '۵۰۰ سکه طلایی ویژه!' },
+          { val: 100, label: '۱۰۰ امتیاز تجربه' },
+          { val: 'شانس‌طلایی', label: 'مدال افتخار شانس طلایی' },
+          { val: 200, label: '۲۰۰ سکه نقره' },
+          { val: 'yalda', label: 'تم اختصاصی شب یلدا' }
         ];
 
-        const result = rewards[segment] || rewards[0];
-        const resBanner = document.getElementById('lucky-wheel-result');
-        resBanner.innerText = `🎁 ${result.label}`;
-        resBanner.classList.remove('hidden');
+        const res = rewards[segment] || rewards[0];
+        state.spinReward = res;
 
-        // Apply reward
-        if (result.type === 'coins') {
-          userState.coins += result.val;
-          syncUserHeader();
+        // Apply reward to user state
+        if (typeof res.val === 'number') {
+          state.user.coins += res.val;
+          saveUserCredentials();
+        } else if (res.val === 'شانس‌طلایی') {
+          if (!state.user.badges.includes('شانس‌طلایی')) {
+            state.user.badges.push('شانس‌طلایی');
+          }
+        }
+
+        // Show reward box
+        const banner = document.getElementById('spin-reward-banner-box');
+        if (banner) {
+          banner.innerText = `🎁 تبریک! جایزه شما: ${res.label}`;
+          banner.classList.remove('hidden');
         }
 
         playLocalSound('success');
-      }, 3000);
+        updateHeaderStats();
+        
+        if (actionBtn) {
+          actionBtn.disabled = false;
+          actionBtn.innerText = 'دوباره بچرخون!';
+        }
+      }, 4000);
     }
 
-    function copyRoomCode() {
-      const code = roomSettings.code;
-      // Copy to clipboard fallback standard
-      const el = document.createElement('textarea');
-      el.value = code;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-      showNotification('کد اتاق کپی شد!');
-    }
-
-    // --- STREAMING_CHUNK: Bootstrapping initial UI loaders on window load... ---
+    // Initialize Credentials on Window Load
     window.onload = function() {
-      // Start flow by navigating to splash screen
-      navigateTo('splash');
-      syncUserHeader();
+      initUserCredentials();
+      syncThemeUI();
+      renderCurrentScreen();
 
-      // Automate Splash transition to login screen
+      // Automatically transition from splash to login screen after delay
       setTimeout(() => {
-        navigateTo('login');
-      }, 3000);
-    }
+        if (state.screen === 'splash') {
+          navigateTo('login');
+        }
+      }, 2500);
+    };
   </script>
 </body>
 </html>
