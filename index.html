@@ -2,24 +2,24 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>دبرنا | بازی آنلاین و دورهمی</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>دبرنا آنلاین | بازی گروهی سنتی ایرانی</title>
   
-  <!-- Tailwind CSS (Reliable CDN) -->
+  <!-- Fast Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts - Vazirmatn -->
+  <!-- Google Fonts - Vazirmatn for premium Persian typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 
-  <!-- Lucide Icons (Switch to super fast jsDelivr UMD bundle) -->
+  <!-- Lucide Icons (Fast jsDelivr UMD bundle) -->
   <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <!-- Canvas Confetti for winning celebrations (jsDelivr) -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <!-- React & ReactDOM (Cloudflare CDN - Extremely fast and bypasses filtering) -->
+  <!-- React & ReactDOM (Cloudflare CDN) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js" crossorigin></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js" crossorigin></script>
   
@@ -31,9 +31,10 @@
       font-family: 'Vazirmatn', sans-serif;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
     }
     
-    /* Smooth Scrollbar */
+    /* Smooth Scrollbar design */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -49,25 +50,26 @@
       background: rgba(0, 0, 0, 0.3);
     }
 
-    /* Pulse effect for dynamic caller */
+    /* Pulse glow effect for Caller Number */
     @keyframes pulse-ring {
       0% { transform: scale(0.95); opacity: 0.5; }
-      50% { transform: scale(1.05); opacity: 0.8; }
+      50% { transform: scale(1.03); opacity: 0.8; }
       100% { transform: scale(0.95); opacity: 0.5; }
     }
     .pulse-glow {
       animation: pulse-ring 2s infinite ease-in-out;
     }
 
-    /* Glassmorphism utility */
+    /* Glassmorphism modern container */
     .glass-panel {
       background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.15);
     }
     .dark .glass-panel {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
   </style>
 
@@ -103,7 +105,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300">
 
-  <!-- Main Mount Point -->
+  <!-- Main Mount Point for React App -->
   <div id="root" class="flex-1 flex flex-col"></div>
 
   <!-- React Code with Babel translation -->
@@ -111,16 +113,17 @@
     /** @jsx React.createElement */
     const { useState, useEffect, useRef, useMemo } = React;
 
-    // --- GAME MOCK CONFIG & DATA ---
+    // Avatar list for players
     const AVATARS = [
-      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120&q=80", // آرش
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&h=120&q=80", // سارا
-      "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&h=120&q=80", // کوروش
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=120&h=120&q=80", // مریم
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80", // کامران
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&h=120&q=80"  // شیوا
+      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&h=120&q=80", 
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&h=120&q=80", 
+      "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=120&h=120&q=80", 
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=120&h=120&q=80", 
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&h=120&q=80", 
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&h=120&q=80"  
     ];
 
+    // Background themes
     const THEMES = [
       { id: 'classic', name: 'کلاسیک ایرانی', bg: 'from-emerald-600 via-teal-700 to-cyan-800', primary: 'bg-emerald-600' },
       { id: 'neon', name: 'شیک و تاریک (نئون)', bg: 'from-slate-900 via-purple-900 to-indigo-950', primary: 'bg-purple-600' },
@@ -130,13 +133,14 @@
 
     const BOT_NAMES = ["آرش_تندپنجه", "نازنین_خوش‌شانس", "کامیار_دبرناباز", "الهام_سکوت", "امیر_سریع", "رویا_قهرمان"];
 
+    // Voice personalities for the caller
     const PERSUASIVE_VOICES = [
       { id: 'female-normal', name: 'مریم (رسمی)', lang: 'fa', rate: 1.0, pitch: 1.1 },
       { id: 'male-cool', name: 'پیمان (بامزه)', lang: 'fa', rate: 1.1, pitch: 0.95 },
       { id: 'english-fun', name: 'AI English (شادی)', lang: 'en', rate: 1.2, pitch: 1.1 }
     ];
 
-    // Card styling variations
+    // Card designs
     const CARD_STYLES = [
       { id: 'standard', name: 'پیش‌فرض (سنتی)', bg: 'bg-white dark:bg-slate-900', cell: 'border-slate-300 dark:border-slate-700', active: 'bg-rose-500 text-white shadow-lg' },
       { id: 'gold', name: 'طلایی لوکس', bg: 'bg-amber-50 dark:bg-amber-950', cell: 'border-amber-300 dark:border-amber-800', active: 'bg-gradient-to-r from-yellow-500 to-amber-600 text-slate-900 font-bold' },
@@ -146,7 +150,7 @@
     // Main App Component
     function App() {
       // Navigation / UI States
-      const [screen, setScreen] = useState('splash'); // splash, login, home, create-room, lobby, gameplay, leaderboard, profile, achievements, settings
+      const [screen, setScreen] = useState('splash'); 
       const [darkMode, setDarkMode] = useState(true);
       const [soundMuted, setSoundMuted] = useState(false);
       const [voiceLanguage, setVoiceLanguage] = useState('female-normal');
@@ -172,8 +176,8 @@
       const [isPrivate, setIsPrivate] = useState(false);
       const [roomPassword, setRoomPassword] = useState('');
       const [playerLimit, setPlayerLimit] = useState(6);
-      const [gameSpeed, setGameSpeed] = useState(4); // seconds per draw
-      const [winningPattern, setWinningPattern] = useState('fullhouse'); // single-line, double-line, fullhouse
+      const [gameSpeed, setGameSpeed] = useState(4); 
+      const [winningPattern, setWinningPattern] = useState('fullhouse'); 
       const [autoDraw, setAutoDraw] = useState(true);
 
       // Current Game Room Instance
@@ -184,14 +188,15 @@
       const [chatInput, setChatInput] = useState('');
 
       // Active Gameplay State
-      const [myCard, setMyCard] = useState([]); // 3 rows, 9 columns grid structure
-      const [markedCells, setMarkedCells] = useState([]); // Array of coordinate strings like "row-col"
+      const [myCard, setMyCard] = useState([]); 
+      const [markedCells, setMarkedCells] = useState([]); 
       const [drawnNumbers, setDrawnNumbers] = useState([]);
       const [currentNumber, setCurrentNumber] = useState(null);
       const [gameActive, setGameActive] = useState(false);
       const [timer, setTimer] = useState(0);
       const [winner, setWinner] = useState(null);
       const [isDabrnaReady, setIsDabrnaReady] = useState(false);
+      const [systemAlert, setSystemAlert] = useState(null);
       
       // Daily Reward & Spin State
       const [showSpin, setShowSpin] = useState(false);
@@ -201,7 +206,6 @@
 
       // Effects
       useEffect(() => {
-        // Dark mode class sync
         if (darkMode) {
           document.documentElement.classList.add('dark');
         } else {
@@ -209,7 +213,7 @@
         }
       }, [darkMode]);
 
-      // Splash Screen Auto Transition
+      // Splash Screen Transition
       useEffect(() => {
         if (screen === 'splash') {
           const t = setTimeout(() => {
@@ -219,18 +223,15 @@
         }
       }, [screen]);
 
-      // Sound and AI speech Engine
       const speakNumber = (num) => {
         if (soundMuted) return;
         
-        // Simple synthetic speech using SpeechSynthesis if supported
         if ('speechSynthesis' in window) {
           window.speechSynthesis.cancel();
           const voiceOpt = PERSUASIVE_VOICES.find(v => v.id === voiceLanguage);
           
           let text = `${num}`;
           if (voiceOpt.lang === 'fa') {
-            // Funny/Classic Iranian style caller expressions
             const intros = [
               "عدد بعدی هست",
               "خوش شانس‌ها بردارن",
@@ -255,7 +256,6 @@
 
       const playLocalSound = (type) => {
         if (soundMuted) return;
-        // Synthesizing sounds using Web Audio API so it's guaranteed to run without external assets
         try {
           const ctx = new (window.AudioContext || window.webkitAudioContext)();
           const osc = ctx.createOscillator();
@@ -265,63 +265,55 @@
 
           if (type === 'click') {
             osc.frequency.setValueAtTime(440, ctx.currentTime);
-            gain.gain.setValueAtTime(0.1, ctx.currentTime);
+            gain.gain.setValueAtTime(0.08, ctx.currentTime);
             osc.start();
             osc.stop(ctx.currentTime + 0.05);
           } else if (type === 'success') {
-            osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
-            osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
-            osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2); // G5
-            gain.gain.setValueAtTime(0.15, ctx.currentTime);
+            osc.frequency.setValueAtTime(523.25, ctx.currentTime); 
+            osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); 
+            osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2); 
+            gain.gain.setValueAtTime(0.12, ctx.currentTime);
             osc.start();
             osc.stop(ctx.currentTime + 0.35);
           } else if (type === 'draw') {
             osc.frequency.setValueAtTime(330, ctx.currentTime);
             osc.frequency.setValueAtTime(392, ctx.currentTime + 0.08);
-            gain.gain.setValueAtTime(0.1, ctx.currentTime);
+            gain.gain.setValueAtTime(0.08, ctx.currentTime);
             osc.start();
             osc.stop(ctx.currentTime + 0.15);
           } else if (type === 'alert') {
             osc.frequency.setValueAtTime(220, ctx.currentTime);
             osc.frequency.setValueAtTime(110, ctx.currentTime + 0.15);
-            gain.gain.setValueAtTime(0.2, ctx.currentTime);
+            gain.gain.setValueAtTime(0.18, ctx.currentTime);
             osc.start();
             osc.stop(ctx.currentTime + 0.3);
           }
         } catch (e) {
-          console.log("Audio not supported yet.");
+          console.log("Audio API support limited.");
         }
       };
 
-      // Generate a valid Dabrna / Bingo Card
-      // Columns represent tens: Col 0 (1-9), Col 1 (10-19), ... Col 8 (80-90)
-      // Standard card has 3 rows and 9 columns. Each row has exactly 5 numbers and 4 empty spots.
       const generateDabrnaCard = () => {
         let card = Array(3).fill(null).map(() => Array(9).fill(null));
-        
-        // 1. For each column, generate 3 unique sorted numbers
         let colNumbers = [];
+        
         for (let col = 0; col < 9; col++) {
           let min = col === 0 ? 1 : col * 10;
           let max = col === 8 ? 90 : (col * 10) + 9;
           let pool = [];
           for (let i = min; i <= max; i++) pool.push(i);
           
-          // shuffle pool
           pool.sort(() => Math.random() - 0.5);
           let chosen = pool.slice(0, 3).sort((a, b) => a - b);
           colNumbers.push(chosen);
         }
 
-        // 2. Put the numbers in the card grid (ensuring order remains sorted vertically)
         for (let col = 0; col < 9; col++) {
           for (let row = 0; row < 3; row++) {
             card[row][col] = colNumbers[col][row];
           }
         }
 
-        // 3. In each row, we must leave exactly 4 cells empty (represented as null).
-        // That means keeping 5 numbers per row.
         for (let row = 0; row < 3; row++) {
           let emptyIndices = [];
           while (emptyIndices.length < 4) {
@@ -330,16 +322,13 @@
               emptyIndices.push(randIdx);
             }
           }
-          // Set selected cells to null
           emptyIndices.forEach(colIdx => {
             card[row][colIdx] = null;
           });
         }
-
         return card;
       };
 
-      // Run Simulated Live Draw
       useEffect(() => {
         let drawInterval;
         if (gameActive && autoDraw && !winner) {
@@ -350,104 +339,24 @@
         return () => clearInterval(drawInterval);
       }, [gameActive, drawnNumbers, autoDraw, winner, gameSpeed]);
 
-      // Game timer tracker
       useEffect(() => {
         let timerInterval;
         if (gameActive && !winner) {
           timerInterval = setInterval(() => {
             setTimer(prev => prev + 1);
-            // Simulate bot decisions every few seconds
             simulateBotPlays();
           }, 1000);
         }
         return () => clearInterval(timerInterval);
       }, [gameActive, winner, drawnNumbers]);
 
-      // Create Room Handler
-      const handleCreateRoom = () => {
-        playLocalSound('click');
-        const code = Math.floor(100000 + Math.random() * 900000).toString();
-        setRoomCode(code);
-        setIsHost(true);
-        
-        // Populate room with initial bots and you
-        const initialPlayers = [
-          { id: 'user-1', name: user.nickname, avatar: user.avatar, isHost: true, isReady: true, score: 0 },
-          { id: 'bot-1', name: BOT_NAMES[0], avatar: AVATARS[1], isHost: false, isReady: true, score: 0, isBot: true },
-          { id: 'bot-2', name: BOT_NAMES[1], avatar: AVATARS[2], isHost: false, isReady: false, score: 0, isBot: true },
-        ];
-        setPlayers(initialPlayers);
-        
-        setMessages([
-          { id: 1, sender: 'سیستم', text: `اتاق بازی "${roomName}" با موفقیت ساخته شد.`, isSystem: true },
-          { id: 2, sender: 'سیستم', text: `شما به عنوان میزبان وارد شدید. کد اتاق: ${code}`, isSystem: true }
-        ]);
-
-        setScreen('lobby');
-      };
-
-      // Quick Join Handler
-      const handleQuickJoin = () => {
-        playLocalSound('click');
-        const randomCode = Math.floor(100000 + Math.random() * 900000).toString();
-        setRoomCode(randomCode);
-        setIsHost(false);
-
-        const initialPlayers = [
-          { id: 'host-1', name: BOT_NAMES[3], avatar: AVATARS[3], isHost: true, isReady: true, isBot: true },
-          { id: 'user-1', name: user.nickname, avatar: user.avatar, isHost: false, isReady: false, score: 0 },
-          { id: 'bot-1', name: BOT_NAMES[4], avatar: AVATARS[4], isHost: false, isReady: true, isBot: true },
-        ];
-        setPlayers(initialPlayers);
-
-        setMessages([
-          { id: 1, sender: 'سیستم', text: `شما به اتاق پیوستید.`, isSystem: true }
-        ]);
-
-        setScreen('lobby');
-      };
-
-      // Set Ready
-      const toggleReady = () => {
-        playLocalSound('click');
-        setPlayers(prev => prev.map(p => {
-          if (p.id === 'user-1') {
-            return { ...p, isReady: !p.isReady };
-          }
-          return p;
-        }));
-      };
-
-      // Start Game Screen Transition
-      const startGame = () => {
-        playLocalSound('success');
-        setMyCard(generateDabrnaCard());
-        setMarkedCells([]);
-        setDrawnNumbers([]);
-        setCurrentNumber(null);
-        setWinner(null);
-        setTimer(0);
-        setIsDabrnaReady(false);
-        setGameActive(true);
-        setScreen('gameplay');
-        
-        // Add chat feedback
-        setMessages(prev => [
-          ...prev,
-          { id: Date.now(), sender: 'سیستم', text: 'بازی شروع شد! اولین نفری که کارت را پر کند برنده است.', isSystem: true }
-        ]);
-      };
-
-      // Draw Number Action
       const drawNextNumber = () => {
         if (drawnNumbers.length >= 90) {
-          // Game ends as draw
           setGameActive(false);
-          setWinner({ name: 'هیچ‌کس! (اتمام شماره‌ها)' });
+          setWinner({ name: 'هیچ‌کس! (اتمام شماره‌ها)', avatar: null, isUser: false });
           return;
         }
 
-        // Generate dynamic valid random number 1 to 90
         let newNum;
         do {
           newNum = Math.floor(Math.random() * 90) + 1;
@@ -459,43 +368,35 @@
         speakNumber(newNum);
         playLocalSound('draw');
 
-        // Check if user is now eligible to call Dabrna
         checkDabrnaEligibility(updatedDrawn);
       };
 
-      // User tap on a grid card cell
       const handleCellTap = (rowIdx, colIdx, value) => {
         if (!gameActive || winner || !value) return;
 
         const cellCoord = `${rowIdx}-${colIdx}`;
         
-        // Only allow marking if the number has actually been drawn!
         if (drawnNumbers.includes(value)) {
           if (markedCells.includes(cellCoord)) {
-            // Already marked
             playLocalSound('click');
           } else {
-            // Mark cell
             playLocalSound('success');
             const updated = [...markedCells, cellCoord];
             setMarkedCells(updated);
             checkDabrnaEligibility(drawnNumbers, updated);
           }
         } else {
-          // Cheating/Mistake feedback
           playLocalSound('alert');
+          showNotification("این شماره هنوز از گردونه خارج نشده است!");
         }
       };
 
-      // Determine if active cards match winning pattern
-      const checkDabrnaEligibility = (drawn = drawnNumbers, marked = markedCells) => {
-        // Map marked coords to check
-        const markedValues = marked.map(coord => {
-          const [r, c] = coord.split('-').map(Number);
-          return myCard[r]?.[c];
-        }).filter(v => v !== null && v !== undefined);
+      const showNotification = (msg) => {
+        setSystemAlert(msg);
+        setTimeout(() => setSystemAlert(null), 3000);
+      };
 
-        // Count expected total numbers in our card
+      const checkDabrnaEligibility = (drawn = drawnNumbers, marked = markedCells) => {
         let totalNumbersInCard = 0;
         let matchedNumbers = 0;
 
@@ -504,7 +405,6 @@
             const val = myCard[r]?.[c];
             if (val) {
               totalNumbersInCard++;
-              // If it has been marked & drawn
               const isMarked = marked.includes(`${r}-${c}`);
               if (isMarked && drawn.includes(val)) {
                 matchedNumbers++;
@@ -513,14 +413,11 @@
           }
         }
 
-        // Patterns implementation
         if (winningPattern === 'fullhouse') {
-          // All numbers must be marked
           if (matchedNumbers >= totalNumbersInCard && totalNumbersInCard > 0) {
             setIsDabrnaReady(true);
           }
         } else if (winningPattern === 'single-line') {
-          // At least one complete row marked
           let lineCompleted = false;
           for (let r = 0; r < 3; r++) {
             let rowCompleted = true;
@@ -543,7 +440,6 @@
             setIsDabrnaReady(true);
           }
         } else {
-          // Default Double line
           let completedRowsCount = 0;
           for (let r = 0; r < 3; r++) {
             let rowCompleted = true;
@@ -567,7 +463,6 @@
         }
       };
 
-      // Pressing DABRNA! Button to claim victory
       const claimDabrnaVictory = () => {
         if (!isDabrnaReady) {
           playLocalSound('alert');
@@ -575,7 +470,6 @@
         }
 
         playLocalSound('success');
-        // Trigger confetti!
         if (window.confetti) {
           window.confetti({
             particleCount: 150,
@@ -596,7 +490,6 @@
         setWinner(userWinner);
         setGameActive(false);
 
-        // Update User Statistics
         setUser(prev => ({
           ...prev,
           wins: prev.wins + 1,
@@ -607,15 +500,11 @@
         }));
       };
 
-      // Simulating Bot Game Play Behavior in real time
       const simulateBotPlays = () => {
         if (!gameActive || !currentNumber || winner) return;
 
-        // Randomly check if a bot completes its patterns and yells DABRNA!
-        // The probability increases with numbers drawn
-        const baseProb = drawnNumbers.length / 110; // rises as pool shrinks
+        const baseProb = drawnNumbers.length / 110; 
         if (Math.random() < baseProb && drawnNumbers.length > 15) {
-          // Pick a random ready bot
           const activeBots = players.filter(p => p.isBot);
           if (activeBots.length > 0) {
             const luckyBot = activeBots[Math.floor(Math.random() * activeBots.length)];
@@ -633,7 +522,6 @@
             setGameActive(false);
             playLocalSound('alert');
             
-            // System Chat Msg
             setMessages(prev => [
               ...prev,
               { id: Date.now(), sender: 'سیستم', text: ` بازیکن ${luckyBot.name} دبرنا کرد و برنده شد! 🏆`, isSystem: true }
@@ -641,7 +529,6 @@
           }
         }
 
-        // Random bot chat react
         if (Math.random() < 0.08) {
           const activeBots = players.filter(p => p.isBot);
           if (activeBots.length > 0) {
@@ -663,7 +550,6 @@
         }
       };
 
-      // Chat Input Handler
       const sendChatMessage = (e) => {
         e.preventDefault();
         if (!chatInput.trim()) return;
@@ -676,7 +562,6 @@
         playLocalSound('click');
       };
 
-      // Lucky Wheel Reward Game
       const triggerLuckySpin = () => {
         if (isSpinning) return;
         playLocalSound('click');
@@ -686,7 +571,6 @@
 
         setTimeout(() => {
           setIsSpinning(false);
-          // Calculate reward
           const segment = Math.floor((randomDegrees % 360) / 60);
           const rewards = [
             { type: 'coins', val: 50, label: '۵۰ سکه' },
@@ -699,7 +583,6 @@
           const result = rewards[segment] || rewards[0];
           setSpinReward(result);
           
-          // Apply rewards
           setUser(prev => {
             let updated = { ...prev };
             if (result.type === 'coins') updated.coins += result.val;
@@ -721,44 +604,48 @@
         <div className={`min-h-screen flex flex-col transition-all duration-300 ${selectedTheme.bg} bg-gradient-to-b text-white`}>
           
           {/* Header Bar */}
-          <header className="glass-panel sticky top-0 z-50 px-4 py-3 flex items-center justify-between shadow-md">
+          <header className="glass-panel sticky top-0 z-40 px-4 py-3 flex items-center justify-between shadow-md">
             <div className="flex items-center gap-3">
-              <div className="bg-white/10 p-2 rounded-full cursor-pointer hover:bg-white/20 transition-all" onClick={() => setScreen('home')}>
+              <div className="bg-white/10 p-2 rounded-full cursor-pointer hover:bg-white/20 transition-all" onClick={() => { playLocalSound('click'); setScreen('home'); }}>
                 <span className="text-xl font-black tracking-wider text-yellow-400">DABRNA 🎯</span>
               </div>
-              <span className="text-xs bg-black/30 px-2.5 py-1 rounded-full text-green-300 hidden sm:inline">نسخه آزمایشی 2026</span>
+              <span className="text-xs bg-black/30 px-2.5 py-1 rounded-full text-green-300 hidden sm:inline">نسخه آنلاین ۲۰۲۶</span>
             </div>
 
             <div className="flex items-center gap-4">
-              {/* User Wallet Info */}
               <div className="flex items-center gap-2 bg-black/40 px-3 py-1.5 rounded-full text-sm">
                 <i data-lucide="coins" className="w-4 h-4 text-amber-400"></i>
                 <span className="font-bold text-amber-300">{user.coins}</span>
               </div>
 
-              {/* Theme Settings Shortcut */}
-              <button onClick={() => setDarkMode(!darkMode)} className="p-1.5 rounded-full hover:bg-white/10 text-yellow-300">
+              <button onClick={() => { playLocalSound('click'); setDarkMode(!darkMode); }} className="p-1.5 rounded-full hover:bg-white/10 text-yellow-300">
                 {darkMode ? <i data-lucide="sun" className="w-5 h-5"></i> : <i data-lucide="moon" className="w-5 h-5"></i>}
               </button>
 
-              <button onClick={() => setSoundMuted(!soundMuted)} className="p-1.5 rounded-full hover:bg-white/10">
+              <button onClick={() => { setSoundMuted(!soundMuted); }} className="p-1.5 rounded-full hover:bg-white/10">
                 {soundMuted ? <i data-lucide="volume-x" className="w-5 h-5 text-red-400"></i> : <i data-lucide="volume-2" className="w-5 h-5 text-green-400"></i>}
               </button>
               
-              <div className="flex items-center gap-2 cursor-pointer" onClick={() => setScreen('profile')}>
+              <div className="flex items-center gap-2 cursor-pointer" onClick={() => { playLocalSound('click'); setScreen('profile'); }}>
                 <img src={user.avatar} className="w-9 h-9 rounded-full ring-2 ring-emerald-400 object-cover" alt="User avatar" />
                 <span className="text-sm font-semibold hidden md:inline">{user.nickname}</span>
               </div>
             </div>
           </header>
 
-          {/* SVG Icons initialization block */}
+          {/* Quick Alert System UI */}
+          {systemAlert && (
+            <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-red-600/90 backdrop-blur-md border border-red-500 text-white font-bold py-2.5 px-6 rounded-2xl shadow-xl flex items-center gap-2 animate-bounce">
+              <i data-lucide="alert-triangle" className="w-5 h-5"></i>
+              <span>{systemAlert}</span>
+            </div>
+          )}
+
           <IconsInitializer />
 
-          {/* Screens Controller Container */}
           <main className="flex-1 flex flex-col max-w-7xl w-full mx-auto p-4 md:p-6">
             
-            {/* 1. SPLASH SCREEN */}
+            {/* SPLASH SCREEN */}
             {screen === 'splash' && (
               <div className="flex-1 flex flex-col items-center justify-center text-center py-12">
                 <div className="relative mb-8 animate-bounce-slow">
@@ -779,7 +666,7 @@
               </div>
             )}
 
-            {/* 2. LOGIN SCREEN */}
+            {/* LOGIN SCREEN */}
             {screen === 'login' && (
               <div className="flex-1 flex items-center justify-center">
                 <div className="glass-panel p-8 rounded-3xl max-w-md w-full shadow-2xl relative overflow-hidden text-center">
@@ -814,9 +701,7 @@
 
                     <div className="grid grid-cols-2 gap-3">
                       <button onClick={() => { playLocalSound('click'); setScreen('home'); }} className="bg-slate-900/50 hover:bg-slate-800/50 border border-slate-800 py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition-all">
-                        <svg className="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12.24 10.285V13.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.866-3.577-7.866-8s3.536-8 7.866-8c2.46 0 4.105 1.025 5.047 1.926l2.427-2.334C17.955 2.192 15.34 1 12.24 1 6.033 1 12.24s5.033 11.24 11.24 11.24c6.478 0 10.793-4.537 10.793-10.986 0-.743-.08-1.3-.176-1.858H12.24z"/>
-                        </svg>
+                        <i data-lucide="chrome" className="w-4 h-4 text-red-400"></i>
                         گوگل
                       </button>
                       <button onClick={() => { playLocalSound('click'); setScreen('home'); }} className="bg-slate-900/50 hover:bg-slate-800/50 border border-slate-800 py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition-all">
@@ -831,11 +716,10 @@
               </div>
             )}
 
-            {/* 3. HOME SCREEN */}
+            {}
+            {/* HOME SCREEN */}
             {screen === 'home' && (
               <div className="space-y-6">
-                
-                {/* Hero / Quick Play Panel */}
                 <div className="glass-panel p-6 md:p-8 rounded-3xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
                   <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
                   <div className="space-y-4 text-center md:text-right max-w-lg">
@@ -856,14 +740,12 @@
                     </div>
                   </div>
 
-                  {/* Visual Center Mascot/Promo */}
                   <div className="relative w-48 h-48 md:w-56 md:h-56 flex items-center justify-center bg-slate-900/40 rounded-full shadow-inner border border-white/5 animate-bounce-slow">
                     <span className="text-[100px]">🎰</span>
-                    <div className="absolute -top-3 -right-3 bg-red-500 text-white font-extrabold text-xs px-3 py-1.5 rounded-full shadow-lg">برد طلایی</div>
+                    <div className="absolute -top-3 -right-3 bg-red-500 text-white font-extrabold text-xs px-3 py-1.5 rounded-full shadow-lg animate-pulse">برد طلایی</div>
                   </div>
                 </div>
 
-                {/* Sub Menu Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   <div onClick={() => { playLocalSound('click'); setScreen('leaderboard'); }} className="glass-panel p-4 rounded-2xl text-center cursor-pointer hover:bg-white/15 transition-all transform hover:-translate-y-1">
                     <div className="text-3xl mb-1">🏆</div>
@@ -891,9 +773,7 @@
                   </div>
                 </div>
 
-                {/* Daily Challenges */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {/* Quests */}
                   <div className="glass-panel p-5 rounded-3xl md:col-span-2">
                     <h3 className="font-bold text-lg mb-4 flex items-center gap-2 text-yellow-300">
                       <i data-lucide="calendar" className="w-5 h-5"></i>
@@ -933,7 +813,6 @@
                     </div>
                   </div>
 
-                  {/* Active Rooms Listing */}
                   <div className="glass-panel p-5 rounded-3xl">
                     <h3 className="font-bold text-lg mb-4 flex items-center gap-2 text-pink-300">
                       <i data-lucide="list" className="w-5 h-5"></i>
@@ -962,25 +841,14 @@
                           <span className="text-[10px] text-slate-400 block mt-1">سرعت: ۳ ثانیه</span>
                         </div>
                       </div>
-
-                      <div className="bg-slate-900/40 p-3 rounded-xl flex items-center justify-between border border-white/5 hover:bg-slate-900/60 cursor-pointer" onClick={handleQuickJoin}>
-                        <div>
-                          <div className="text-xs font-bold">دبرنا کلوپ VIP 💎</div>
-                          <p className="text-[10px] text-slate-400 mt-0.5">میزبان: کامیار | الگو: تک خط</p>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">۵ / ۶ نفر</div>
-                          <span className="text-[10px] text-slate-400 block mt-1">سرعت: ۵ ثانیه</span>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
-
               </div>
             )}
 
-            {/* 4. CREATE ROOM SCREEN */}
+            {}
+            {/* CREATE ROOM SCREEN */}
             {screen === 'create-room' && (
               <div className="max-w-2xl mx-auto w-full glass-panel p-6 md:p-8 rounded-3xl">
                 <h2 className="text-2xl font-bold mb-6 flex items-center gap-2 border-b border-slate-700 pb-3">
@@ -989,7 +857,6 @@
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Left Column Settings */}
                   <div className="space-y-4">
                     <div>
                       <label className="text-xs text-slate-300 mb-1 block">نام اتاق شما:</label>
@@ -997,7 +864,7 @@
                         type="text" 
                         value={roomName} 
                         onChange={(e) => setRoomName(e.target.value)}
-                        className="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-emerald-400 focus:outline-none"
+                        className="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-emerald-400 focus:outline-none text-white"
                       />
                     </div>
 
@@ -1032,7 +899,7 @@
                       <select 
                         value={winningPattern} 
                         onChange={(e) => setWinningPattern(e.target.value)}
-                        className="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-emerald-400 focus:outline-none text-sm text-right"
+                        className="w-full bg-slate-950/60 border border-slate-800 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-emerald-400 focus:outline-none text-sm text-right text-white"
                       >
                         <option value="fullhouse">تمام‌خانه (کل کارت پر شود - سخت)</option>
                         <option value="single-line">تک خط افقی (سرعت بالا - آسان)</option>
@@ -1041,7 +908,6 @@
                     </div>
                   </div>
 
-                  {/* Right Column Settings */}
                   <div className="space-y-4">
                     <div>
                       <label className="text-xs text-slate-300 mb-1 block">حداکثر تعداد بازیکنان ({playerLimit} نفر):</label>
@@ -1095,39 +961,36 @@
                     <i data-lucide="check-circle" className="w-5 h-5"></i>
                     <span>تایید و ساخت لابی بازی</span>
                   </button>
-                  <button onClick={() => setScreen('home')} className="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 px-6 rounded-2xl transition-all">
+                  <button onClick={() => { playLocalSound('click'); setScreen('home'); }} className="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 px-6 rounded-2xl transition-all">
                     انصراف
                   </button>
                 </div>
               </div>
             )}
 
-            {/* 5. LOBBY SCREEN */}
+            {}
+            {/* LOBBY SCREEN */}
             {screen === 'lobby' && (
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
-                {/* Lobby Details & Invite Info */}
                 <div className="lg:col-span-2 space-y-6">
                   <div className="glass-panel p-6 rounded-3xl relative overflow-hidden">
                     <span className="absolute top-4 left-4 bg-emerald-500/20 text-emerald-300 text-xs px-2.5 py-1 rounded-full font-bold">آماده برای شروع</span>
                     <h2 className="text-2xl font-black text-amber-300 mb-2">{roomName}</h2>
                     <p className="text-xs text-slate-300 mb-4">میزبان کلوب: <span className="font-bold text-white">{isHost ? user.nickname : BOT_NAMES[3]}</span></p>
                     
-                    {/* Share Invitation Box */}
                     <div className="bg-black/30 p-4 rounded-2xl space-y-3 border border-white/5">
                       <div className="text-xs text-slate-300">دوستان خود را با ارسال کد اتاق دعوت کنید:</div>
                       <div className="flex items-center gap-2">
                         <div className="flex-1 bg-slate-950/80 border border-slate-800 rounded-xl py-2.5 px-4 text-center font-mono font-black text-2xl tracking-widest text-emerald-400">
                           {roomCode}
                         </div>
-                        <button onClick={() => { playLocalSound('success'); navigator.clipboard.writeText(roomCode); }} className="bg-slate-800 hover:bg-slate-700 p-3 rounded-xl transition-all" title="کپی کردن کد">
+                        <button onClick={() => { playLocalSound('success'); document.execCommand('copy'); showNotification("کد اتاق در حافظه کپی شد!"); }} className="bg-slate-800 hover:bg-slate-700 p-3 rounded-xl transition-all" title="کپی کردن کد">
                           <i data-lucide="copy" className="w-5 h-5 text-slate-300"></i>
                         </button>
                       </div>
                     </div>
                   </div>
 
-                  {/* Players Ready State List */}
                   <div className="glass-panel p-6 rounded-3xl">
                     <h3 className="font-bold text-lg mb-4 flex items-center justify-between">
                       <span>بازیکنان درون لابی ({players.length} / {playerLimit})</span>
@@ -1170,7 +1033,6 @@
                     </div>
                   </div>
 
-                  {/* Action Bar */}
                   <div className="flex gap-4">
                     {isHost ? (
                       <button onClick={startGame} className="flex-1 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-white font-extrabold py-4 px-8 rounded-2xl shadow-xl transition-all transform active:scale-95 text-lg flex items-center justify-center gap-2">
@@ -1183,20 +1045,18 @@
                         {players.find(p => p.id === 'user-1')?.isReady ? 'اعلام عدم آمادگی' : 'آماده هستم!'}
                       </button>
                     )}
-                    <button onClick={() => setScreen('home')} className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 rounded-2xl font-bold transition-all">
+                    <button onClick={() => { playLocalSound('click'); setScreen('home'); }} className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 rounded-2xl font-bold transition-all">
                       خروج از اتاق
                     </button>
                   </div>
                 </div>
 
-                {/* Lobby Chat Panel */}
                 <div className="glass-panel rounded-3xl p-4 flex flex-col h-[500px]">
                   <h3 className="font-bold border-b border-slate-700 pb-3 mb-3 flex items-center gap-2">
                     <i data-lucide="message-square" className="w-5 h-5 text-emerald-400"></i>
-                    گپ و گفت صوتی/متنی لابی
+                    گپ و گفت لابی
                   </h3>
 
-                  {/* Chat Messages */}
                   <div className="flex-1 overflow-y-auto space-y-3 mb-3 pr-1">
                     {messages.map((m) => (
                       <div key={m.id} className={`text-xs ${m.isSystem ? 'text-center' : 'text-right'}`}>
@@ -1215,7 +1075,6 @@
                     ))}
                   </div>
 
-                  {/* Keyboard React shortcut */}
                   <div className="flex gap-2 mb-3">
                     {["🔥", "🤣", "👏", "😮", "👑", "👍"].map(emoji => (
                       <button key={emoji} onClick={() => {
@@ -1227,7 +1086,6 @@
                     ))}
                   </div>
 
-                  {/* Chat Input form */}
                   <form onSubmit={sendChatMessage} className="flex gap-2">
                     <input 
                       type="text" 
@@ -1241,17 +1099,15 @@
                     </button>
                   </form>
                 </div>
-
               </div>
             )}
 
-            {/* 6. MAIN GAMEPLAY SCREEN (THE HEART OF THE GAME) */}
+            {}
+            {/* MAIN GAMEPLAY SCREEN */}
             {screen === 'gameplay' && (
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 
-                {/* Sidebar Controls & Drawn Board */}
                 <div className="lg:col-span-1 space-y-6">
-                  {/* Active AI Caller Display */}
                   <div className="glass-panel p-6 rounded-3xl text-center relative overflow-hidden">
                     <div className="absolute top-3 left-3 bg-red-500 text-[10px] px-2 py-0.5 rounded-full font-bold animate-pulse">
                       گوینده زنده
@@ -1260,7 +1116,6 @@
                     <h3 className="text-sm font-bold text-slate-300 mb-2">عدد جاری خوانده شده</h3>
 
                     <div className="my-4 relative inline-block">
-                      {/* Big Circle drawn number */}
                       <div className="w-24 h-24 bg-gradient-to-tr from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-slate-950 text-5xl font-black shadow-[0_0_20px_rgba(245,158,11,0.6)] mx-auto relative z-10 pulse-glow">
                         {currentNumber || "⏳"}
                       </div>
@@ -1271,28 +1126,24 @@
                       گوینده: <span className="text-green-300">{PERSUASIVE_VOICES.find(v => v.id === voiceLanguage)?.name}</span>
                     </p>
 
-                    {/* Manual draw button for host */}
                     {isHost && !autoDraw && (
                       <button onClick={drawNextNumber} className="w-full bg-slate-800 hover:bg-slate-700 text-xs text-white font-bold py-2 rounded-xl mb-2">
                         مهره بعدی را بکش 🎯
                       </button>
                     )}
 
-                    {/* Meta stats */}
                     <div className="flex justify-between items-center text-xs text-slate-300 pt-3 border-t border-white/10">
                       <span>اعداد مانده: {90 - drawnNumbers.length}</span>
                       <span>زمان سپری شده: {Math.floor(timer / 60)}:{(timer % 60).toString().padStart(2, '0')}</span>
                     </div>
                   </div>
 
-                  {/* History of Drawn Numbers Panel */}
                   <div className="glass-panel p-4 rounded-3xl">
                     <h4 className="text-xs font-bold text-slate-300 mb-2 flex items-center justify-between">
                       <span>اعداد قبلی بیرون آمده ({drawnNumbers.length} عدد)</span>
                       <i data-lucide="history" className="w-4 h-4"></i>
                     </h4>
 
-                    {/* Scrollable list of recent values */}
                     <div className="grid grid-cols-6 gap-1 max-h-40 overflow-y-auto pr-1 text-center">
                       {drawnNumbers.slice().reverse().map((num, i) => (
                         <span key={i} className="bg-black/30 text-[11px] font-bold py-1.5 rounded-lg text-slate-100">
@@ -1306,11 +1157,8 @@
                   </div>
                 </div>
 
-                {/* Main Interactive Dabrna Card Grid */}
                 <div className="lg:col-span-2 space-y-6">
                   <div className="glass-panel p-4 md:p-6 rounded-3xl">
-                    
-                    {/* Pattern Rule Header Info */}
                     <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
                       <div>
                         <span className="text-[10px] text-slate-300 block">الگوی تعیین شده برای برد:</span>
@@ -1329,7 +1177,6 @@
                       </div>
                     </div>
 
-                    {/* INTERACTIVE BOARD GRID */}
                     <div className={`p-4 rounded-2xl ${selectedCardStyle.bg} shadow-lg transition-all`}>
                       <div className="grid grid-cols-9 gap-1.5 md:gap-2.5">
                         {myCard.map((row, rowIdx) => (
@@ -1350,8 +1197,6 @@
                                 `}
                               >
                                 {val}
-                                
-                                {/* Flash Highlight if drawn but NOT yet marked by user */}
                                 {isDrawn && !isMarked && (
                                   <span className="absolute inset-0 bg-yellow-400/20 animate-pulse"></span>
                                 )}
@@ -1367,7 +1212,6 @@
                     </p>
                   </div>
 
-                  {/* THE CLAIM DABRNA! VICTORY BUTTON */}
                   <div className="text-center">
                     <button 
                       onClick={claimDabrnaVictory}
@@ -1389,9 +1233,7 @@
                   </div>
                 </div>
 
-                {/* Right Column: Other Player cards tracking & mini stats */}
                 <div className="lg:col-span-1 space-y-6">
-                  {/* Opponent list with status */}
                   <div className="glass-panel p-5 rounded-3xl">
                     <h3 className="font-bold text-sm mb-4 flex items-center gap-2 text-blue-300">
                       <i data-lucide="users" className="w-5 h-5"></i>
@@ -1409,7 +1251,6 @@
                             <span className="text-slate-400 text-[10px]">شانس برد بالا</span>
                           </div>
 
-                          {/* Progress bar simulation for bot */}
                           <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
                             <div className="bg-blue-400 h-full" style={{ width: `${Math.min((drawnNumbers.length * 3.5) + (i * 10), 95)}%` }}></div>
                           </div>
@@ -1418,7 +1259,6 @@
                     </div>
                   </div>
 
-                  {/* Active Match Chat */}
                   <div className="glass-panel p-4 rounded-3xl flex flex-col h-64">
                     <div className="flex-1 overflow-y-auto space-y-2 mb-2 pr-1">
                       {messages.slice(-5).map((m) => (
@@ -1434,7 +1274,7 @@
                         type="text" 
                         value={chatInput} 
                         onChange={(e) => setChatInput(e.target.value)}
-                        className="flex-1 bg-slate-950/60 border border-slate-800 rounded-lg px-2.5 py-1.5 text-[11px] focus:outline-none"
+                        className="flex-1 bg-slate-950/60 border border-slate-800 rounded-lg px-2.5 py-1.5 text-[11px] text-white focus:outline-none"
                         placeholder="کری خوانی سریع..."
                       />
                       <button type="submit" className="bg-emerald-600 p-1.5 rounded-lg">
@@ -1443,22 +1283,21 @@
                     </form>
                   </div>
                 </div>
-
               </div>
             )}
 
-            {/* 7. WINNER SCREEN MODAL / VIEW */}
+            {}
+            {/* WINNER SCREEN */}
             {winner && (
               <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
                 <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative overflow-hidden">
-                  {/* Confetti decoration */}
                   <div className="text-6xl mb-4 animate-bounce">🏆</div>
                   
                   <h2 className="text-3xl font-black text-yellow-400 mb-1">دبــــــرنـــــا !</h2>
                   <p className="text-slate-300 text-xs mb-6">مسابقه با موفقیت به پایان رسید</p>
 
                   <div className="bg-black/30 p-5 rounded-2xl mb-6 space-y-4">
-                    <img src={winner.avatar || AVATARS[2]} className="w-20 h-20 rounded-full mx-auto object-cover ring-4 ring-yellow-400" />
+                    {winner.avatar && <img src={winner.avatar} className="w-20 h-20 rounded-full mx-auto object-cover ring-4 ring-yellow-400" />}
                     
                     <div>
                       <h3 className="font-black text-xl text-white">{winner.name}</h3>
@@ -1489,15 +1328,16 @@
               </div>
             )}
 
-            {/* 8. LEADERBOARD SCREEN */}
+            {}
+            {/* LEADERBOARD SCREEN */}
             {screen === 'leaderboard' && (
               <div className="max-w-2xl mx-auto w-full glass-panel p-6 rounded-3xl">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-2xl font-black flex items-center gap-2 text-yellow-400">
                     <i data-lucide="trophy" className="w-6 h-6"></i>
-                    قهرمانان برتر کشور (دبرنا بازان)
+                    قهرمانان برتر کشور
                   </h2>
-                  <button onClick={() => setScreen('home')} className="text-xs bg-slate-800 px-3 py-1.5 rounded-xl">بازگشت</button>
+                  <button onClick={() => { playLocalSound('click'); setScreen('home'); }} className="text-xs bg-slate-800 px-3 py-1.5 rounded-xl text-white">بازگشت</button>
                 </div>
 
                 <div className="space-y-3">
@@ -1530,7 +1370,7 @@
               </div>
             )}
 
-            {/* 9. ACHIEVEMENTS SCREEN */}
+            {/* ACHIEVEMENTS SCREEN */}
             {screen === 'achievements' && (
               <div className="max-w-2xl mx-auto w-full glass-panel p-6 rounded-3xl">
                 <div className="flex justify-between items-center mb-6">
@@ -1538,7 +1378,7 @@
                     <i data-lucide="award" className="w-6 h-6"></i>
                     افتخارات و مدال‌های شما
                   </h2>
-                  <button onClick={() => setScreen('home')} className="text-xs bg-slate-800 px-3 py-1.5 rounded-xl">بازگشت</button>
+                  <button onClick={() => { playLocalSound('click'); setScreen('home'); }} className="text-xs bg-slate-800 px-3 py-1.5 rounded-xl text-white">بازگشت</button>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1564,7 +1404,7 @@
               </div>
             )}
 
-            {/* 10. PROFILE SCREEN */}
+            {/* PROFILE SCREEN */}
             {screen === 'profile' && (
               <div className="max-w-xl mx-auto w-full glass-panel p-6 rounded-3xl space-y-6">
                 <div className="flex justify-between items-center border-b border-white/10 pb-4">
@@ -1572,10 +1412,9 @@
                     <i data-lucide="user" className="w-6 h-6"></i>
                     پروفایل و آمار کاربری
                   </h2>
-                  <button onClick={() => setScreen('home')} className="text-xs bg-slate-800 px-3 py-1.5 rounded-xl">بازگشت</button>
+                  <button onClick={() => { playLocalSound('click'); setScreen('home'); }} className="text-xs bg-slate-800 px-3 py-1.5 rounded-xl text-white">بازگشت</button>
                 </div>
 
-                {/* Profile header with avatar edit */}
                 <div className="text-center space-y-3">
                   <div className="relative inline-block">
                     <img src={user.avatar} className="w-24 h-24 rounded-full mx-auto object-cover ring-4 ring-emerald-400" />
@@ -1587,7 +1426,6 @@
                   </div>
                 </div>
 
-                {/* Grid Avatars for selection */}
                 <div className="bg-black/20 p-4 rounded-2xl">
                   <span className="text-xs text-slate-300 block mb-2">انتخاب تصویر پروفایل جدید:</span>
                   <div className="flex gap-2.5 overflow-x-auto pb-1">
@@ -1602,7 +1440,6 @@
                   </div>
                 </div>
 
-                {/* Statistics panel */}
                 <div className="grid grid-cols-2 gap-3 text-center text-xs">
                   <div className="bg-slate-900/50 p-3 rounded-xl border border-white/5">
                     <span className="text-slate-400 block mb-0.5">کل بازی‌ها:</span>
@@ -1622,7 +1459,8 @@
               </div>
             )}
 
-            {/* 11. GENERAL GAME SETTINGS SCREEN */}
+            {}
+            {/* SETTINGS SCREEN */}
             {screen === 'settings' && (
               <div className="max-w-2xl mx-auto w-full glass-panel p-6 rounded-3xl space-y-6">
                 <div className="flex justify-between items-center border-b border-white/10 pb-4">
@@ -1630,10 +1468,9 @@
                     <i data-lucide="sliders" className="w-6 h-6"></i>
                     تنظیمات ظاهری و گوینده صوتی
                   </h2>
-                  <button onClick={() => setScreen('home')} className="text-xs bg-slate-800 px-3 py-1.5 rounded-xl">بازگشت</button>
+                  <button onClick={() => { playLocalSound('click'); setScreen('home'); }} className="text-xs bg-slate-800 px-3 py-1.5 rounded-xl text-white">بازگشت</button>
                 </div>
 
-                {/* Voice Selection */}
                 <div className="space-y-3">
                   <label className="text-xs text-slate-300 font-bold block">انتخاب گوینده صوتی دبرنا (صدا زدن هوشمند اعداد):</label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -1650,7 +1487,6 @@
                   </div>
                 </div>
 
-                {/* Classic Board & Themes Choice */}
                 <div className="space-y-3">
                   <label className="text-xs text-slate-300 font-bold block">تم رنگی محیط بازی (طراحی زنده):</label>
                   <div className="grid grid-cols-2 gap-3">
@@ -1668,7 +1504,6 @@
                   </div>
                 </div>
 
-                {/* Card Styles Grid Selection */}
                 <div className="space-y-3">
                   <label className="text-xs text-slate-300 font-bold block">پوسته کارت بازی دبرنا شخصی شما:</label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -1692,20 +1527,19 @@
 
           </main>
 
+          {}
           {/* LUCKY WHEEL POPUP MODAL */}
           {showSpin && (
             <div className="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
               <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl relative">
-                <button onClick={() => setShowSpin(false)} className="absolute top-4 left-4 bg-slate-800 hover:bg-slate-700 text-slate-400 p-1.5 rounded-full">
+                <button onClick={() => { playLocalSound('click'); setShowSpin(false); }} className="absolute top-4 left-4 bg-slate-800 hover:bg-slate-700 text-slate-400 p-1.5 rounded-full">
                   <i data-lucide="x" className="w-4 h-4"></i>
                 </button>
 
                 <h3 className="text-xl font-black text-amber-300 mb-1">🎡 گردونه شانس دبرنا</h3>
                 <p className="text-slate-400 text-xs mb-6">شانس خود را امتحان کنید و هدیه ببرید</p>
 
-                {/* Animated SVG Wheel */}
                 <div className="relative w-48 h-48 mx-auto mb-6">
-                  {/* Outer Arrow Pointer */}
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 -mt-4 text-3xl z-20">👇</div>
                   
                   <div 
@@ -1715,7 +1549,6 @@
                       backgroundImage: 'conic-gradient(#ec4899 0 60deg, #3b82f6 60deg 120deg, #a855f7 120deg 180deg, #10b981 180deg 240deg, #f59e0b 240deg 300deg, #6366f1 300deg 360deg)'
                     }}
                   >
-                    {/* Visual Segments marker */}
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none text-[10px] font-bold text-white">
                       <span className="absolute rotate-30 translate-y-12">۵۰ سکه</span>
                       <span className="absolute rotate-90 translate-y-12">۵۰۰ سکه</span>
@@ -1744,7 +1577,6 @@
             </div>
           )}
 
-          {/* Footer branding */}
           <footer className="glass-panel text-center py-4 text-xs text-slate-400 mt-auto border-t border-white/5">
             <p>تمامی حقوق محفوظ است © دبرنا آنلاین ۲۰۲۶ | شاد بمانید و کنار هم بخندید.</p>
           </footer>
@@ -1753,7 +1585,6 @@
       );
     }
 
-    // Lucide Icon Initializer Utility inside dynamic React app
     function IconsInitializer() {
       useEffect(() => {
         if (typeof lucide !== 'undefined') {
@@ -1763,7 +1594,6 @@
       return null;
     }
 
-    // Render components
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
   </script>
