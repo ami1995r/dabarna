@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>دبرنا | چالش آنلاین مینیمال</title>
+  <title>دبرنا پرمیوم | رقابت آنلاین و شرط‌بندی با سکه</title>
   
-  <!-- Tailwind CSS Play CDN (Stable and loaded globally) -->
+  <!-- Tailwind CSS Stable Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts - Vazirmatn (Best Persian Typography) -->
+  <!-- Google Fonts - Vazirmatn (بهترین فونت فارسی) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@200;400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 
   <!-- Canvas Confetti for professional victory events -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -105,6 +105,11 @@
         <span id="audio-icon">🔊</span>
       </button>
 
+      <!-- Admin Access Trigger -->
+      <button onclick="navigateTo('admin')" class="p-2 rounded-xl bg-red-500/10 text-red-500 hover:bg-red-500/20 transition-colors" title="پنل مدیریت ادمین">
+        <span>🔑 ادمین</span>
+      </button>
+
       <!-- Profile Icon & Unique Code -->
       <div class="flex items-center gap-2 cursor-pointer border-r border-slate-200 dark:border-neutral-800 pr-3" onclick="navigateTo('profile')">
         <div id="header-user-avatar-container" class="w-8 h-8 rounded-full border border-slate-300 dark:border-neutral-700 overflow-hidden">
@@ -130,37 +135,37 @@
 
   <!-- Footer Branding -->
   <footer class="border-t border-theme-lightBorder dark:border-theme-darkBorder py-5 text-center text-[10px] text-slate-400 dark:text-neutral-500 mt-auto bg-white/30 dark:bg-transparent">
-    <p>حقوق بازی دبرنا آنلاین محفوظ است © ۲۰۲۶ | طراحی مینیمال و امن روی بستر گیت‌هاب</p>
+    <p>حقوق بازی دبرنا پرمیوم محفوظ است © ۲۰۲۶ | طراحی مینیمال و امن بدون باگ</p>
   </footer>
 
   <script>
-    // --- VECTOR CARTOON AVATARS (SVG INJECTORS) ---
+    // --- STREAMING_CHUNK: Vector Cartoon Avatars Setup... ---
     // Beautiful clean vector graphics (3 Males, 3 Females) which work completely offline!
     const SVG_AVATARS = [
-      // 0: Male 1 (Beard, Clean Look)
+      // 0: Male 1 (Trendy Beard & Glasses)
       `<svg viewBox="0 0 100 100" class="w-full h-full bg-slate-200 dark:bg-neutral-800">
-        <circle cx="50" cy="50" r="40" fill="#fbcfe8"/>
+        <circle cx="50" cy="50" r="40" fill="#fed7aa"/>
         <path d="M30 75 C 30 55, 70 55, 70 75 Z" fill="#475569"/>
-        <circle cx="50" cy="45" r="22" fill="#fed7aa"/>
+        <circle cx="50" cy="45" r="22" fill="#fdba74"/>
         <rect x="42" y="55" width="16" height="12" rx="4" fill="#1e293b"/>
         <circle cx="42" cy="42" r="3" fill="#0f172a"/>
         <circle cx="58" cy="42" r="3" fill="#0f172a"/>
         <path d="M45 50 Q 50 54 55 50" stroke="#0f172a" stroke-width="2" fill="none"/>
-        <path d="M35 30 Q 50 20 65 30" stroke="#334155" stroke-width="5" fill="none"/>
+        <path d="M30 35 Q 50 20 70 35" stroke="#1e293b" stroke-width="5" fill="none"/>
       </svg>`,
-      // 1: Female 1 (Sleek Glasses & Bob haircut)
+      // 1: Female 1 (Modern Scarf / Hijab style)
       `<svg viewBox="0 0 100 100" class="w-full h-full bg-slate-200 dark:bg-neutral-800">
-        <circle cx="50" cy="50" r="40" fill="#fed7aa"/>
-        <path d="M25 45 C 20 20, 80 20, 75 45 C 75 70, 25 70, 25 45 Z" fill="#0f172a"/>
-        <circle cx="50" cy="48" r="20" fill="#ffedd5"/>
-        <circle cx="42" cy="46" r="5" stroke="#ea580c" stroke-width="2" fill="none"/>
-        <circle cx="58" cy="46" r="5" stroke="#ea580c" stroke-width="2" fill="none"/>
-        <line x1="47" y1="46" x2="53" y2="46" stroke="#ea580c" stroke-width="2"/>
-        <path d="M46 56 Q 50 60 54 56" stroke="#0f172a" stroke-width="2" fill="none"/>
+        <circle cx="50" cy="50" r="40" fill="#f87171"/>
+        <path d="M25 35 C 25 15, 75 15, 75 35 C 75 80, 25 80, 25 35 Z" fill="#f4f4f5"/>
+        <ellipse cx="50" cy="45" rx="16" ry="20" fill="#fed7aa"/>
+        <circle cx="44" cy="42" r="2.5" fill="#09090b"/>
+        <circle cx="56" cy="42" r="2.5" fill="#09090b"/>
+        <path d="M44 52 Q 50 57 56 52" stroke="#09090b" stroke-width="2" fill="none"/>
+        <path d="M30 78 C 34 68, 66 68, 70 78 Z" fill="#f4f4f5"/>
       </svg>`,
-      // 2: Male 2 (Modern Cap & Glasses)
+      // 2: Male 2 (Classic Modern Cap)
       `<svg viewBox="0 0 100 100" class="w-full h-full bg-slate-200 dark:bg-neutral-800">
-        <circle cx="50" cy="50" r="40" fill="#ddd"/>
+        <circle cx="50" cy="50" r="40" fill="#38bdf8"/>
         <circle cx="50" cy="48" r="22" fill="#ffedd5"/>
         <path d="M28 35 L 72 35 L 65 22 L 35 22 Z" fill="#0f172a"/>
         <rect x="25" y="32" width="50" height="4" rx="2" fill="#e2e8f0"/>
@@ -170,19 +175,19 @@
         <path d="M45 54 Q 50 58 55 54" stroke="#0f172a" stroke-width="2" fill="none"/>
         <path d="M30 78 C 30 62, 70 62, 70 78 Z" fill="#334155"/>
       </svg>`,
-      // 3: Female 2 (Long Curly Hair)
+      // 3: Female 2 (Elegant Bob Haircut)
       `<svg viewBox="0 0 100 100" class="w-full h-full bg-slate-200 dark:bg-neutral-800">
-        <circle cx="50" cy="50" r="40" fill="#fde047"/>
-        <path d="M22 35 C 10 50, 90 50, 78 35 C 70 15, 30 15, 22 35 Z" fill="#7c2d12"/>
-        <circle cx="50" cy="50" r="20" fill="#ffedd5"/>
-        <circle cx="43" cy="47" r="2" fill="#000"/>
-        <circle cx="57" cy="47" r="2" fill="#000"/>
-        <path d="M44 57 Q 50 62 56 57" stroke="#7c2d12" stroke-width="2.5" fill="none"/>
-        <path d="M32 78 C 32 64, 68 64, 68 78 Z" fill="#1e293b"/>
+        <circle cx="50" cy="50" r="40" fill="#fbcfe8"/>
+        <path d="M25 45 C 20 20, 80 20, 75 45 C 75 70, 25 70, 25 45 Z" fill="#0f172a"/>
+        <circle cx="50" cy="48" r="20" fill="#ffedd5"/>
+        <circle cx="43" cy="44" r="2" fill="#000"/>
+        <circle cx="57" cy="44" r="2" fill="#000"/>
+        <path d="M45 54 Q 50 59 55 54" stroke="#0f172a" stroke-width="2" fill="none"/>
+        <path d="M30 78 C 30 65, 70 65, 70 78 Z" fill="#1e293b"/>
       </svg>`,
-      // 4: Male 3 (Trendy Afro Hair Style)
+      // 4: Male 3 (Cool Curly Hair style)
       `<svg viewBox="0 0 100 100" class="w-full h-full bg-slate-200 dark:bg-neutral-800">
-        <circle cx="50" cy="50" r="40" fill="#f87171"/>
+        <circle cx="50" cy="50" r="40" fill="#cbd5e1"/>
         <circle cx="38" cy="35" r="12" fill="#18181b"/>
         <circle cx="62" cy="35" r="12" fill="#18181b"/>
         <circle cx="50" cy="30" r="14" fill="#18181b"/>
@@ -192,15 +197,15 @@
         <path d="M42 56 Q 50 51 58 56" stroke="#18181b" stroke-width="2.5" fill="none"/>
         <path d="M30 78 C 30 63, 70 63, 70 78 Z" fill="#0f172a"/>
       </svg>`,
-      // 5: Female 3 (Minimalist Scarf / Elegant Hijab)
+      // 5: Female 3 (Long hair with headband)
       `<svg viewBox="0 0 100 100" class="w-full h-full bg-slate-200 dark:bg-neutral-800">
-        <circle cx="50" cy="50" r="40" fill="#0284c7"/>
-        <path d="M25 32 C 25 15, 75 15, 75 32 C 75 80, 25 80, 25 32 Z" fill="#f4f4f5"/>
-        <ellipse cx="50" cy="45" rx="16" ry="20" fill="#fed7aa"/>
-        <circle cx="44" cy="42" r="2.5" fill="#09090b"/>
-        <circle cx="56" cy="42" r="2.5" fill="#09090b"/>
-        <path d="M44 52 Q 50 57 56 52" stroke="#09090b" stroke-width="2" fill="none"/>
-        <path d="M30 78 C 34 68, 66 68, 70 78 Z" fill="#f4f4f5"/>
+        <circle cx="50" cy="50" r="40" fill="#c084fc"/>
+        <path d="M22 35 C 10 50, 90 50, 78 35 C 70 15, 30 15, 22 35 Z" fill="#581c87"/>
+        <circle cx="50" cy="50" r="20" fill="#fed7aa"/>
+        <circle cx="43" cy="47" r="2" fill="#000"/>
+        <circle cx="57" cy="47" r="2" fill="#000"/>
+        <path d="M44 57 Q 50 62 56 57" stroke="#7c2d12" stroke-width="2.5" fill="none"/>
+        <path d="M32 78 C 32 64, 68 64, 68 78 Z" fill="#1e293b"/>
       </svg>`
     ];
 
@@ -218,7 +223,7 @@
       { id: 'monochrome-bold', name: 'سیاه و سفید برجسته', bg: 'bg-neutral-100 dark:bg-zinc-950', cell: 'border-neutral-300 dark:border-zinc-800', active: 'bg-neutral-900 text-white dark:bg-zinc-100 dark:text-neutral-950 font-black ring-2 ring-neutral-950 dark:ring-white' }
     ];
 
-    // --- GLOBAL STATE ---
+    // --- GLOBAL SYSTEM STATE ---
     let state = {
       screen: 'splash',
       theme: 'dark', // 'light' or 'dark' (Default dark/night mode)
@@ -232,7 +237,7 @@
         avatarIdx: 0,
         level: 3,
         xp: 140,
-        coins: 1250,
+        coins: 1250, // Wallet balance
         wins: 14,
         played: 45,
         badges: ['کارت‌باز ماهر', 'اولین برد']
@@ -248,6 +253,14 @@
       gameSpeed: 4, // Seconds per draw
       winningPattern: 'fullhouse', // 'single-line', 'double-line', 'fullhouse'
       autoDraw: true,
+      entryFee: 100, // Coin entry fee for betting, 0 means Free
+
+      // Active / Created rooms list
+      roomsList: [
+        { code: '284019', name: 'کلوب دبرنابازان مرکز ☕️', creator: 'امیر_سریع', entryFee: 50, playersCount: 4, limit: 6, status: 'lobby', isBotOnly: true },
+        { code: '990212', name: 'میز سنگین دبرنا طلایی 🏆', creator: 'رویا_قهرمان', entryFee: 500, playersCount: 2, limit: 8, status: 'gameplay', isBotOnly: true },
+        { code: '441029', name: 'رقابت دوستانه و رایگان 🍉', creator: 'الهام_سکوت', entryFee: 0, playersCount: 3, limit: 5, status: 'lobby', isBotOnly: true }
+      ],
 
       // Live Room Status
       roomCode: '',
@@ -264,6 +277,7 @@
       timer: 0,
       winner: null,
       isDabrnaReady: false,
+      isSpectating: false, // Flag indicating if user is watching other people's game
 
       // Intervals
       drawInterval: null,
@@ -299,12 +313,20 @@
       } else {
         state.theme = 'dark'; // Default night mode as requested
       }
+
+      const localCoins = localStorage.getItem('dab_coins_wallet');
+      if (localCoins !== null) {
+        state.user.coins = parseInt(localCoins);
+      } else {
+        localStorage.setItem('dab_coins_wallet', state.user.coins);
+      }
     }
 
     function saveUserCredentials() {
       localStorage.setItem('dab_nickname', state.user.nickname);
       localStorage.setItem('dab_avatar_idx', state.user.avatarIdx);
       localStorage.setItem('dab_theme', state.theme);
+      localStorage.setItem('dab_coins_wallet', state.user.coins);
     }
 
     // Sound Synthesizer Engine
@@ -417,8 +439,13 @@
 
     // --- STREAMING_CHUNK: Navigation and Router setup... ---
     function navigateTo(screenId) {
-      // Clear game loops if exiting gameplay screen
-      if (state.screen === 'gameplay' && screenId !== 'gameplay') {
+      // Forfeiting rule: if exiting gameplay screen & user was playing actively in betting room
+      if (state.screen === 'gameplay' && screenId !== 'gameplay' && !state.isSpectating && state.gameActive) {
+        if (state.entryFee > 0) {
+          state.user.coins -= state.entryFee;
+          saveUserCredentials();
+          showNotification(`شما بازی را وسط رقابت ترک کردید! مبلغ ${state.entryFee} سکه از حساب شما کسر و جریمه شدید.`);
+        }
         clearInterval(state.drawInterval);
         clearInterval(state.timerInterval);
         state.gameActive = false;
@@ -467,6 +494,9 @@
         case 'settings':
           viewport.innerHTML = getSettingsHTML();
           break;
+        case 'admin':
+          viewport.innerHTML = getAdminHTML();
+          break;
         default:
           viewport.innerHTML = getHomeHTML();
       }
@@ -481,8 +511,8 @@
           <div class="w-24 h-24 bg-slate-950 dark:bg-white text-white dark:text-black rounded-full flex items-center justify-center text-4xl font-black mb-6 animate-bounce-slow">
             🎯
           </div>
-          <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-3">دبـرنـا <span class="text-slate-400">آنلاین</span></h1>
-          <p class="text-sm text-slate-400 dark:text-neutral-400 max-w-sm font-light">تجربه‌ای مینیمال، مدرن و شیک از بازی اصیل ایرانی</p>
+          <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-3">دبـرنـا <span class="text-slate-400">پرمیوم</span></h1>
+          <p class="text-sm text-slate-400 dark:text-neutral-400 max-w-sm font-light">چالش گروهی شانس، شرط‌بندی و هوش با استایل مینیمال سیاه و سفید</p>
           <div class="w-32 bg-slate-200 dark:bg-neutral-800 h-1 rounded-full overflow-hidden mt-8">
             <div class="bg-slate-950 dark:bg-white h-full w-2/3 rounded-full animate-pulse"></div>
           </div>
@@ -541,13 +571,13 @@
           <!-- Hero Section -->
           <div class="glass-panel p-6 md:p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm">
             <div class="space-y-4 text-center md:text-right max-w-lg">
-              <span class="bg-slate-100 dark:bg-neutral-800 text-slate-600 dark:text-neutral-300 text-[10px] px-3 py-1 rounded-full font-bold">بزرگترین کلوب آنلاین دبرنا</span>
-              <h2 class="text-2xl md:text-3xl font-extrabold leading-tight">با هم بازی کنید، شاد بمانید!</h2>
-              <p class="text-xs text-slate-400 dark:text-neutral-400">یک نبرد مهیج هوش و شانس به صورت چند نفره آنلاین. دوستانتان را دعوت کنید یا با حریفان هوشمند مسابقه دهید.</p>
+              <span class="bg-slate-100 dark:bg-neutral-800 text-slate-600 dark:text-neutral-300 text-[10px] px-3 py-1 rounded-full font-bold">بزرگترین کلوب شرط‌بندی و تفریح دبرنا</span>
+              <h2 class="text-2xl md:text-3xl font-extrabold leading-tight">با هم بازی کنید، شاد بمانید و سکه ببرید!</h2>
+              <p class="text-xs text-slate-400 dark:text-neutral-400">یک نبرد مهیج هوش و شانس به صورت چند نفره آنلاین. دوستانتان را به چالش بکشید یا به تماشای مسابقات دیگران بنشینید.</p>
               
               <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
                 <button onclick="handleQuickJoin()" class="bg-slate-950 hover:bg-slate-900 dark:bg-white dark:hover:bg-neutral-100 text-white dark:text-black font-extrabold text-xs px-6 py-3 rounded-xl shadow-lg transition-all transform active:scale-95 flex items-center gap-1.5">
-                  ⚡️ بازی سریع (شروع رقابت)
+                  ⚡️ بازی سریع (داو ۱۰۰ سکه)
                 </button>
                 <button onclick="navigateTo('create-room')" class="bg-slate-100 hover:bg-slate-200 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-slate-900 dark:text-neutral-100 font-bold text-xs px-5 py-3 rounded-xl transition-all">
                   ساخت اتاق جدید
@@ -618,25 +648,24 @@
               </div>
             </div>
 
-            <!-- Active Public Servers list -->
+            <!-- Active Public Rooms list -->
             <div class="glass-panel p-5 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder">
-              <h3 class="font-bold text-sm mb-3 flex items-center gap-2">📢 اتاق‌های فعال</h3>
+              <h3 class="font-bold text-sm mb-3 flex items-center gap-2">📢 اتاق‌های فعال عمومی</h3>
               <div class="space-y-3">
-                <div class="bg-slate-50 dark:bg-neutral-900/40 p-3 rounded-2xl border border-slate-100 dark:border-neutral-800/60 hover:bg-slate-100 dark:hover:bg-neutral-800/40 cursor-pointer transition-all" onclick="handleQuickJoin()">
-                  <div class="flex justify-between items-center">
-                    <span class="text-xs font-bold">بچه‌های تهرانپارس ☕️</span>
-                    <span class="text-[10px] bg-neutral-200 dark:bg-neutral-800 px-2 py-0.5 rounded-full text-slate-600 dark:text-neutral-400">۴ / ۶</span>
+                ${state.roomsList.map(room => `
+                  <div class="bg-slate-50 dark:bg-neutral-900/40 p-3 rounded-2xl border border-slate-100 dark:border-neutral-800/60 hover:bg-slate-100 dark:hover:bg-neutral-800/40 cursor-pointer transition-all">
+                    <div class="flex justify-between items-center">
+                      <span class="text-xs font-bold">${room.name}</span>
+                      <span class="text-[10px] bg-neutral-200 dark:bg-neutral-800 px-2 py-0.5 rounded-full text-slate-600 dark:text-neutral-400">${room.playersCount} / ${room.limit}</span>
+                    </div>
+                    <p class="text-[9px] text-slate-400 mt-1">سازنده: ${room.creator} | ورودی: ${room.entryFee === 0 ? 'رایگان' : room.entryFee + ' سکه'}</p>
+                    
+                    <div class="flex gap-2 mt-2">
+                      <button onclick="joinLobbyByCode('${room.code}')" class="flex-1 bg-slate-900 dark:bg-white text-white dark:text-black py-1 rounded-lg text-[9px] font-bold text-center">ورود به لابی</button>
+                      <button onclick="spectateRoom('${room.code}')" class="flex-1 bg-slate-200 dark:bg-neutral-800 text-slate-700 dark:text-neutral-300 py-1 rounded-lg text-[9px] font-bold text-center">👁 تماشا</button>
+                    </div>
                   </div>
-                  <p class="text-[9px] text-slate-400 mt-1">میزبان: آرش | الگو: تمام خانه</p>
-                </div>
-
-                <div class="bg-slate-50 dark:bg-neutral-900/40 p-3 rounded-2xl border border-slate-100 dark:border-neutral-800/60 hover:bg-slate-100 dark:hover:bg-neutral-800/40 cursor-pointer transition-all" onclick="handleQuickJoin()">
-                  <div class="flex justify-between items-center">
-                    <span class="text-xs font-bold">قهوه‌خانه سنتی یلدا 🍉</span>
-                    <span class="text-[10px] bg-neutral-200 dark:bg-neutral-800 px-2 py-0.5 rounded-full text-slate-600 dark:text-neutral-400">۲ / ۸</span>
-                  </div>
-                  <p class="text-[9px] text-slate-400 mt-1">میزبان: رویا | الگو: تک خط افقی</p>
-                </div>
+                `).join('')}
               </div>
             </div>
           </div>
@@ -690,6 +719,22 @@
                 class="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-4 py-2 text-sm focus:outline-none"
                 placeholder="گذرواژه مثلاً ۱۲۳۴"
               />
+            </div>
+
+            <!-- Betting Fee setup (داو بازی) -->
+            <div>
+              <label class="text-[11px] text-slate-400 block mb-1">هزینه ورود / داو بازی (سکه):</label>
+              <select 
+                id="create-room-fee"
+                class="w-full bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 rounded-xl px-4 py-2 text-sm focus:outline-none text-right"
+              >
+                <option value="0" ${state.entryFee === 0 ? 'selected' : ''}>رایگان (بدون داو)</option>
+                <option value="50" ${state.entryFee === 50 ? 'selected' : ''}>۵۰ سکه</option>
+                <option value="100" ${state.entryFee === 100 ? 'selected' : ''}>۱۰۰ سکه</option>
+                <option value="250" ${state.entryFee === 250 ? 'selected' : ''}>۲۵۰ سکه</option>
+                <option value="500" ${state.entryFee === 500 ? 'selected' : ''}>۵۰۰ سکه (میز سنگین)</option>
+              </select>
+              <p class="text-[9px] text-slate-400 mt-1">برنده کل صندوق را پس از کسر ۱۰٪ کارمزد گرداننده (پلتفرم) دریافت خواهد کرد.</p>
             </div>
 
             <!-- Winning Rule -->
@@ -754,6 +799,7 @@
 
     // 5. Lobby Screen
     function getLobbyHTML() {
+      const isFeeApplicable = state.entryFee > 0;
       return `
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div class="lg:col-span-2 space-y-6">
@@ -761,10 +807,15 @@
             <div class="glass-panel p-6 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm relative overflow-hidden">
               <span class="absolute top-4 left-4 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[9px] px-2.5 py-1 rounded-full font-bold">آماده شروع</span>
               <h2 class="text-xl font-black text-slate-900 dark:text-white mb-1">${state.roomName}</h2>
-              <p class="text-[10px] text-slate-400 mb-4">میزبان لابی: <span class="text-slate-800 dark:text-neutral-200 font-bold">${state.isHost ? state.user.nickname : BOT_NAMES[3]}</span></p>
+              <div class="flex items-center gap-2 mt-1">
+                <p class="text-[10px] text-slate-400">رئیس اتاق: <span class="text-slate-800 dark:text-neutral-200 font-bold">${state.isHost ? state.user.nickname + ' (شما)' : BOT_NAMES[3]}</span></p>
+                <span class="text-[9px] bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold px-2 py-0.5 rounded-full">
+                  داو ورودی: ${isFeeApplicable ? state.entryFee + ' سکه' : 'رایگان'}
+                </span>
+              </div>
 
               <!-- Room Code Container -->
-              <div class="bg-slate-50 dark:bg-neutral-900 p-4 rounded-2xl border border-slate-100 dark:border-neutral-800/50">
+              <div class="bg-slate-50 dark:bg-neutral-900 p-4 rounded-2xl border border-slate-100 dark:border-neutral-800/50 mt-4">
                 <span class="text-[10px] text-slate-400 block mb-2">دوستان خود را با کد اختصاصی دعوت کنید:</span>
                 <div class="flex items-center gap-2">
                   <div class="flex-1 bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl py-2 px-4 text-center font-mono font-black text-xl tracking-wider text-slate-950 dark:text-neutral-100 select-all">
@@ -777,7 +828,7 @@
               </div>
             </div>
 
-            <!-- Active Players List -->
+            <!-- Active Players List & Host Actions -->
             <div class="glass-panel p-6 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm">
               <h3 class="font-bold text-sm mb-4">بازیکنان داخل اتاق (${state.players.length} / ${state.playerLimit})</h3>
               
@@ -787,7 +838,7 @@
                     <div class="flex items-center gap-3">
                       <div class="w-10 h-10 rounded-full border border-slate-200 dark:border-neutral-800 overflow-hidden relative">
                         ${p.avatar}
-                        ${p.isHost ? `<span class="absolute -top-1 -right-1 bg-yellow-400 text-slate-950 text-[7px] p-0.5 rounded-full" title="میزبان">👑</span>` : ''}
+                        ${p.isHost ? `<span class="absolute -top-1 -right-1 bg-yellow-400 text-slate-950 text-[7px] p-0.5 rounded-full" title="رئیس اتاق">👑</span>` : ''}
                       </div>
                       <div>
                         <div class="text-xs font-bold flex items-center gap-1">
@@ -798,7 +849,15 @@
                       </div>
                     </div>
 
-                    <span class="text-[10px] bg-green-500/10 text-green-600 dark:text-green-400 px-2.5 py-1 rounded-full font-bold">آماده بازی</span>
+                    <div class="flex items-center gap-1.5">
+                      <!-- Host management options to kick players -->
+                      ${state.isHost && p.id !== state.user.id ? `
+                        <button onclick="kickPlayerFromLobby('${p.id}')" class="text-[9px] bg-red-500/10 text-red-500 hover:bg-red-500/20 px-2 py-1 rounded-lg transition-all" title="اخراج بازیکن">
+                          اخراج
+                        </button>
+                      ` : ''}
+                      <span class="text-[10px] bg-green-500/10 text-green-600 dark:text-green-400 px-2.5 py-1 rounded-full font-bold">آماده</span>
+                    </div>
                   </div>
                 `).join('')}
               </div>
@@ -876,6 +935,13 @@
     // 6. Gameplay Screen
     function getGameplayHTML() {
       return `
+        <!-- Warning notification for betting forfeiture -->
+        ${!state.isSpectating && state.entryFee > 0 ? `
+          <div class="bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] px-4 py-2 rounded-xl mb-4 font-bold text-center">
+            ⚠️ این بازی دارای ورودی شرط‌بندی است! در صورت ترک زودهنگام بازی، هزینه ورودی شما بازگردانده نخواهد شد.
+          </div>
+        ` : ''}
+
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
           <!-- Left Column: Caller Displays -->
           <div class="lg:col-span-1 space-y-6">
@@ -919,6 +985,10 @@
                 <div>
                   <span class="text-[9px] text-slate-400 block">الگوی برنده شدن این مسابقه:</span>
                   <span class="font-extrabold text-xs text-slate-800 dark:text-neutral-200" id="gameplay-pattern-label">-</span>
+                  <div class="mt-1 flex items-center gap-1.5">
+                    <span class="text-[9px] text-slate-400">کل صندوق جایزه:</span>
+                    <span class="text-xs font-bold text-amber-500" id="gameplay-betting-pool-label">۰ سکه</span>
+                  </div>
                 </div>
 
                 <div class="bg-slate-50 dark:bg-neutral-900 px-3 py-1.5 rounded-xl text-center border border-slate-100 dark:border-neutral-800/50">
@@ -937,14 +1007,20 @@
 
             <!-- Winner Trigger Call Button -->
             <div class="text-center">
-              <button 
-                id="claim-victory-dabrna-btn"
-                disabled
-                onclick="claimDabrnaVictory()"
-                class="w-full py-4 rounded-2xl text-lg font-black tracking-widest shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2 bg-slate-100 dark:bg-zinc-800 text-slate-400 cursor-not-allowed border border-slate-200 dark:border-zinc-700 smooth-transition"
-              >
-                🏆 دبرنااااااا !
-              </button>
+              ${state.isSpectating ? `
+                <div class="bg-blue-500/15 text-blue-600 dark:text-blue-400 p-4 rounded-2xl font-bold text-xs">
+                  👁 شما در حالت تماشاچی (Spectator) هستید. فقط بر جریان قرعه کشی نظارت می‌کنید.
+                </div>
+              ` : `
+                <button 
+                  id="claim-victory-dabrna-btn"
+                  disabled
+                  onclick="claimDabrnaVictory()"
+                  class="w-full py-4 rounded-2xl text-lg font-black tracking-widest shadow-lg transition-all transform active:scale-95 flex items-center justify-center gap-2 bg-slate-100 dark:bg-zinc-800 text-slate-400 cursor-not-allowed border border-slate-200 dark:border-zinc-700 smooth-transition"
+                >
+                  🏆 دبرنااااااا !
+                </button>
+              `}
             </div>
           </div>
 
@@ -1156,6 +1232,59 @@
       `;
     }
 
+    // 11. Admin Panel Screen
+    function getAdminHTML() {
+      return `
+        <div class="max-w-2xl mx-auto w-full glass-panel p-6 rounded-3xl bg-white dark:bg-theme-darkCard border border-slate-100 dark:border-theme-darkBorder shadow-sm space-y-6">
+          <div class="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-neutral-800">
+            <h2 class="text-xl font-black text-red-500 flex items-center gap-1.5">🔑 پنل مدیریت ارشد دبرنا (Admin)</h2>
+            <button onclick="navigateTo('home')" class="text-[10px] bg-slate-100 dark:bg-neutral-800 px-3 py-1.5 rounded-xl font-bold">بازگشت</button>
+          </div>
+
+          <!-- Quick Actions / Adjust balances -->
+          <div class="bg-red-500/5 p-4 rounded-2xl border border-red-500/20 space-y-4">
+            <h3 class="text-xs font-bold text-red-500">تزریق منابع و سکه به سیستم</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <span class="text-[10px] text-slate-400 block mb-1">افزودن سکه به حساب خود شما:</span>
+                <div class="flex gap-2">
+                  <button onclick="adminGrantCoins(500)" class="bg-emerald-500/10 text-emerald-600 text-xs py-1.5 px-3 rounded-lg font-bold flex-1">+۵۰۰ سکه</button>
+                  <button onclick="adminGrantCoins(5000)" class="bg-amber-500/10 text-amber-600 text-xs py-1.5 px-3 rounded-lg font-bold flex-1">+۵۰۰۰ سکه</button>
+                </div>
+              </div>
+
+              <div>
+                <span class="text-[10px] text-slate-400 block mb-1">ریست تمام آمار و داده‌ها:</span>
+                <button onclick="adminResetAllData()" class="w-full bg-red-500 text-white text-xs py-1.5 rounded-lg font-bold">ریست کامل دیتا بیس لوکال</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Rooms Administration -->
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold text-slate-400">مدیریت لایو اتاق‌های بازی پلتفرم</h3>
+            
+            <div class="space-y-2">
+              ${state.roomsList.map(room => `
+                <div class="bg-slate-50 dark:bg-neutral-900/60 p-3 rounded-xl flex justify-between items-center border border-slate-100 dark:border-neutral-800">
+                  <div>
+                    <span class="text-xs font-bold block">${room.name}</span>
+                    <span class="text-[9px] text-slate-400 font-mono">کد: ${room.code} | سازنده: ${room.creator}</span>
+                  </div>
+
+                  <div class="flex items-center gap-2">
+                    <span class="text-[9px] bg-neutral-200 dark:bg-neutral-800 px-2 py-0.5 rounded text-slate-500">${room.status === 'gameplay' ? 'در حال بازی' : 'در انتظار'}</span>
+                    <button onclick="adminTerminateRoom('${room.code}')" class="bg-red-500 text-white text-[9px] px-2 py-1 rounded-lg">بستن اتاق</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
     // --- STREAMING_CHUNK: Processing logic flow and controllers... ---
 
     // Login Commit Action
@@ -1222,16 +1351,32 @@
       const limitField = document.getElementById('create-room-limit');
       const speedField = document.getElementById('create-room-speed');
       const patternField = document.getElementById('create-room-pattern');
+      const feeField = document.getElementById('create-room-fee');
 
       state.roomName = nameField ? nameField.value.trim() : 'کافه دبرنا';
       state.roomPassword = passField ? passField.value : '';
       state.playerLimit = limitField ? parseInt(limitField.value) : 6;
       state.gameSpeed = speedField ? parseInt(speedField.value) : 4;
       state.winningPattern = patternField ? patternField.value : 'fullhouse';
+      state.entryFee = feeField ? parseInt(feeField.value) : 100;
       
+      // Check wallet balance before entering betting room
+      if (state.entryFee > state.user.coins) {
+        showNotification(`خطا: شما سکه کافی برای تعیین داو ورودی ${state.entryFee} ندارید! موجودی فعلی: ${state.user.coins} سکه`);
+        playLocalSound('alert');
+        return;
+      }
+
+      // Deduct coins entry fee from creator on room setup
+      if (state.entryFee > 0) {
+        state.user.coins -= state.entryFee;
+        saveUserCredentials();
+      }
+
       // Auto-generate code
       state.roomCode = Math.floor(100000 + Math.random() * 900000).toString();
       state.isHost = true;
+      state.isSpectating = false;
 
       // Populate players with simulated bots
       state.players = [
@@ -1242,8 +1387,46 @@
 
       // System Messages
       state.messages = [
-        { id: 1, sender: 'سیستم', text: `اتاق بازی "${state.roomName}" آماده اتصال است.`, isSystem: true },
+        { id: 1, sender: 'سیستم', text: `اتاق بازی "${state.roomName}" با شرط ${state.entryFee} سکه آماده اتصال است.`, isSystem: true },
         { id: 2, sender: 'سیستم', text: `شناسه لابی شما: ${state.roomCode}`, isSystem: true }
+      ];
+
+      playLocalSound('success');
+      navigateTo('lobby');
+    }
+
+    // Join room from listing
+    function joinLobbyByCode(code) {
+      const room = state.roomsList.find(r => r.code === code);
+      if (!room) return;
+
+      // Check wallet entry fee
+      if (room.entryFee > state.user.coins) {
+        showNotification(`خطا: شما سکه کافی برای ورود به این اتاق را ندارید! موجودی شما: ${state.user.coins} سکه`);
+        playLocalSound('alert');
+        return;
+      }
+
+      // Apply entry fee
+      if (room.entryFee > 0) {
+        state.user.coins -= room.entryFee;
+        saveUserCredentials();
+      }
+
+      state.roomName = room.name;
+      state.entryFee = room.entryFee;
+      state.roomCode = room.code;
+      state.isHost = false;
+      state.isSpectating = false;
+
+      state.players = [
+        { id: 'BOT-441029', name: room.creator, avatar: SVG_AVATARS[3], isHost: true, isBot: true },
+        { id: state.user.id, name: state.user.nickname, avatar: SVG_AVATARS[state.user.avatarIdx], isHost: false, isBot: false },
+        { id: 'BOT-991022', name: BOT_NAMES[4], avatar: SVG_AVATARS[4], isHost: false, isBot: true }
+      ];
+
+      state.messages = [
+        { id: 1, sender: 'سیستم', text: `شما به عنوان بازیکن به اتاق متصل شدید و مبلغ ${room.entryFee} سکه از حساب شما کسر شد.`, isSystem: true }
       ];
 
       playLocalSound('success');
@@ -1258,8 +1441,20 @@
       state.playerLimit = 6;
       state.gameSpeed = 4;
       state.winningPattern = 'fullhouse';
+      state.entryFee = 100; // Standard 100 coins
       state.roomCode = Math.floor(100000 + Math.random() * 900000).toString();
       state.isHost = false;
+      state.isSpectating = false;
+
+      if (state.user.coins < 100) {
+        showNotification('شما حداقل ۱۰۰ سکه برای ورود به بازی سریع را ندارید!');
+        playLocalSound('alert');
+        return;
+      }
+
+      // Deduct bet coins
+      state.user.coins -= 100;
+      saveUserCredentials();
 
       // Players list loaded with user and host bots
       state.players = [
@@ -1269,11 +1464,46 @@
       ];
 
       state.messages = [
-        { id: 1, sender: 'سیستم', text: 'با موفقیت به سریع‌ترین اتاق عمومی متصل شدید.', isSystem: true }
+        { id: 1, sender: 'سیستم', text: 'با موفقیت به سریع‌ترین اتاق متصل شدید. هزینه ورود ۱۰۰ سکه پرداخت شد.', isSystem: true }
       ];
 
       playLocalSound('success');
       navigateTo('lobby');
+    }
+
+    // Host Management Kick Logic
+    function kickPlayerFromLobby(playerId) {
+      if (!state.isHost) return;
+      state.players = state.players.filter(p => p.id !== playerId);
+      state.messages.push({ id: Date.now(), sender: 'سیستم', text: `بازیکن از لابی توسط رئیس اتاق اخراج شد.`, isSystem: true });
+      playLocalSound('alert');
+      renderCurrentScreen();
+    }
+
+    // Spectator Mode Trigger
+    function spectateRoom(code) {
+      const room = state.roomsList.find(r => r.code === code);
+      if (!room) return;
+
+      state.roomName = room.name;
+      state.entryFee = room.entryFee;
+      state.roomCode = room.code;
+      state.isHost = false;
+      state.isSpectating = true; // Active spectator flag
+
+      // Spectators don't need cards, we simulate bots playing
+      state.players = [
+        { id: 'BOT-441029', name: room.creator, avatar: SVG_AVATARS[3], isHost: true, isBot: true },
+        { id: 'BOT-991022', name: BOT_NAMES[4], avatar: SVG_AVATARS[4], isHost: false, isBot: true },
+        { id: 'BOT-110293', name: BOT_NAMES[1], avatar: SVG_AVATARS[2], isHost: false, isBot: true }
+      ];
+
+      state.messages = [
+        { id: 1, sender: 'سیستم', text: `شما به عنوان تماشاگر وارد اتاق شدید.`, isSystem: true }
+      ];
+
+      playLocalSound('success');
+      startGameplay();
     }
 
     // Lobby Actions
@@ -1502,6 +1732,8 @@
     }
 
     function highlightEligibleBoardCells() {
+      if (state.isSpectating) return; // Spectators have no boards to highlight
+
       // Force repaint highlight rings for cell matching
       state.myCard.forEach((row, rIdx) => {
         row.forEach((val, cIdx) => {
@@ -1533,32 +1765,48 @@
       if (state.winningPattern === 'double-line') ruleTitle = 'دو خط افقی (دو ردیف کامل)';
       document.getElementById('gameplay-pattern-label').innerText = ruleTitle;
 
-      // 3. Draw active card layout
+      // Betting pool display (مبلغ کل بانک)
+      const poolLabel = document.getElementById('gameplay-betting-pool-label');
+      if (poolLabel) {
+        const totalPool = state.players.length * state.entryFee;
+        poolLabel.innerText = `${totalPool.toLocaleString('fa-IR')} سکه`;
+      }
+
+      // 3. Draw active card layout if not spectating
       const container = document.getElementById('gameplay-main-card-wrapper');
       if (container) {
-        container.innerHTML = `
-          <div class="grid grid-cols-9 gap-2">
-            ${state.myCard.map((row, rIdx) => 
-              row.map((val, cIdx) => {
-                const isMarked = state.markedCells.includes(`${rIdx}-${cIdx}`);
-                const hasValue = val !== null;
-                
-                return `
-                  <div 
-                    id="gp-cell-${rIdx}-${cIdx}"
-                    onclick="handleGameplayCardTap(${rIdx}, ${cIdx}, ${val})"
-                    class="aspect-square flex items-center justify-center rounded-xl border text-sm md:text-lg font-black transition-all smooth-transition select-none
-                      ${hasValue ? 'cursor-pointer hover:scale-[1.05]' : 'pointer-events-none opacity-20 border-dashed'}
-                      ${isMarked ? state.selectedCardStyle.active : `${state.selectedCardStyle.cell} bg-white dark:bg-zinc-900 text-slate-800 dark:text-neutral-200`}
-                    "
-                  >
-                    ${val || ''}
-                  </div>
-                `;
-              }).join('')
-            ).join('')}
-          </div>
-        `;
+        if (state.isSpectating) {
+          container.innerHTML = `
+            <div class="text-center py-12 text-slate-400">
+              <span class="text-4xl block mb-2">🍿</span>
+              <p class="text-xs">در حال تماشای زنده رقابت ربات‌ها بر روی میز هستیم...</p>
+            </div>
+          `;
+        } else {
+          container.innerHTML = `
+            <div class="grid grid-cols-9 gap-2">
+              ${state.myCard.map((row, rIdx) => 
+                row.map((val, cIdx) => {
+                  const isMarked = state.markedCells.includes(`${rIdx}-${cIdx}`);
+                  const hasValue = val !== null;
+                  
+                  return `
+                    <div 
+                      id="gp-cell-${rIdx}-${cIdx}"
+                      onclick="handleGameplayCardTap(${rIdx}, ${cIdx}, ${val})"
+                      class="aspect-square flex items-center justify-center rounded-xl border text-sm md:text-lg font-black transition-all smooth-transition select-none
+                        ${hasValue ? 'cursor-pointer hover:scale-[1.05]' : 'pointer-events-none opacity-20 border-dashed'}
+                        ${isMarked ? state.selectedCardStyle.active : `${state.selectedCardStyle.cell} bg-white dark:bg-zinc-900 text-slate-800 dark:text-neutral-200`}
+                      "
+                    >
+                      ${val || ''}
+                    </div>
+                  `;
+                }).join('')
+              ).join('')}
+            </div>
+          `;
+        }
       }
 
       // Initial state
@@ -1710,7 +1958,7 @@
         }
       }
 
-      // Check simulated bot win chance
+      // Check simulated bot win chance (only works if user hasn't finished first)
       if (state.drawnNumbers.length > 22 && Math.random() < 0.035) {
         const bots = state.players.filter(p => p.isBot);
         if (bots.length > 0) {
@@ -1748,7 +1996,7 @@
     }
 
     function claimDabrnaVictory() {
-      if (!state.isDabrnaReady) return;
+      if (!state.isDabrnaReady || state.isSpectating) return;
       triggerEndGameSequence(state.user.nickname, SVG_AVATARS[state.user.avatarIdx], true);
     }
 
@@ -1757,18 +2005,28 @@
       clearInterval(state.drawInterval);
       clearInterval(state.timerInterval);
 
-      state.winner = { name, avatar, isUser, timer: state.timer };
+      // Betting Calculations: Bank split with 10% host cut
+      const rawBank = state.players.length * state.entryFee;
+      const commissionCut = Math.floor(rawBank * 0.10);
+      const netWinReward = rawBank - commissionCut;
+
+      state.winner = { 
+        name, 
+        avatar, 
+        isUser, 
+        timer: state.timer,
+        netReward: netWinReward
+      };
 
       // Apply rewards
-      if (isUser) {
-        state.user.coins += 100;
+      if (isUser && !state.isSpectating) {
+        state.user.coins += netWinReward;
         state.user.wins += 1;
         state.user.played += 1;
         state.user.xp += 150;
         state.user.level = Math.floor(state.user.xp / 100) + 1;
         
-        // Save statistics
-        localStorage.setItem('dab_coins', state.user.coins);
+        saveUserCredentials();
         
         // Trigger Canvas Confetti
         if (window.confetti) {
@@ -1779,7 +2037,10 @@
           });
         }
       } else {
-        state.user.played += 1;
+        if (!state.isSpectating) {
+          state.user.played += 1;
+          saveUserCredentials();
+        }
       }
 
       // Draw Modal
@@ -1811,8 +2072,8 @@
                   <span class="font-bold text-slate-800 dark:text-neutral-200 font-mono">${state.winner.timer} ثانیه</span>
                 </div>
                 <div>
-                  <span class="text-[9px] text-slate-400 block">جایزه صندوق:</span>
-                  <span class="font-bold text-amber-600 dark:text-amber-400 font-mono">${state.winner.isUser ? '+۱۰۰ سکه' : '۰'}</span>
+                  <span class="text-[9px] text-slate-400 block">جایزه صندوق (داو خالص):</span>
+                  <span class="font-bold text-amber-600 dark:text-amber-400 font-mono">${state.winner.isUser ? '+' + state.winner.netReward + ' سکه' : '۰'}</span>
                 </div>
               </div>
             </div>
@@ -1946,6 +2207,28 @@
           actionBtn.innerText = 'دوباره بچرخون!';
         }
       }, 4000);
+    }
+
+    // --- STREAMING_CHUNK: Admin Dashboard Panel Logic... ---
+    function adminGrantCoins(amount) {
+      state.user.coins += amount;
+      saveUserCredentials();
+      showNotification(`تعداد ${amount} سکه به صورت دستوری شارژ شد.`);
+      updateHeaderStats();
+    }
+
+    function adminResetAllData() {
+      localStorage.clear();
+      showNotification('تمام داده‌های لوکال ریست شد. بازی رفرش می‌شود...');
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+    }
+
+    function adminTerminateRoom(code) {
+      state.roomsList = state.roomsList.filter(r => r.code !== code);
+      showNotification(`اتاق با کد ${code} فوراً بسته شد.`);
+      renderCurrentScreen();
     }
 
     // Initialize Credentials on Window Load
